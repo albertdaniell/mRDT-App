@@ -22,6 +22,7 @@ import {
 
 import UserDemographics from './UserDemographics'
 import BodaDetails from './BodaBodaDetails'
+import InsuranceDetails from './InsuranceDetails'
 
 export default class Form extends Component {
 
@@ -42,12 +43,16 @@ export default class Form extends Component {
             femaleSelected: false,
             chosenDate: new Date(),
             selected: "254",
-            form1Cleared: true,
-            form2Cleared: true,
+            form1Cleared: false,
+            form2Cleared: false,
             ownerOfBoda: 'Yes',
             ownerOfBodaYesSelect: true,
+            
             ownerOfBodaNoSelect: false,
-            bodaOwnerFormShow:false
+            bodaOwnerFormShow: false,
+            insuranceYesSelect: true,
+            insuranceNoSelect: false,
+            Insurance: 'Yes',
         }
 
         this.changeGenderToMale = this
@@ -72,15 +77,36 @@ export default class Form extends Component {
             .backToForm1
             .bind(this)
 
-            this.changeBodaOwnerYes = this
+        this.changeBodaOwnerYes = this
             .changeBodaOwnerYes
             .bind(this)
 
-
-            this.changeBodaOwnerNo = this
+        this.changeBodaOwnerNo = this
             .changeBodaOwnerNo
             .bind(this)
 
+        this.changeInsuranceYes = this
+            .changeInsuranceYes
+            .bind(this)
+
+        this.changeInsuranceNo = this
+            .changeInsuranceNo
+            .bind(this)
+
+    }
+
+    // insuranceYesSelect: true,
+    // insuranceNoSelect: false,
+    // Insurance: 'Yes',
+
+    changeInsuranceYes=()=>{
+        this.setState({insuranceYesSelect: true, insuranceNoSelect: false, Insurance:'Yes'})
+    
+    }
+
+    changeInsuranceNo=()=>{
+        this.setState({insuranceYesSelect: false, insuranceNoSelect: true, Insurance:'No'})
+    
     }
 
     changeGenderToMale = () => {
@@ -99,39 +125,41 @@ export default class Form extends Component {
     onValueChange = (value : string) => {
         this.setState({selected: value});
     }
-    //ownerOfBoda: '',
-    // ownerOfBodaYesSelect: true,
-    // ownerOfBodaNoSelect: false,
+    // ownerOfBoda: '', ownerOfBodaYesSelect: true, ownerOfBodaNoSelect: false,
     // bodaOwnerFormShow:false
 
-
     changeBodaOwnerYes = () => {
- setTimeout(()=>{
-    this.setState({ownerOfBodaYesSelect: true, ownerOfBodaNoSelect: false, ownerOfBoda: 'Yes',bodaOwnerFormShow:false})
+        setTimeout(() => {
+            this.setState({ownerOfBodaYesSelect: true, ownerOfBodaNoSelect: false, ownerOfBoda: 'Yes', bodaOwnerFormShow: false})
 
- },100)       
-  
+        }, 100)
+
     }
 
     changeBodaOwnerNo = () => {
-setTimeout(()=>{
-    this.setState({ownerOfBodaYesSelect: false, ownerOfBodaNoSelect: true, ownerOfBoda: 'No',bodaOwnerFormShow:true})
+        setTimeout(() => {
+            this.setState({ownerOfBodaYesSelect: false, ownerOfBodaNoSelect: true, ownerOfBoda: 'No', bodaOwnerFormShow: true})
 
-},100)       
+        }, 100)
     }
 
     clearForm1 = () => {
-        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true})
+        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: false})
     }
 
-    clearForm2 = () => {}
+    clearForm2 = () => {
+        this.setState({headerTitle: 'Insurance Details Form', form1Cleared: true, form2Cleared: true})
+
+    }
 
     backToForm1 = () => {
         this.setState({headerTitle: 'User Details Form', form1Cleared: false, form2Cleared: true})
 
     }
+    backToForm2 = () => {
+        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: false})
 
-
+    }
 
     render() {
 
@@ -144,14 +172,22 @@ setTimeout(()=>{
 
                 <Header headerTitle={this.state.headerTitle}></Header>
                 {this.state.form1Cleared
-                    ? <BodaDetails 
-                    ownerOfBodaYesSelect={this.state.ownerOfBodaYesSelect}
-                    ownerOfBodaNoSelect={this.state.ownerOfBodaNoSelect}
-                    changeBodaOwnerNo={this.changeBodaOwnerNo}
-                    changeBodaOwnerYes={this.changeBodaOwnerYes}
-                    backToForm1={this.backToForm1}
-                    bodaOwnerFormShow={this.state.bodaOwnerFormShow}
-                    ></BodaDetails>
+                    ? this.state.form2Cleared
+                        ? <InsuranceDetails 
+                        Insurance={this.state.Insurance}
+                        insuranceNoSelect={this.state.insuranceNoSelect}
+                        insuranceYesSelect={this.state.insuranceYesSelect}
+                        changeInsuranceNo={this.changeInsuranceNo}
+                        changeInsuranceYes={this.changeInsuranceYes}
+                        backToForm2={this.backToForm2}></InsuranceDetails>
+                        : <BodaDetails
+                                clearForm2={this.clearForm2}
+                                ownerOfBodaYesSelect={this.state.ownerOfBodaYesSelect}
+                                ownerOfBodaNoSelect={this.state.ownerOfBodaNoSelect}
+                                changeBodaOwnerNo={this.changeBodaOwnerNo}
+                                changeBodaOwnerYes={this.changeBodaOwnerYes}
+                                backToForm1={this.backToForm1}
+                                bodaOwnerFormShow={this.state.bodaOwnerFormShow}></BodaDetails>
 
                     : <UserDemographics
                         gender={this.state.gender}

@@ -20,7 +20,7 @@ import {
     Picker
 } from 'native-base';
 
-export default class BodaBodaDetails extends Component {
+export default class Insurance extends Component {
 
     render() {
         return (
@@ -40,28 +40,10 @@ export default class BodaBodaDetails extends Component {
                         justifyContent: 'center',
                         padding: 10
                     }}>
-                        <Text style={styles.mytitle}>
-                            BodaBoda frame number/ Tuk tuk chaser number
-
-                        </Text>
-                        <TextInput keyboardType="default" style={styles.myInput} placeholder=""></TextInput>
+                    
 
                         <Text style={styles.mytitle}>
-                            BodaBoda/ Tuk tuk make eg. Honda, Boxer,Cruz,Tus,King Bird
-
-                        </Text>
-                        <TextInput keyboardType="default" style={styles.myInput} placeholder="Honda"></TextInput>
-                        <Text style={styles.mytitle}>
-                            Registration Plate number
-
-                        </Text>
-                        <TextInput
-                            keyboardType="default"
-                            style={styles.myInput}
-                            placeholder="Plate number"></TextInput>
-
-                        <Text style={styles.mytitle}>
-                            Does this motor bike belong to you?
+                          Registered your motor bike with insurance company?
 
                         </Text>
                         <ListItem>
@@ -72,8 +54,8 @@ export default class BodaBodaDetails extends Component {
                                 <Radio
                                     color={"#f0ad4e"}
                                     selectedColor={"#5cb85c"}
-                                    onPress={() => this.props.changeBodaOwnerYes()}
-                                    selected={this.props.ownerOfBodaYesSelect}/>
+                                    onPress={() => this.props.changeInsuranceYes()}
+                                    selected={this.props.insuranceYesSelect}/>
                             </Right>
                         </ListItem>
                         <ListItem>
@@ -84,54 +66,25 @@ export default class BodaBodaDetails extends Component {
                                 <Radio
                                     color={"#f0ad4e"}
                                     selectedColor={"#5cb85c"}
-                                    onPress={() => this.props.changeBodaOwnerNo()}
-                                    selected={this.props.ownerOfBodaNoSelect}/>
+                                    onPress={() => this.props.changeInsuranceNo()}
+                                    selected={this.props.insuranceNoSelect}/>
                             </Right>
                         </ListItem>
 
-                     {
-                         this.props.bodaOwnerFormShow?
-                         <View>
-                            <Text style={{fontStyle:'italic',padding:2,marginBottom:10,marginTop:10}}> ( Give Details of owner )</Text>
                         <Text style={styles.mytitle}>
-                           Full name
-
-                        </Text>
-                        <TextInput
-                            keyboardType="default"
-                            style={styles.myInput}
-                            placeholder="Mary Jane"></TextInput> 
-
-                            <Text style={styles.mytitle}>
-                         ID number
-
-                        </Text>
-                        <TextInput
-                            keyboardType="number-pad"
-                            style={styles.myInput}
-                            placeholder="29372922"></TextInput> 
-
-                            <Text style={styles.mytitle}>
-                                Phone number format is 254791827182
+                               What is your licence number?
 
                             </Text>
                             <TextInput
-                                keyboardType="number-pad"
+                                keyboardType="default"
                                 style={styles.myInput}
-                                placeholder="254791827182"></TextInput>
-                        </View>
-                         
-                         
-                         :null
-                     }
-
+                                placeholder="licence number"></TextInput>
                         
                     </View>
-
                     <ListItem>
                         <Left>
                             <TouchableOpacity
-                                onPress={this.props.backToForm1}
+                                onPress={() => this.props.backToForm2()}
                                 style={{
                                 alignItems: 'center',
                                 padding: 20,
@@ -145,26 +98,26 @@ export default class BodaBodaDetails extends Component {
                                 }}>Previous</Text>
                             </TouchableOpacity>
                         </Left>
-                        <Right>
+                        <Right style={{width:'100%'}}>
                             <TouchableOpacity
-                            onPress={()=>this.props.clearForm2()}
                                 style={{
+                                width: '100%',
                                 alignItems: 'center',
                                 padding: 20,
-                                backgroundColor: '#2962ff'
+                                backgroundColor: '#087f23'
                             }}>
                                 <Text
                                     style={{
                                     color: 'white'
-                                }}>Next</Text>
+                                }}>Finish</Text>
                             </TouchableOpacity>
                         </Right>
                     </ListItem>
-
                 </ScrollView>
             </KeyboardAvoidingView>
         )
     }
+
 }
 
 const styles = StyleSheet.create({
