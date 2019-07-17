@@ -31,7 +31,8 @@ export default class Header extends Component {
                 shadowOffset: {
                     height: 2,
                     width: 0
-                }
+                },
+                zIndex:1999
             }}>
                 <Text
                     style={{
