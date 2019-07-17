@@ -22,6 +22,14 @@ import {
 
 export default class Insurance extends Component {
 
+    constructor(props) {
+        super(props)
+
+        this.state = {
+           
+        }
+    }
+
     render() {
         return (
             <KeyboardAvoidingView
@@ -40,10 +48,9 @@ export default class Insurance extends Component {
                         justifyContent: 'center',
                         padding: 10
                     }}>
-                    
 
                         <Text style={styles.mytitle}>
-                          Registered your motor bike with insurance company?
+                            Registered your motor bike with insurance company?
 
                         </Text>
                         <ListItem>
@@ -70,16 +77,62 @@ export default class Insurance extends Component {
                                     selected={this.props.insuranceNoSelect}/>
                             </Right>
                         </ListItem>
+                        <Text>
+                            {this.props.insuranceYesSelect}
+                        </Text>
+
+                        {this.props.insuranceYesSelect
+                            ? <View>
+                                    <Text style={styles.mytitle}>
+                                        Name of the Insurance company
+
+                                    </Text>
+                                    <TextInput
+                                        keyboardType="default"
+                                        style={styles.myInput}
+                                        placeholder="Insurance company name"></TextInput>
+                                    <Text style={styles.mytitle}>When is the Insurance Expirry date?</Text>
+
+                                    <Content>
+                                        <DatePicker
+                                            defaultDate={new Date()}
+                                            style={{
+                                            padding: 10,
+                                            marginBottom: 10
+                                        }}
+                                            locale={"en"}
+                                            timeZoneOffsetInMinutes={undefined}
+                                            modalTransparent={false}
+                                            animationType={"slide"}
+                                            androidMode={"spinner"}
+                                            placeHolderText={this
+                                            .props
+                                            .chosenDate2
+                                            .toString()
+                                            .substr(4, 12)}
+                                            textStyle={{
+                                            color: "green"
+                                        }}
+                                            placeHolderTextStyle={{
+                                            color: "#d3d3d3"
+                                        }}
+                                            onDateChange={this.props.setDate2}
+                                            disabled={false}/>
+                                    </Content>
+                                </View>
+
+                            : null
+}
 
                         <Text style={styles.mytitle}>
-                               What is your licence number?
+                            What is your licence number?
 
-                            </Text>
-                            <TextInput
-                                keyboardType="default"
-                                style={styles.myInput}
-                                placeholder="licence number"></TextInput>
-                        
+                        </Text>
+                        <TextInput
+                            keyboardType="default"
+                            style={styles.myInput}
+                            placeholder="licence number"></TextInput>
+
                     </View>
                     <ListItem>
                         <Left>
@@ -98,7 +151,10 @@ export default class Insurance extends Component {
                                 }}>Previous</Text>
                             </TouchableOpacity>
                         </Left>
-                        <Right style={{width:'100%'}}>
+                        <Right
+                            style={{
+                            width: '100%'
+                        }}>
                             <TouchableOpacity
                                 style={{
                                 width: '100%',

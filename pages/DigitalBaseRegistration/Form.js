@@ -42,16 +42,16 @@ export default class Form extends Component {
             maleSelected: true,
             femaleSelected: false,
             chosenDate: new Date(),
+            chosenDate2:new Date(),
             selected: "254",
-            form1Cleared: false,
-            form2Cleared: false,
+            form1Cleared: true,
+            form2Cleared: true,
             ownerOfBoda: 'Yes',
             ownerOfBodaYesSelect: true,
-            
             ownerOfBodaNoSelect: false,
             bodaOwnerFormShow: false,
-            insuranceYesSelect: true,
-            insuranceNoSelect: false,
+            insuranceYesSelect: false,
+            insuranceNoSelect: true,
             Insurance: 'Yes',
         }
 
@@ -122,6 +122,15 @@ export default class Form extends Component {
         this.setState({chosenDate: newDate});
     }
 
+    setDate = (newDate) => {
+        this.setState({chosenDate: newDate});
+    }
+
+    setDate2 = (newDate) => {
+        this.setState({chosenDate2: newDate});
+    }
+
+
     onValueChange = (value : string) => {
         this.setState({selected: value});
     }
@@ -174,11 +183,14 @@ export default class Form extends Component {
                 {this.state.form1Cleared
                     ? this.state.form2Cleared
                         ? <InsuranceDetails 
+                        chosenDate2={this.state.chosenDate2}
                         Insurance={this.state.Insurance}
                         insuranceNoSelect={this.state.insuranceNoSelect}
                         insuranceYesSelect={this.state.insuranceYesSelect}
                         changeInsuranceNo={this.changeInsuranceNo}
                         changeInsuranceYes={this.changeInsuranceYes}
+                        setDate2={this.setDate2}
+                        
                         backToForm2={this.backToForm2}></InsuranceDetails>
                         : <BodaDetails
                                 clearForm2={this.clearForm2}
