@@ -6,6 +6,8 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import UserDemographics from './pages/DigitalBaseRegistration/UserDemographics'
 
+import Form from './pages/DigitalBaseRegistration/Form'
+
 export default function App() {
     return (
         <AppContainer></AppContainer>
@@ -13,6 +15,13 @@ export default function App() {
 }
 
 const AppNavigator = createStackNavigator({
+
+    Form:{
+        screen:Form,
+        navigationOptions:{
+            header:null
+        }
+    },
     UserDemographics:{
         screen:UserDemographics,
         navigationOptions:{

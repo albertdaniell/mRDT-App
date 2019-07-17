@@ -3,7 +3,7 @@ import {
     StyleSheet,
     View,
     Text,
-    TouchableOpcity,
+    TouchableOpacity,
     TextInput,
     KeyboardAvoidingView,
     ScrollView
@@ -15,20 +15,35 @@ import {
     ListItem,
     Radio,
     Right,
-    Left
+    Left,
+    DatePicker,
+    Picker
 } from 'native-base';
 
 export default class UserDemographics extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+           
+        }
+
+        // this.setDate = this
+        //     .setDate
+        //     .bind(this);
+
+    }
+
+  
+    componentDidMount() {
+        //this.changeGenderToFemale
+    }
+
     render() {
 
         return (
-            <View
-                style={{
-                height: '100%',
-                flex: 1
-            }}>
-                <Header></Header>
+            
+           
 
                 <KeyboardAvoidingView
                     style={{
@@ -57,7 +72,39 @@ export default class UserDemographics extends Component {
                                 Please enter your ID number
                             </Text>
 
-                            <TextInput style={styles.myInput} placeholder="34929199"></TextInput>
+                            <TextInput
+                                keyboardType="number-pad"
+                                style={styles.myInput}
+                                placeholder="34929199"></TextInput>
+                            <Text style={styles.mytitle}>Please select to enter your date of birth</Text>
+
+                            <Content>
+                                <DatePicker
+                                    defaultDate={new Date()}
+                                    style={{
+                                    padding: 10,
+                                    marginBottom: 10
+                                }}
+                                    locale={"en"}
+                                    timeZoneOffsetInMinutes={undefined}
+                                    modalTransparent={false}
+                                    animationType={"slide"}
+                                    androidMode={"spinner"}
+                                    placeHolderText={this
+                                    .props
+                                    .chosenDate
+                                    .toString()
+                                    .substr(4, 12)}
+                                    textStyle={{
+                                    color: "green"
+                                }}
+                                    placeHolderTextStyle={{
+                                    color: "#d3d3d3"
+                                }}
+                                    onDateChange={this.props.setDate}
+                                    disabled={false}/>
+
+                            </Content>
 
                             <Text style={styles.mytitle}>
                                 Your age is
@@ -65,6 +112,7 @@ export default class UserDemographics extends Component {
                             </Text>
 
                             <TextInput style={styles.myInput} placeholder="Your age"></TextInput>
+
                             <Text style={styles.mytitle}>
                                 Your Gender
 
@@ -74,7 +122,11 @@ export default class UserDemographics extends Component {
                                     <Text>Male</Text>
                                 </Left>
                                 <Right>
-                                    <Radio color={"#f0ad4e"} selectedColor={"#5cb85c"} onPress={()=>alert(0)} selected={false}/>
+                                    <Radio
+                                        color={"#f0ad4e"}
+                                        selectedColor={"#5cb85c"}
+                                        onPress={() => this.changeGenderToMale()}
+                                        selected={this.props.maleSelected}/>
                                 </Right>
                             </ListItem>
                             <ListItem>
@@ -82,23 +134,74 @@ export default class UserDemographics extends Component {
                                     <Text>Female</Text>
                                 </Left>
                                 <Right>
-                                    <Radio    color={"#f0ad4e"}
-                selectedColor={"#5cb85c"} selected={true}/>
+                                    <Radio
+                                        color={"#f0ad4e"}
+                                        selectedColor={"#5cb85c"}
+                                        onPress={() => this.props.changeGenderToFemale()}
+                                        selected={this.props.femaleSelected}/>
                                 </Right>
                             </ListItem>
 
+                            <Text style={styles.mytitle}>Choose Country Code</Text>
+
+                            <Picker
+                                note
+                                mode="dropdown"
+                                style={{
+                                width: '100%',
+                                backgroundColor: 'white',
+                                marginBottom: 10
+                            }}
+                                selectedValue={this.props.selected}
+                                onValueChange={this
+                                .props.onValueChange
+                                .bind(this)}>
+                                <Picker.Item label="+254 (Kenya)" value="254"/>
+                                <Picker.Item label="+255 (Tanzania)" value="255"/>
+                                <Picker.Item label="+256 (Uganda)" value="256"/>
+                                <Picker.Item label="+257 (Burundi)" value="257"/>
+                                <Picker.Item label="+250 (Rwanda)" value="250"/>
+                            </Picker>
+
                             <Text style={styles.mytitle}>
-                                Phone number formwat is 254791827182
+                                Phone number format is 254791827182
 
                             </Text>
-                            <TextInput style={styles.myInput} placeholder="254791827182"></TextInput>
+                            <TextInput
+                                keyboardType="number-pad"
+                                style={styles.myInput}
+                                placeholder="254791827182"></TextInput>
+                            <Text style={styles.mytitle}>
+                                Specify Base
 
+                            </Text>
+                            <TextInput keyboardType="default" style={styles.myInput} placeholder=""></TextInput>
+
+                            <Text style={styles.mytitle}>
+                                Years of experience on road
+
+                            </Text>
+                            <TextInput
+                                keyboardType="number-pad"
+                                style={styles.myInput}
+                                placeholder="In numbers"></TextInput>
                         </View>
-
+                        <TouchableOpacity
+                            style={{
+                            alignItems: 'center',
+                            padding: 20,
+                            backgroundColor: '#2962ff'
+                        }}>
+                            <Text
+                                style={{
+                                color: 'white'
+                            }}>Next</Text>
+                        </TouchableOpacity>
                     </ScrollView>
+
                 </KeyboardAvoidingView>
 
-            </View>
+           
         )
     }
 }
@@ -108,12 +211,11 @@ const styles = StyleSheet.create({
         flex: 1
     },
     myInput: {
-        padding: 10,
-        borderBottomColor: '#ccc',
+        padding: 15,
+        borderColor: '#ccc',
         borderWidth: 1,
-
         borderRadius: 4,
-        marginBottom: 10
+        marginBottom: 20
     },
     mytitle: {
         padding: 2,

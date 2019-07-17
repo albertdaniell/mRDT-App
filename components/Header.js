@@ -39,7 +39,7 @@ export default class Header extends Component {
                     color: 'white',
                     fontSize: 20,
                     fontWeight: 'bold'
-                }}>M-Bodaboda</Text>
+                }}>{this.props.headerTitle}</Text>
             </View>
         )
     }
