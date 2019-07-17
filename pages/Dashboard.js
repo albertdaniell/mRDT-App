@@ -164,6 +164,7 @@ export default class Dashboard extends Component {
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
+                            onPress={()=>this.props.navigation.navigate('Form')}
                                 style={{
                                 flex: 1,
                                 backgroundColor: '#12005e',

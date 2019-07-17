@@ -59,7 +59,8 @@ export default class UserDemographics extends Component {
                             flex: 1,
                             alignContent: 'flex-end',
                             justifyContent: 'center',
-                            padding: 10
+                            padding: 10,
+                            marginTop:10
                         }}>
 
                             <Text style={styles.mytitle}>

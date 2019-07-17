@@ -26,7 +26,9 @@ export default class Insurance extends Component {
         super(props)
 
         this.state = {
-           
+           Insurance:this.props.Insurance,
+           licenceNo:this.props.licenceNo,
+           InsuranceName:this.props.InsuranceName
         }
     }
 
@@ -46,9 +48,10 @@ export default class Insurance extends Component {
                         flex: 1,
                         alignContent: 'flex-end',
                         justifyContent: 'center',
-                        padding: 10
+                        padding: 10,
+                        marginTop:10
                     }}>
-
+<Text>{this.state.InsuranceName}</Text>
                         <Text style={styles.mytitle}>
                             Registered your motor bike with insurance company?
 
@@ -88,6 +91,7 @@ export default class Insurance extends Component {
 
                                     </Text>
                                     <TextInput
+                                    onChangeText={(InsuranceName)=>this.setState({InsuranceName})}
                                         keyboardType="default"
                                         style={styles.myInput}
                                         placeholder="Insurance company name"></TextInput>
@@ -129,6 +133,7 @@ export default class Insurance extends Component {
 
                         </Text>
                         <TextInput
+                        onChangeText={(licenceNo)=>this.setState({licenceNo})}
                             keyboardType="default"
                             style={styles.myInput}
                             placeholder="licence number"></TextInput>

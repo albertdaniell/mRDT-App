@@ -44,15 +44,17 @@ export default class Form extends Component {
             chosenDate: new Date(),
             chosenDate2:new Date(),
             selected: "254",
-            form1Cleared: true,
-            form2Cleared: true,
+            form1Cleared: false,
+            form2Cleared: false,
             ownerOfBoda: 'Yes',
             ownerOfBodaYesSelect: true,
             ownerOfBodaNoSelect: false,
             bodaOwnerFormShow: false,
-            insuranceYesSelect: false,
-            insuranceNoSelect: true,
+            insuranceYesSelect: true,
+            insuranceNoSelect: false,
             Insurance: 'Yes',
+            licenceNo:'22',
+            InsuranceName:'',
         }
 
         this.changeGenderToMale = this
@@ -183,6 +185,8 @@ export default class Form extends Component {
                 {this.state.form1Cleared
                     ? this.state.form2Cleared
                         ? <InsuranceDetails 
+                        InsuranceName={this.state.InsuranceName}
+                        licenceNo={this.state.licenceNo}
                         chosenDate2={this.state.chosenDate2}
                         Insurance={this.state.Insurance}
                         insuranceNoSelect={this.state.insuranceNoSelect}
