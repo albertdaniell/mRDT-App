@@ -4,6 +4,7 @@ import {createStackNavigator, createAppContainer} from "react-navigation";
 import HomeScreen from './pages/Home'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
+import UserDemographics from './pages/DigitalBaseRegistration/UserDemographics'
 
 export default function App() {
     return (
@@ -12,6 +13,18 @@ export default function App() {
 }
 
 const AppNavigator = createStackNavigator({
+    UserDemographics:{
+        screen:UserDemographics,
+        navigationOptions:{
+            header:null
+        }
+    },
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            header: null
+        }
+    },
     Dashboard: {
         screen: Dashboard,
         navigationOptions: {
@@ -24,12 +37,8 @@ const AppNavigator = createStackNavigator({
             header: null
         }
     },
-    Login: {
-        screen: Login,
-        navigationOptions: {
-            header: null
-        }
-    }
+   
+   
 });
 
 const AppContainer = createAppContainer(AppNavigator);
