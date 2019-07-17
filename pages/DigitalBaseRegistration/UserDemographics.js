@@ -125,7 +125,7 @@ export default class UserDemographics extends Component {
                                     <Radio
                                         color={"#f0ad4e"}
                                         selectedColor={"#5cb85c"}
-                                        onPress={() => this.changeGenderToMale()}
+                                        onPress={() => this.props.changeGenderToMale()}
                                         selected={this.props.maleSelected}/>
                                 </Right>
                             </ListItem>
@@ -187,6 +187,7 @@ export default class UserDemographics extends Component {
                                 placeholder="In numbers"></TextInput>
                         </View>
                         <TouchableOpacity
+                        onPress={this.props.clearForm1}
                             style={{
                             alignItems: 'center',
                             padding: 20,
