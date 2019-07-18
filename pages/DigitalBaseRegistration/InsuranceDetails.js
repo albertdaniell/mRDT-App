@@ -51,14 +51,21 @@ export default class Insurance extends Component {
                         padding: 10,
                         marginTop: 10
                     }}>
-                        <Text>{this.state.InsuranceName}</Text>
+                      
                         <Text style={styles.mytitle}>
                             Registered your motor bike with insurance company?
 
                         </Text>
                         <ListItem>
                             <Left>
-                                <Text>Yes</Text>
+                                <TouchableOpacity
+                                    style={{
+                                    width: '100%',
+                                    padding: 3
+                                }}
+                                    onPress={() => this.props.changeInsuranceYes()}>
+                                    <Text>Yes</Text>
+                                </TouchableOpacity>
                             </Left>
                             <Right>
                                 <Radio
@@ -70,7 +77,14 @@ export default class Insurance extends Component {
                         </ListItem>
                         <ListItem>
                             <Left>
-                                <Text>No</Text>
+                                <TouchableOpacity
+                                    style={{
+                                    width: '100%',
+                                    padding: 3
+                                }}
+                                    onPress={() => this.props.changeInsuranceNo()}>
+                                    <Text>No</Text>
+                                </TouchableOpacity>
                             </Left>
                             <Right>
                                 <Radio
@@ -91,7 +105,8 @@ export default class Insurance extends Component {
 
                                     </Text>
                                     <TextInput
-                                        onChangeText={(InsuranceName) => this.setState({InsuranceName})}
+                                        defaultValue={this.props.InsuranceName}
+                                        onChangeText={(InsuranceName) => this.props.getInsuranceDetails(InsuranceName, this.props.licenceNo)}
                                         keyboardType="default"
                                         style={styles.myInput}
                                         placeholder="Insurance company name"></TextInput>
@@ -133,7 +148,8 @@ export default class Insurance extends Component {
 
                         </Text>
                         <TextInput
-                            onChangeText={(licenceNo) => this.setState({licenceNo})}
+                        defaultValue={this.props.licenceNo} 
+                            onChangeText={(licenceNo)=>this.props.getInsuranceDetails(this.props.InsuranceName,licenceNo)}
                             keyboardType="default"
                             style={styles.myInput}
                             placeholder="licence number"></TextInput>
@@ -161,16 +177,17 @@ export default class Insurance extends Component {
                             width: '100%'
                         }}>
                             <TouchableOpacity
+                            onPress={this.props.clearForm3}
                                 style={{
                                 width: '100%',
                                 alignItems: 'center',
                                 padding: 20,
-                                backgroundColor: '#087f23'
+                                backgroundColor: '#2962ff'
                             }}>
                                 <Text
                                     style={{
                                     color: 'white'
-                                }}>Finish</Text>
+                                }}>Next</Text>
                             </TouchableOpacity>
                         </Right>
                     </ListItem>

@@ -23,6 +23,7 @@ import {
 import UserDemographics from './UserDemographics'
 import BodaDetails from './BodaBodaDetails'
 import InsuranceDetails from './InsuranceDetails'
+import SaccoDetails from './SaccoDetails'
 
 export default class Form extends Component {
 
@@ -45,15 +46,20 @@ export default class Form extends Component {
             chosenDate2: new Date(),
             selected: "254",
             form1Cleared: true,
-            form2Cleared: false,
+            form2Cleared: true,
+            form3Cleared: false,
             ownerOfBoda: 'Yes',
             ownerOfBodaYesSelect: true,
             ownerOfBodaNoSelect: false,
+            DailyContribFormShow:false,
             bodaOwnerFormShow: false,
             insuranceYesSelect: true,
             insuranceNoSelect: false,
             Insurance: 'Yes',
-            licenceNo: '22',
+            Sacco: 'No',
+            SaccoYesSelect: false,
+            SaccoNoSelect: true,
+            licenceNo: '',
             InsuranceName: '',
             yearOfBirth: this.chosenDate,
             currentYear: '',
@@ -62,7 +68,13 @@ export default class Form extends Component {
             plateNo: '',
             bodaOwnerName: '',
             bodaOwnerID: '',
-            bodaOwnerPhone: ''
+            bodaOwnerPhone: '',
+            County: '',
+            SubCounty: '',
+            Ward: '',
+            SaccoName: '',
+            DailyContribution: ''
+
         }
 
         this.changeGenderToMale = this
@@ -111,6 +123,28 @@ export default class Form extends Component {
             .getBodaDetails
             .bind(this)
 
+        this.getInsuranceDetails = this
+            .getInsuranceDetails
+            .bind(this)
+
+        this.clearForm3 = this
+            .clearForm3
+            .bind(this)
+        this.backToForm3 = this
+            .backToForm3
+            .bind(this)
+
+        this.changeSaccoNo = this
+            .changeSaccoNo
+            .bind(this)
+        this.changeSaccoYes = this
+            .changeSaccoYes
+            .bind(this)
+
+        this.getSaccoDetails = this
+            .getSaccoDetails
+            .bind(this)
+
     }
 
     // insuranceYesSelect: true, insuranceNoSelect: false, Insurance: 'Yes',
@@ -120,8 +154,17 @@ export default class Form extends Component {
         this.getCurrentYear()
     }
 
-    getUserDetails = (membername, idno, phone, base, experience) => {
-        this.setState({membername: membername, idno: idno, phone: phone, base: base, experience: experience})
+    getUserDetails = (membername, idno, phone, base, experience, County, SubCounty, Ward) => {
+        this.setState({
+            membername: membername,
+            idno: idno,
+            phone: phone,
+            base: base,
+            experience: experience,
+            County: County,
+            SubCounty: SubCounty,
+            Ward: Ward
+        })
 
     }
 
@@ -135,6 +178,15 @@ export default class Form extends Component {
             bodaOwnerPhone: bodaOwnerPhone
         })
 
+    }
+
+    getInsuranceDetails = (InsuranceName, licenceNo) => {
+        this.setState({InsuranceName: InsuranceName, licenceNo: licenceNo})
+
+    }
+
+    getSaccoDetails = (SaccoName, DailyContribution) => {
+        this.setState({SaccoName: SaccoName,DailyContribution:DailyContribution})
     }
 
     getCurrentYear = () => {
@@ -157,6 +209,17 @@ export default class Form extends Component {
 
         //alert(this.state.age) alert(yearOfBirth)
     }
+
+    changeSaccoYes = () => {
+        this.setState({SaccoYesSelect: true, SaccoNoSelect: false, Sacco: 'Yes',DailyContribFormShow:true})
+
+    }
+
+    changeSaccoNo = () => {
+        this.setState({SaccoYesSelect: false, SaccoNoSelect: true, Insurance: 'No',DailyContribFormShow:false})
+
+    }
+
     changeInsuranceYes = () => {
         this.setState({insuranceYesSelect: true, insuranceNoSelect: false, Insurance: 'Yes'})
 
@@ -212,7 +275,7 @@ export default class Form extends Component {
     }
 
     clearForm1 = () => {
-        if (this.state.membername == '' || this.state.chosenDate == '' || this.state.idno == '' || this.state.gender == '' || this.state.phone == '' || this.state.base == '' || this.state.experience == '') {
+        if (this.state.membername == '' || this.state.chosenDate == '' || this.state.idno == '' || this.state.gender == '' || this.state.phone == '' || this.state.base == '' || this.state.experience == '', this.state.County == '', this.state.SubCounty == '' || this.state.Ward == '') {
             alert("Please make sure you have completed all the fields.")
             return 0;
 
@@ -221,7 +284,7 @@ export default class Form extends Component {
             return 0;
 
         }
-        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: false})
+        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: false, form3Cleared: true})
     }
 
     clearForm2 = () => {
@@ -237,16 +300,43 @@ export default class Form extends Component {
             }
         } else {}
 
-        this.setState({headerTitle: 'Insurance Details Form', form1Cleared: true, form2Cleared: true})
+        this.setState({headerTitle: 'Insurance Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: false})
 
+    }
+
+    clearForm3 = () => {
+
+        // if (this.state.bodaFrameNo == '' || this.state.bodaMake == '' ||
+        // this.state.plateNo == '') {     alert("Please make sure you have completed
+        // all the fields.")     return 0; } else if (this.state.bodaOwnerFormShow ==
+        // true) {     if (this.state.bodaOwnerName == '' || this.state.bodaOwnerID ==
+        // '' || this.state.bodaOwnerPhone == '') {         alert("Please fill in
+        // Details for Boda boda owner")         return 0;     } } else {}
+
+        this.setState({headerTitle: 'Sacco Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: true})
+
+    }
+
+    submitForm = () => {
+        if (this.state.licenceNo == '') {
+            alert("Please fill in")
+        } else if (this.state.Insurance == 'Yes') {
+            alert("Has insurance")
+        }
     }
 
     backToForm1 = () => {
-        this.setState({headerTitle: 'User Details Form', form1Cleared: false, form2Cleared: true})
+        this.setState({headerTitle: 'User Details Form', form1Cleared: false, form2Cleared: true, form3Cleared: true})
 
     }
     backToForm2 = () => {
-        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: false})
+        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: false, form3Cleared: true})
+
+    }
+
+    backToForm3 = () => {
+
+        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: false})
 
     }
 
@@ -262,17 +352,34 @@ export default class Form extends Component {
                 <Header navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
                 {this.state.form1Cleared
                     ? this.state.form2Cleared
-                        ? <InsuranceDetails
-                                InsuranceName={this.state.InsuranceName}
-                                licenceNo={this.state.licenceNo}
-                                chosenDate2={this.state.chosenDate2}
-                                Insurance={this.state.Insurance}
-                                insuranceNoSelect={this.state.insuranceNoSelect}
-                                insuranceYesSelect={this.state.insuranceYesSelect}
-                                changeInsuranceNo={this.changeInsuranceNo}
-                                changeInsuranceYes={this.changeInsuranceYes}
-                                setDate2={this.setDate2}
-                                backToForm2={this.backToForm2}></InsuranceDetails>
+                        ? this.state.form3Cleared
+                            ? <SaccoDetails
+                                    SaccoNoSelect={this.state.SaccoNoSelect}
+                                    SaccoYesSelect={this.state.SaccoYesSelect}
+                                    Sacco={this.state.Sacco}
+                                    changeSaccoNo={this.changeSaccoNo}
+                                    changeSaccoYes={this.changeSaccoYes}
+                                    backToForm3={this.backToForm3}
+                                    getSaccoDetails={this.getSaccoDetails}
+                                    SaccoName={this.state.SaccoName}
+                                    DailyContribution={this.state.DailyContribution}
+                                    DailyContribFormShow={this.state.DailyContribFormShow}
+                                    ></SaccoDetails>
+                            : <InsuranceDetails
+                                    InsuranceName={this.state.InsuranceName}
+                                    licenceNo={this.state.licenceNo}
+                                    InsuranceName={this.state.InsuranceName}
+                                    licenceNo={this.state.licenceNo}
+                                    chosenDate2={this.state.chosenDate2}
+                                    Insurance={this.state.Insurance}
+                                    insuranceNoSelect={this.state.insuranceNoSelect}
+                                    insuranceYesSelect={this.state.insuranceYesSelect}
+                                    changeInsuranceNo={this.changeInsuranceNo}
+                                    changeInsuranceYes={this.changeInsuranceYes}
+                                    setDate2={this.setDate2}
+                                    backToForm2={this.backToForm2}
+                                    getInsuranceDetails={this.getInsuranceDetails}
+                                    clearForm3={this.clearForm3}></InsuranceDetails>
                         : <BodaDetails
                                 bodaFrameNo={this.state.bodaFrameNo}
                                 bodaMake={this.state.bodaMake}
@@ -290,6 +397,9 @@ export default class Form extends Component {
                                 getBodaDetails={this.getBodaDetails}></BodaDetails>
 
                     : <UserDemographics
+                        County={this.state.County}
+                        SubCounty={this.state.SubCounty}
+                        Ward={this.state.Ward}
                         membername={this.state.membername}
                         idno={this.state.idno}
                         phone={this.state.phone}

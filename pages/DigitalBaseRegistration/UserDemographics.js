@@ -72,7 +72,7 @@ export default class UserDemographics extends Component {
                                 Please enter your name 
                             </Text>
 
-                            <TextInput defaultValue={this.props.membername}   onChangeText={(membername)=>this.props.getUserDetails(membername,this.props.idno,this.props.phone,this.props.base,this.props.experience)} style={styles.myInput} placeholder="John Doe"></TextInput>
+                            <TextInput defaultValue={this.props.membername}   onChangeText={(membername)=>this.props.getUserDetails(membername,this.props.idno,this.props.phone,this.props.base,this.props.experience,this.props.County,this.props.SubCounty,this.props.Ward)} style={styles.myInput} placeholder="John Doe"></TextInput>
 
                             <Text style={styles.mytitle}>
                                 Please enter your ID number
@@ -80,7 +80,7 @@ export default class UserDemographics extends Component {
 
                             <TextInput
                             defaultValue={this.props.idno} 
-                            onChangeText={(idno)=>this.props.getUserDetails(this.props.membername,idno,this.props.phone,this.props.base,this.props.experience)}
+                            onChangeText={(idno)=>this.props.getUserDetails(this.props.membername,idno,this.props.phone,this.props.base,this.props.experience,this.props.County,this.props.SubCounty,this.props.Ward)}
                                 keyboardType="number-pad"
                                 style={styles.myInput}
                                 placeholder="34929199"></TextInput>
@@ -190,17 +190,42 @@ export default class UserDemographics extends Component {
                             </Text>
                             <TextInput
                             defaultValue={this.props.phone} 
-                            onChangeText={(phone)=>this.props.getUserDetails(this.props.membername,this.props.idno,phone,this.props.base,this.props.experience)}
+                            onChangeText={(phone)=>this.props.getUserDetails(this.props.membername,this.props.idno,phone,this.props.base,this.props.experience,this.props.County,this.props.SubCounty,this.props.Ward)}
                                 keyboardType="number-pad"
                                 style={styles.myInput}
                                 placeholder="254791827182"></TextInput>
+                                <Text style={styles.mytitle}>
+                               Enter your County
+
+                            </Text>
+                            <TextInput 
+                            defaultValue={this.props.County} 
+                            onChangeText={(County)=>this.props.getUserDetails(this.props.membername,this.props.idno,this.props.phone,this.props.base,this.props.experience,County,this.props.SubCounty,this.props.Ward)}
+                             keyboardType="default" style={styles.myInput} placeholder=""></TextInput>
+
+                             <Text style={styles.mytitle}>
+                               Enter your Sub County
+
+                            </Text>
+                            <TextInput 
+                            defaultValue={this.props.SubCounty} 
+                            onChangeText={(SubCounty)=>this.props.getUserDetails(this.props.membername,this.props.idno,this.props.phone,this.props.base,this.props.experience,this.props.County,SubCounty,this.props.Ward)}
+                             keyboardType="default" style={styles.myInput} placeholder=""></TextInput>
+                             <Text style={styles.mytitle}>
+                                Enter your ward
+
+                            </Text>
+                            <TextInput 
+                            defaultValue={this.props.Ward} 
+                            onChangeText={(Ward)=>this.props.getUserDetails(this.props.membername,this.props.idno,this.props.phone,this.props.base,this.props.experience,this.props.County,this.props.SubCounty,Ward)}
+                             keyboardType="default" style={styles.myInput} placeholder=""></TextInput>
                             <Text style={styles.mytitle}>
                                 Specify Base
 
                             </Text>
                             <TextInput 
                             defaultValue={this.props.base} 
-                            onChangeText={(base)=>this.props.getUserDetails(this.props.membername,this.props.idno,this.props.phone,base,this.props.experience)}
+                            onChangeText={(base)=>this.props.getUserDetails(this.props.membername,this.props.idno,this.props.phone,base,this.props.experience,this.props.County,this.props.SubCounty,this.props.Ward)}
                              keyboardType="default" style={styles.myInput} placeholder=""></TextInput>
 
                             <Text style={styles.mytitle}>
@@ -209,7 +234,7 @@ export default class UserDemographics extends Component {
                             </Text>
                             <TextInput
                             defaultValue={this.props.experience} 
-                            onChangeText={(experience)=>this.props.getUserDetails(this.props.membername,this.props.idno,this.props.phone,this.props.base,experience)}
+                            onChangeText={(experience)=>this.props.getUserDetails(this.props.membername,this.props.idno,this.props.phone,this.props.base,experience,this.props.County,this.props.SubCounty,this.props.Ward)}
                                 keyboardType="number-pad"
                                 style={styles.myInput}
                                 placeholder="In numbers"></TextInput>

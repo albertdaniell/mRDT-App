@@ -15,13 +15,25 @@ export default function App() {
 }
 
 const AppNavigator = createStackNavigator({
-
     Form:{
         screen:Form,
         navigationOptions:{
             header:null
         }
     },
+    Home: {
+        screen: HomeScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            header: null
+        }
+    },
+  
     UserDemographics:{
         screen:UserDemographics,
         navigationOptions:{
@@ -35,12 +47,7 @@ const AppNavigator = createStackNavigator({
             header: null
         }
     },
-    Home: {
-        screen: HomeScreen,
-        navigationOptions: {
-            header: null
-        }
-    },
+    
    
    
 });
