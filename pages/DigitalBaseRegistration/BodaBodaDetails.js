@@ -75,7 +75,12 @@ export default class BodaBodaDetails extends Component {
                         </Text>
                         <ListItem>
                             <Left>
-                                <Text>Yes</Text>
+                            <TouchableOpacity
+                                style={{width:'100%',padding:3}}
+                                    onPress={() => this.props.changeBodaOwnerYes()}
+                                    > 
+                                    <Text>Yes</Text>
+                                    </TouchableOpacity>
                             </Left>
                             <Right>
                                 <Radio
@@ -87,7 +92,12 @@ export default class BodaBodaDetails extends Component {
                         </ListItem>
                         <ListItem>
                             <Left>
-                                <Text>No</Text>
+                            <TouchableOpacity
+                                style={{width:'100%',padding:3}}
+                                    onPress={() => this.props.changeBodaOwnerNo()}
+                                    > 
+                                    <Text>No</Text>
+                                    </TouchableOpacity>
                             </Left>
                             <Right>
                                 <Radio
