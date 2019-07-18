@@ -45,18 +45,26 @@ export default class BodaBodaDetails extends Component {
                             BodaBoda frame number/ Tuk tuk chaser number
 
                         </Text>
-                        <TextInput keyboardType="default" style={styles.myInput} placeholder=""></TextInput>
+                        <TextInput 
+                        defaultValue={this.props.bodaFrameNo} 
+                            onChangeText={(bodaFrameNo)=>this.props.getBodaDetails(bodaFrameNo,this.props.bodaMake,this.props.plateNo,this.props.bodaOwnerName,this.props.bodaOwnerID,this.props.bodaOwnerPhone)}
+                        keyboardType="default" style={styles.myInput} placeholder=""></TextInput>
 
                         <Text style={styles.mytitle}>
                             BodaBoda/ Tuk tuk make eg. Honda, Boxer,Cruz,Tus,King Bird
 
                         </Text>
-                        <TextInput keyboardType="default" style={styles.myInput} placeholder="Honda"></TextInput>
+                        <TextInput 
+                        defaultValue={this.props.bodaMake} 
+                            onChangeText={(bodaMake)=>this.props.getBodaDetails(this.props.bodaFrameNo,bodaMake,this.props.plateNo,this.props.bodaOwnerName,this.props.bodaOwnerID,this.props.bodaOwnerPhone)}
+                        keyboardType="default" style={styles.myInput} placeholder="Honda"></TextInput>
                         <Text style={styles.mytitle}>
                             Registration Plate number
 
                         </Text>
                         <TextInput
+                        defaultValue={this.props.plateNo} 
+                            onChangeText={(plateNo)=>this.props.getBodaDetails(this.props.bodaFrameNo,this.props.bodaMake,plateNo,this.props.bodaOwnerName,this.props.bodaOwnerID,this.props.bodaOwnerPhone)}
                             keyboardType="default"
                             style={styles.myInput}
                             placeholder="Plate number"></TextInput>
@@ -99,6 +107,8 @@ export default class BodaBodaDetails extends Component {
 
                         </Text>
                         <TextInput
+                        defaultValue={this.props.bodaOwnerName} 
+                            onChangeText={(bodaOwnerName)=>this.props.getBodaDetails(this.props.bodaFrameNo,this.props.bodaMake,this.props.plateNo,bodaOwnerName,this.props.bodaOwnerID,this.props.bodaOwnerPhone)}
                             keyboardType="default"
                             style={styles.myInput}
                             placeholder="Mary Jane"></TextInput> 
@@ -108,6 +118,8 @@ export default class BodaBodaDetails extends Component {
 
                         </Text>
                         <TextInput
+                        defaultValue={this.props.bodaOwnerID} 
+                            onChangeText={(bodaOwnerID)=>this.props.getBodaDetails(this.props.bodaFrameNo,this.props.bodaMake,this.props.plateNo,this.props.bodaOwnerName,bodaOwnerID,this.props.bodaOwnerPhone)}
                             keyboardType="number-pad"
                             style={styles.myInput}
                             placeholder="29372922"></TextInput> 
@@ -117,6 +129,8 @@ export default class BodaBodaDetails extends Component {
 
                             </Text>
                             <TextInput
+                            defaultValue={this.props.bodaOwnerPhone} 
+                            onChangeText={(bodaOwnerPhone)=>this.props.getBodaDetails(this.props.bodaFrameNo,this.props.bodaMake,this.props.plateNo,this.props.bodaOwnerName,this.props.bodaOwnerID,bodaOwnerPhone)}
                                 keyboardType="number-pad"
                                 style={styles.myInput}
                                 placeholder="254791827182"></TextInput>

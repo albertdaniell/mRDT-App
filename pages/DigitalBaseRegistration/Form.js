@@ -38,13 +38,13 @@ export default class Form extends Component {
             phone: '',
             base: '',
             experience: '',
-            gender: '',
+            gender: 'Male',
             maleSelected: true,
             femaleSelected: false,
             chosenDate: new Date(),
             chosenDate2: new Date(),
             selected: "254",
-            form1Cleared: false,
+            form1Cleared: true,
             form2Cleared: false,
             ownerOfBoda: 'Yes',
             ownerOfBodaYesSelect: true,
@@ -56,10 +56,14 @@ export default class Form extends Component {
             licenceNo: '22',
             InsuranceName: '',
             yearOfBirth: this.chosenDate,
-            currentYear: ''
+            currentYear: '',
+            bodaFrameNo: '',
+            bodaMake: '',
+            plateNo: '',
+            bodaOwnerName: '',
+            bodaOwnerID: '',
+            bodaOwnerPhone: ''
         }
-
-
 
         this.changeGenderToMale = this
             .changeGenderToMale
@@ -99,7 +103,13 @@ export default class Form extends Component {
             .changeInsuranceNo
             .bind(this)
 
-        this.getUserDetails=this.getUserDetails.bind(this)
+        this.getUserDetails = this
+            .getUserDetails
+            .bind(this)
+
+        this.getBodaDetails = this
+            .getBodaDetails
+            .bind(this)
 
     }
 
@@ -110,13 +120,19 @@ export default class Form extends Component {
         this.getCurrentYear()
     }
 
-    getUserDetails=(membername,idno,phone,base,experience)=>{
+    getUserDetails = (membername, idno, phone, base, experience) => {
+        this.setState({membername: membername, idno: idno, phone: phone, base: base, experience: experience})
+
+    }
+
+    getBodaDetails = (bodaFrameNo, bodaMake, plateNo, bodaOwnerName, bodaOwnerID, bodaOwnerPhone) => {
         this.setState({
-            membername:membername,
-            idno:idno,
-            phone:phone,
-            base:base,
-            experience:experience
+            bodaFrameNo: bodaFrameNo,
+            bodaMake: bodaMake,
+            plateNo: plateNo,
+            bodaOwnerName: bodaOwnerName,
+            bodaOwnerID: bodaOwnerID,
+            bodaOwnerPhone: bodaOwnerPhone
         })
 
     }
@@ -196,10 +212,31 @@ export default class Form extends Component {
     }
 
     clearForm1 = () => {
+        if (this.state.membername == '' || this.state.chosenDate == '' || this.state.idno == '' || this.state.gender == '' || this.state.phone == '' || this.state.base == '' || this.state.experience == '') {
+            alert("Please make sure you have completed all the fields.")
+            return 0;
+
+        } else if (this.state.age < 18) {
+            alert("You must be 18 and above of age.")
+            return 0;
+
+        }
         this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: false})
     }
 
     clearForm2 = () => {
+
+        if (this.state.bodaFrameNo == '' || this.state.bodaMake == '' || this.state.plateNo == '') {
+            alert("Please make sure you have completed all the fields.")
+
+            return 0;
+        } else if (this.state.bodaOwnerFormShow == true) {
+            if (this.state.bodaOwnerName == '' || this.state.bodaOwnerID == '' || this.state.bodaOwnerPhone == '') {
+                alert("Please fill in Details for Boda boda owner")
+                return 0;
+            }
+        } else {}
+
         this.setState({headerTitle: 'Insurance Details Form', form1Cleared: true, form2Cleared: true})
 
     }
@@ -237,13 +274,20 @@ export default class Form extends Component {
                                 setDate2={this.setDate2}
                                 backToForm2={this.backToForm2}></InsuranceDetails>
                         : <BodaDetails
+                                bodaFrameNo={this.state.bodaFrameNo}
+                                bodaMake={this.state.bodaMake}
+                                plateNo={this.state.plateNo}
+                                bodaOwnerName={this.state.bodaOwnerName}
+                                bodaOwnerID={this.state.bodaOwnerID}
+                                bodaOwnerPhone={this.state.bodaOwnerPhone}
                                 clearForm2={this.clearForm2}
                                 ownerOfBodaYesSelect={this.state.ownerOfBodaYesSelect}
                                 ownerOfBodaNoSelect={this.state.ownerOfBodaNoSelect}
                                 changeBodaOwnerNo={this.changeBodaOwnerNo}
                                 changeBodaOwnerYes={this.changeBodaOwnerYes}
                                 backToForm1={this.backToForm1}
-                                bodaOwnerFormShow={this.state.bodaOwnerFormShow}></BodaDetails>
+                                bodaOwnerFormShow={this.state.bodaOwnerFormShow}
+                                getBodaDetails={this.getBodaDetails}></BodaDetails>
 
                     : <UserDemographics
                         membername={this.state.membername}
@@ -262,8 +306,7 @@ export default class Form extends Component {
                         onValueChange={this.onValueChange}
                         setDate={this.setDate}
                         clearForm1={this.clearForm1}
-                        getUserDetails={this.getUserDetails}
-                        ></UserDemographics>
+                        getUserDetails={this.getUserDetails}></UserDemographics>
 }
             </View>
         )
