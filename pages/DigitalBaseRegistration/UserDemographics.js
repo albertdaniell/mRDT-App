@@ -127,7 +127,14 @@ export default class UserDemographics extends Component {
                             </Text>
                             <ListItem>
                                 <Left>
+                                <TouchableOpacity
+                                style={{width:'100%',padding:5}}
+                                    onPress={() => this.props.changeGenderToMale()}
+                                    > 
                                     <Text>Male</Text>
+                                    </TouchableOpacity>
+
+                                   
                                 </Left>
                                 <Right>
                                     <Radio
@@ -139,7 +146,13 @@ export default class UserDemographics extends Component {
                             </ListItem>
                             <ListItem>
                                 <Left>
+                                    <TouchableOpacity
+                                    style={{width:'100%',padding:5}}
+                                    onPress={() => this.props.changeGenderToFemale()}
+                                    > 
                                     <Text>Female</Text>
+                                    </TouchableOpacity>
+                                   
                                 </Left>
                                 <Right>
                                     <Radio

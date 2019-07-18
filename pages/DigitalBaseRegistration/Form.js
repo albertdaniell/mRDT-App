@@ -222,7 +222,7 @@ export default class Form extends Component {
                 flex: 1
             }}>
 
-                <Header headerTitle={this.state.headerTitle}></Header>
+                <Header navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
                 {this.state.form1Cleared
                     ? this.state.form2Cleared
                         ? <InsuranceDetails
