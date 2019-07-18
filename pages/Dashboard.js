@@ -13,6 +13,13 @@ import Header from '../components/Header'
 
 export default class Dashboard extends Component {
 
+    constructor(props){
+        super(props)
+        this.state={
+            headerTitle: 'M-BodaBoda App',
+        }
+    }
+
     render() {
 
         return (
@@ -22,7 +29,7 @@ export default class Dashboard extends Component {
                 <View style={{
                     flex: .13
                 }}>
-                    <Header></Header>
+                    <Header headerTitle={this.state.headerTitle}></Header>
                 </View>
 
                 <View

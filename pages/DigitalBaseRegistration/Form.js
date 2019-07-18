@@ -55,6 +55,8 @@ export default class Form extends Component {
             Insurance: 'Yes',
             licenceNo:'22',
             InsuranceName:'',
+            yearOfBirth :this.chosenDate,
+            currentYear:''
         }
 
         this.changeGenderToMale = this
@@ -101,6 +103,28 @@ export default class Form extends Component {
     // insuranceNoSelect: false,
     // Insurance: 'Yes',
 
+    componentDidMount(){
+       // alert(this.state.yearOfBirth)
+       //this.getCurrentYear()
+    }
+
+    getCurrentYear=()=>{
+        const currentYear=new Date().getFullYear()
+        this.setState({
+           currentYear:currentYear 
+        })
+    }
+
+    getYearObBirth=()=>{
+        const chosenDate=this.state.chosenDate.toString()
+        .substr(4, 12)
+        const yearOfBirth=chosenDate.slice(-5);
+        this.setState({
+            yearOfBirth:yearOfBirth
+        })
+
+        // alert(yearOfBirth)
+    }
     changeInsuranceYes=()=>{
         this.setState({insuranceYesSelect: true, insuranceNoSelect: false, Insurance:'Yes'})
     
@@ -122,11 +146,15 @@ export default class Form extends Component {
 
     setDate = (newDate) => {
         this.setState({chosenDate: newDate});
+        setTimeout(()=>{
+            this.getYearObBirth()
+        },500)
+        // alert(0)
     }
 
-    setDate = (newDate) => {
-        this.setState({chosenDate: newDate});
-    }
+    // setDate = (newDate) => {
+    //     this.setState({chosenDate: newDate});
+    // }
 
     setDate2 = (newDate) => {
         this.setState({chosenDate2: newDate});
