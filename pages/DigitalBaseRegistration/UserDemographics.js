@@ -25,7 +25,12 @@ export default class UserDemographics extends Component {
     constructor(props) {
         super(props)
         this.state = {
-           
+           age:this.props.age,
+           membername:this.props.membername,
+           idno:this.props.idno,
+           phone:this.props.phone,
+           base:this.props.base,
+           experience:this.props.experience
         }
 
         // this.setDate = this
@@ -64,16 +69,18 @@ export default class UserDemographics extends Component {
                         }}>
 
                             <Text style={styles.mytitle}>
-                                Please enter your name
+                                Please enter your name 
                             </Text>
 
-                            <TextInput style={styles.myInput} placeholder="John Doe"></TextInput>
+                            <TextInput defaultValue={this.props.membername}   onChangeText={(membername)=>this.props.getUserDetails(membername,this.props.idno,this.props.phone,this.props.base,this.props.experience)} style={styles.myInput} placeholder="John Doe"></TextInput>
 
                             <Text style={styles.mytitle}>
                                 Please enter your ID number
                             </Text>
 
                             <TextInput
+                            defaultValue={this.props.idno} 
+                            onChangeText={(idno)=>this.props.getUserDetails(this.props.membername,idno,this.props.phone,this.props.base,this.props.experience)}
                                 keyboardType="number-pad"
                                 style={styles.myInput}
                                 placeholder="34929199"></TextInput>
@@ -112,7 +119,7 @@ export default class UserDemographics extends Component {
 
                             </Text>
 
-                            <TextInput style={styles.myInput} placeholder="Your age"></TextInput>
+                            <TextInput editable={false} defaultValue={this.props.age} style={styles.myInput} placeholder="Your age"></TextInput>
 
                             <Text style={styles.mytitle}>
                                 Your Gender
@@ -169,6 +176,8 @@ export default class UserDemographics extends Component {
 
                             </Text>
                             <TextInput
+                            defaultValue={this.props.phone} 
+                            onChangeText={(phone)=>this.props.getUserDetails(this.props.membername,this.props.idno,phone,this.props.base,this.props.experience)}
                                 keyboardType="number-pad"
                                 style={styles.myInput}
                                 placeholder="254791827182"></TextInput>
@@ -176,13 +185,18 @@ export default class UserDemographics extends Component {
                                 Specify Base
 
                             </Text>
-                            <TextInput keyboardType="default" style={styles.myInput} placeholder=""></TextInput>
+                            <TextInput 
+                            defaultValue={this.props.base} 
+                            onChangeText={(base)=>this.props.getUserDetails(this.props.membername,this.props.idno,this.props.phone,base,this.props.experience)}
+                             keyboardType="default" style={styles.myInput} placeholder=""></TextInput>
 
                             <Text style={styles.mytitle}>
                                 Years of experience on road
 
                             </Text>
                             <TextInput
+                            defaultValue={this.props.experience} 
+                            onChangeText={(experience)=>this.props.getUserDetails(this.props.membername,this.props.idno,this.props.phone,this.props.base,experience)}
                                 keyboardType="number-pad"
                                 style={styles.myInput}
                                 placeholder="In numbers"></TextInput>

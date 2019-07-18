@@ -42,7 +42,7 @@ export default class Form extends Component {
             maleSelected: true,
             femaleSelected: false,
             chosenDate: new Date(),
-            chosenDate2:new Date(),
+            chosenDate2: new Date(),
             selected: "254",
             form1Cleared: false,
             form2Cleared: false,
@@ -53,11 +53,13 @@ export default class Form extends Component {
             insuranceYesSelect: true,
             insuranceNoSelect: false,
             Insurance: 'Yes',
-            licenceNo:'22',
-            InsuranceName:'',
-            yearOfBirth :this.chosenDate,
-            currentYear:''
+            licenceNo: '22',
+            InsuranceName: '',
+            yearOfBirth: this.chosenDate,
+            currentYear: ''
         }
+
+
 
         this.changeGenderToMale = this
             .changeGenderToMale
@@ -97,42 +99,56 @@ export default class Form extends Component {
             .changeInsuranceNo
             .bind(this)
 
+        this.getUserDetails=this.getUserDetails.bind(this)
+
     }
 
-    // insuranceYesSelect: true,
-    // insuranceNoSelect: false,
-    // Insurance: 'Yes',
+    // insuranceYesSelect: true, insuranceNoSelect: false, Insurance: 'Yes',
 
-    componentDidMount(){
-       // alert(this.state.yearOfBirth)
-       //this.getCurrentYear()
+    componentDidMount() {
+        // alert(this.state.yearOfBirth)
+        this.getCurrentYear()
     }
 
-    getCurrentYear=()=>{
-        const currentYear=new Date().getFullYear()
+    getUserDetails=(membername,idno,phone,base,experience)=>{
         this.setState({
-           currentYear:currentYear 
-        })
-    }
-
-    getYearObBirth=()=>{
-        const chosenDate=this.state.chosenDate.toString()
-        .substr(4, 12)
-        const yearOfBirth=chosenDate.slice(-5);
-        this.setState({
-            yearOfBirth:yearOfBirth
+            membername:membername,
+            idno:idno,
+            phone:phone,
+            base:base,
+            experience:experience
         })
 
-        // alert(yearOfBirth)
-    }
-    changeInsuranceYes=()=>{
-        this.setState({insuranceYesSelect: true, insuranceNoSelect: false, Insurance:'Yes'})
-    
     }
 
-    changeInsuranceNo=()=>{
-        this.setState({insuranceYesSelect: false, insuranceNoSelect: true, Insurance:'No'})
-    
+    getCurrentYear = () => {
+        const currentYear = new Date().getFullYear()
+        this.setState({currentYear: currentYear})
+    }
+
+    getYearObBirth = () => {
+        const chosenDate = this
+            .state
+            .chosenDate
+            .toString()
+            .substr(4, 12)
+        const yearOfBirth = chosenDate.slice(-5);
+        this.setState({yearOfBirth: yearOfBirth})
+
+        //Get age of person
+        const age = (this.state.currentYear - this.state.yearOfBirth).toString()
+        this.setState({age: age})
+
+        //alert(this.state.age) alert(yearOfBirth)
+    }
+    changeInsuranceYes = () => {
+        this.setState({insuranceYesSelect: true, insuranceNoSelect: false, Insurance: 'Yes'})
+
+    }
+
+    changeInsuranceNo = () => {
+        this.setState({insuranceYesSelect: false, insuranceNoSelect: true, Insurance: 'No'})
+
     }
 
     changeGenderToMale = () => {
@@ -146,20 +162,17 @@ export default class Form extends Component {
 
     setDate = (newDate) => {
         this.setState({chosenDate: newDate});
-        setTimeout(()=>{
+        setTimeout(() => {
             this.getYearObBirth()
-        },500)
+        }, 500)
         // alert(0)
     }
 
-    // setDate = (newDate) => {
-    //     this.setState({chosenDate: newDate});
-    // }
+    // setDate = (newDate) => {     this.setState({chosenDate: newDate}); }
 
     setDate2 = (newDate) => {
         this.setState({chosenDate2: newDate});
     }
-
 
     onValueChange = (value : string) => {
         this.setState({selected: value});
@@ -212,18 +225,17 @@ export default class Form extends Component {
                 <Header headerTitle={this.state.headerTitle}></Header>
                 {this.state.form1Cleared
                     ? this.state.form2Cleared
-                        ? <InsuranceDetails 
-                        InsuranceName={this.state.InsuranceName}
-                        licenceNo={this.state.licenceNo}
-                        chosenDate2={this.state.chosenDate2}
-                        Insurance={this.state.Insurance}
-                        insuranceNoSelect={this.state.insuranceNoSelect}
-                        insuranceYesSelect={this.state.insuranceYesSelect}
-                        changeInsuranceNo={this.changeInsuranceNo}
-                        changeInsuranceYes={this.changeInsuranceYes}
-                        setDate2={this.setDate2}
-                        
-                        backToForm2={this.backToForm2}></InsuranceDetails>
+                        ? <InsuranceDetails
+                                InsuranceName={this.state.InsuranceName}
+                                licenceNo={this.state.licenceNo}
+                                chosenDate2={this.state.chosenDate2}
+                                Insurance={this.state.Insurance}
+                                insuranceNoSelect={this.state.insuranceNoSelect}
+                                insuranceYesSelect={this.state.insuranceYesSelect}
+                                changeInsuranceNo={this.changeInsuranceNo}
+                                changeInsuranceYes={this.changeInsuranceYes}
+                                setDate2={this.setDate2}
+                                backToForm2={this.backToForm2}></InsuranceDetails>
                         : <BodaDetails
                                 clearForm2={this.clearForm2}
                                 ownerOfBodaYesSelect={this.state.ownerOfBodaYesSelect}
@@ -234,6 +246,12 @@ export default class Form extends Component {
                                 bodaOwnerFormShow={this.state.bodaOwnerFormShow}></BodaDetails>
 
                     : <UserDemographics
+                        membername={this.state.membername}
+                        idno={this.state.idno}
+                        phone={this.state.phone}
+                        base={this.state.base}
+                        experience={this.state.experience}
+                        age={this.state.age}
                         gender={this.state.gender}
                         selected={this.state.selected}
                         femaleSelected={this.state.femaleSelected}
@@ -243,7 +261,9 @@ export default class Form extends Component {
                         changeGenderToFemale={this.changeGenderToFemale}
                         onValueChange={this.onValueChange}
                         setDate={this.setDate}
-                        clearForm1={this.clearForm1}></UserDemographics>
+                        clearForm1={this.clearForm1}
+                        getUserDetails={this.getUserDetails}
+                        ></UserDemographics>
 }
             </View>
         )
