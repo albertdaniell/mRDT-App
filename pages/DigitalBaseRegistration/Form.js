@@ -47,11 +47,11 @@ export default class Form extends Component {
             selected: "254",
             form1Cleared: true,
             form2Cleared: true,
-            form3Cleared: false,
+            form3Cleared: true,
             ownerOfBoda: 'Yes',
             ownerOfBodaYesSelect: true,
             ownerOfBodaNoSelect: false,
-            DailyContribFormShow:false,
+            DailyContribFormShow: false,
             bodaOwnerFormShow: false,
             insuranceYesSelect: true,
             insuranceNoSelect: false,
@@ -73,7 +73,8 @@ export default class Form extends Component {
             SubCounty: '',
             Ward: '',
             SaccoName: '',
-            DailyContribution: ''
+            DailyContribution: '',
+            showAllDataView: false
 
         }
 
@@ -144,6 +145,9 @@ export default class Form extends Component {
         this.getSaccoDetails = this
             .getSaccoDetails
             .bind(this)
+        this.submitForm = this
+            .submitForm
+            .bind(this)
 
     }
 
@@ -186,7 +190,7 @@ export default class Form extends Component {
     }
 
     getSaccoDetails = (SaccoName, DailyContribution) => {
-        this.setState({SaccoName: SaccoName,DailyContribution:DailyContribution})
+        this.setState({SaccoName: SaccoName, DailyContribution: DailyContribution})
     }
 
     getCurrentYear = () => {
@@ -211,12 +215,12 @@ export default class Form extends Component {
     }
 
     changeSaccoYes = () => {
-        this.setState({SaccoYesSelect: true, SaccoNoSelect: false, Sacco: 'Yes',DailyContribFormShow:true})
+        this.setState({SaccoYesSelect: true, SaccoNoSelect: false, Sacco: 'Yes', DailyContribFormShow: true})
 
     }
 
     changeSaccoNo = () => {
-        this.setState({SaccoYesSelect: false, SaccoNoSelect: true, Insurance: 'No',DailyContribFormShow:false})
+        this.setState({SaccoYesSelect: false, SaccoNoSelect: true, Insurance: 'No', DailyContribFormShow: false})
 
     }
 
@@ -313,16 +317,22 @@ export default class Form extends Component {
         // '' || this.state.bodaOwnerPhone == '') {         alert("Please fill in
         // Details for Boda boda owner")         return 0;     } } else {}
 
-        this.setState({headerTitle: 'Sacco Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: true})
+        this.setState({headerTitle: 'Sacco Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: true, showAllDataView: true})
 
     }
 
     submitForm = () => {
-        if (this.state.licenceNo == '') {
-            alert("Please fill in")
-        } else if (this.state.Insurance == 'Yes') {
-            alert("Has insurance")
+
+        if(this.state.DailyContribFormShow == true ){
+            if (this.state.SaccoName == '' || this.state.DailyContribution == ''){
+                alert("Please make sure you have completed all the fields.")
+            }
         }
+        // if (this.state.licenceNo == '') {
+        //     alert("Please make sure you have completed all the fields.")
+        // } else if (this.state.Insurance == 'Yes') {
+        //     alert("Has insurance")
+        // }
     }
 
     backToForm1 = () => {
@@ -336,7 +346,7 @@ export default class Form extends Component {
 
     backToForm3 = () => {
 
-        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: false})
+        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: false, showAllDataView: false})
 
     }
 
@@ -364,6 +374,7 @@ export default class Form extends Component {
                                     SaccoName={this.state.SaccoName}
                                     DailyContribution={this.state.DailyContribution}
                                     DailyContribFormShow={this.state.DailyContribFormShow}
+                                    submitForm={this.submitForm}
                                     ></SaccoDetails>
                             : <InsuranceDetails
                                     InsuranceName={this.state.InsuranceName}
@@ -418,6 +429,140 @@ export default class Form extends Component {
                         clearForm1={this.clearForm1}
                         getUserDetails={this.getUserDetails}></UserDemographics>
 }
+
+                {/* {this.state.showAllDataView
+                    ? <View>
+                            <ScrollView
+                                style={{
+                                height: 300
+                            }}>
+                                <ListItem>
+                                    <Left>
+                                        <Text>Name</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.membername}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+                                <ListItem>
+                                    <Left>
+                                        <Text>ID no</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.idno}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>Age</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.age}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>Country Code</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.countrycode}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>Phone</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.phone}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+                                <ListItem>
+                                    <Left>
+                                        <Text>County</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.County}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>Sub County</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.SubCounty}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>Base</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.base}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>Years of Experience</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.experience}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+                            </ScrollView>
+                        </View>
+                    : null
+} */}
             </View>
         )
     }

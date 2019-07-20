@@ -140,6 +140,7 @@ render(){
                             width: '100%'
                         }}>
                             <TouchableOpacity
+                            onPress={this.props.submitForm}
                                 style={{
                                 width: '100%',
                                 alignItems: 'center',
@@ -174,6 +175,6 @@ const styles = StyleSheet.create({
     mytitle: {
         padding: 2,
         fontWeight: 'bold',
-        marginBottom: 5
+        marginBottom: 20
     }
 });

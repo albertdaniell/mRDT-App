@@ -206,6 +206,6 @@ const styles = StyleSheet.create({
     mytitle: {
         padding: 2,
         fontWeight: 'bold',
-        marginBottom: 5
+        marginBottom: 20
     }
 });

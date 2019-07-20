@@ -176,7 +176,7 @@ export default class UserDemographics extends Component {
                                 selectedValue={this.props.selected}
                                 onValueChange={this
                                 .props.onValueChange
-                                .bind(this)}>
+                                }>
                                 <Picker.Item label="+254 (Kenya)" value="254"/>
                                 <Picker.Item label="+255 (Tanzania)" value="255"/>
                                 <Picker.Item label="+256 (Uganda)" value="256"/>
@@ -274,6 +274,6 @@ const styles = StyleSheet.create({
     mytitle: {
         padding: 2,
         fontWeight: 'bold',
-        marginBottom: 5
+        marginBottom: 20
     }
 });
