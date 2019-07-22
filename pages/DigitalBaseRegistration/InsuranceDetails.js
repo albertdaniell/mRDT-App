@@ -35,6 +35,7 @@ export default class Insurance extends Component {
     render() {
         return (
             <KeyboardAvoidingView
+            
                 style={{
                 flex: 1
             }}

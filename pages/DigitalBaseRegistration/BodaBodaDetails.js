@@ -25,6 +25,7 @@ export default class BodaBodaDetails extends Component {
     render() {
         return (
             <KeyboardAvoidingView
+            
                 style={{
                 flex: 1
             }}
