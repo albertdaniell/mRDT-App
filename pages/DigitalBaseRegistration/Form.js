@@ -37,7 +37,7 @@ export default class Form extends Component {
             idno: '',
             dob: '',
             age: '',
-            countrycode: '',
+            countrycode: "254",
             phone: '',
             base: '',
             experience: '',
@@ -304,7 +304,7 @@ seeData=()=>{
     }
 
     onValueChange = (value : string) => {
-        this.setState({selected: value});
+        this.setState({countrycode: value});
     }
     // ownerOfBoda: '', ownerOfBodaYesSelect: true, ownerOfBodaNoSelect: false,
     // bodaOwnerFormShow:false
@@ -472,13 +472,15 @@ seeData=()=>{
                         chosenDate={this.state.chosenDate}
                         changeGenderToMale={this.changeGenderToMale}
                         changeGenderToFemale={this.changeGenderToFemale}
-                        onValueChange={this.onValueChange}
+                        countrycode={this.state.countrycode}
                         setDate={this.setDate}
                         clearForm1={this.clearForm1}
-                        getUserDetails={this.getUserDetails}></UserDemographics>
+                        getUserDetails={this.getUserDetails}
+                        onValueChange ={this.onValueChange}
+                        ></UserDemographics>
 }
 
-                {/* {this.state.showAllDataView
+                {this.state.showAllDataView
                     ? <View>
                             <ScrollView
                                 style={{
@@ -610,7 +612,7 @@ seeData=()=>{
                             </ScrollView>
                         </View>
                     : null
-} */}
+}
             </View>
         )
     }

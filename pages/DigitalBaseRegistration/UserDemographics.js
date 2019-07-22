@@ -179,7 +179,7 @@ export default class UserDemographics extends Component {
                             backgroundColor: 'white',
                             marginBottom: 10
                         }}
-                            selectedValue={this.props.selected}
+                            selectedValue={this.props.countrycode}
                             onValueChange={this.props.onValueChange}>
                             <Picker.Item label="+254 (Kenya)" value="254"/>
                             <Picker.Item label="+255 (Tanzania)" value="255"/>
