@@ -21,31 +21,30 @@ import {
 } from 'native-base';
 
 export default class UserDemographics extends Component {
-render(){
-    return(
-        
-                <KeyboardAvoidingView
-                    style={{
-                    flex: 1
-                }}
-                    behavior="padding"
-                    enabled>
+    render() {
+        return (
 
-                    <ScrollView>
-                        <View
-                            style={{
-                            backgroundColor: 'white',
-                            flex: 1,
-                            alignContent: 'flex-end',
-                            justifyContent: 'center',
-                            padding: 10,
-                            marginTop:10
-                        }}>
+            <KeyboardAvoidingView
+                style={{
+                flex: 1
+            }}
+                behavior="padding"
+                enabled>
+
+                <ScrollView>
+                    <View
+                        style={{
+                        backgroundColor: 'white',
+                        flex: 1,
+                        alignContent: 'flex-end',
+                        justifyContent: 'center',
+                        padding: 10,
+                        marginTop: 10
+                    }}>
                         <Text style={styles.mytitle}>
                             Do you belong to any Sacco?
 
                         </Text>
-
 
                         <ListItem>
                             <Left>
@@ -86,79 +85,84 @@ render(){
                             </Right>
                         </ListItem>
 
-                        {
-                            this.props.DailyContribFormShow?
-                            <View style={{marginTop:10}}>
-                        <Text style={styles.mytitle}>
-                                Please enter the sacco name
-                            </Text>
-
-                            <TextInput
-                            defaultValue={this.props.SaccoName} 
-                            onChangeText={(SaccoName)=>this.props.getSaccoDetails(SaccoName,this.props.DailyContribution)}
-                                keyboardType="default"
-                                style={styles.myInput}
-                                placeholder="Harambe"></TextInput>
-
-                                <Text style={styles.mytitle}>
-                                Please enter your  contribution
-                            </Text>
-
-                            <TextInput
-                            defaultValue={this.props.DailyContribution} 
-                            onChangeText={(DailyContribution)=>this.props.getSaccoDetails(this.props.SaccoName,DailyContribution)}
-                            keyboardType="number-pad"
-                                style={styles.myInput}
-                                placeholder="1000"></TextInput>
-                        </View>
-                            
-                            :null
-                        }
-
-              
-                        </View>
-
-                        <ListItem>
-                        <Left>
-                            <TouchableOpacity
-                               onPress={()=>this.props.backToForm3()}
-                                style={{
-                                alignItems: 'center',
-                                padding: 20,
-                                backgroundColor: '#fff',
-                                borderWidth: 1,
-                                borderColor: '#2962ff'
-                            }}>
-                                <Text
+                        {this.props.DailyContribFormShow
+                            ? <View
                                     style={{
-                                    color: 'black'
-                                }}>Previous</Text>
-                            </TouchableOpacity>
-                        </Left>
-                        <Right
-                            style={{
-                            width: '100%'
-                        }}>
-                            <TouchableOpacity
-                            onPress={this.props.submitForm}
-                                style={{
-                                width: '100%',
-                                alignItems: 'center',
-                                padding: 20,
-                                backgroundColor: '#087f23'
-                            }}>
-                                <Text
-                                    style={{
-                                    color: 'white'
-                                }}>Finish</Text>
-                            </TouchableOpacity>
-                        </Right>
-                    </ListItem>
-                        </ScrollView>
-                        </KeyboardAvoidingView>
+                                    marginTop: 10
+                                }}>
+                                    <Text style={styles.mytitle}>
+                                        Please enter the sacco name
+                                    </Text>
 
-    )
+                                    <TextInput
+                                        defaultValue={this.props.SaccoName}
+                                        onChangeText={(SaccoName) => this.props.getSaccoDetails(SaccoName, this.props.DailyContribution)}
+                                        keyboardType="default"
+                                        style={styles.myInput}
+                                        placeholder="Harambe"></TextInput>
+
+                                    <Text style={styles.mytitle}>
+                                        Please enter your contribution
+                                    </Text>
+
+                                    <TextInput
+                                        defaultValue={this.props.DailyContribution}
+                                        onChangeText={(DailyContribution) => this.props.getSaccoDetails(this.props.SaccoName, DailyContribution)}
+                                        keyboardType="number-pad"
+                                        style={styles.myInput}
+                                        placeholder="1000"></TextInput>
+                                </View>
+
+                            : null
 }
+
+                    </View>
+
+                    <View
+                        style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        padding: 10,
+                        marginTop: 20
+                    }}>
+                        <TouchableOpacity
+                            onPress={() => this.props.backToForm3()}
+                            style={{
+                            alignItems: 'center',
+                            padding: 20,
+                            backgroundColor: '#fff',
+                            borderWidth: 1,
+                            borderColor: '#2962ff',
+                            flex: 1
+                        }}>
+                            <Text
+                                style={{
+                                color: 'black'
+                            }}>Previous</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={this.props.submitForm}
+                            style={{
+                            width: '100%',
+                            alignItems: 'center',
+                            padding: 20,
+                            backgroundColor: '#087f23',
+                            flex: 1
+                        }}>
+                            <Text
+                                style={{
+                                color: 'white'
+                            }}>Finish</Text>
+                        </TouchableOpacity>
+
+                    </View>
+
+                </ScrollView>
+            </KeyboardAvoidingView>
+
+        )
+    }
 }
 
 const styles = StyleSheet.create({

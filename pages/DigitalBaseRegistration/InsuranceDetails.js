@@ -51,7 +51,7 @@ export default class Insurance extends Component {
                         padding: 10,
                         marginTop: 10
                     }}>
-                      
+
                         <Text style={styles.mytitle}>
                             Registered your motor bike with insurance company?
 
@@ -148,49 +148,54 @@ export default class Insurance extends Component {
 
                         </Text>
                         <TextInput
-                        defaultValue={this.props.licenceNo} 
-                            onChangeText={(licenceNo)=>this.props.getInsuranceDetails(this.props.InsuranceName,licenceNo)}
+                            defaultValue={this.props.licenceNo}
+                            onChangeText={(licenceNo) => this.props.getInsuranceDetails(this.props.InsuranceName, licenceNo)}
                             keyboardType="default"
                             style={styles.myInput}
                             placeholder="licence number"></TextInput>
 
                     </View>
-                    <ListItem>
-                        <Left>
-                            <TouchableOpacity
-                                onPress={() => this.props.backToForm2()}
-                                style={{
-                                alignItems: 'center',
-                                padding: 20,
-                                backgroundColor: '#fff',
-                                borderWidth: 1,
-                                borderColor: '#2962ff'
-                            }}>
-                                <Text
-                                    style={{
-                                    color: 'black'
-                                }}>Previous</Text>
-                            </TouchableOpacity>
-                        </Left>
-                        <Right
+                    <View
+                        style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        padding: 10,
+                        marginTop: 20
+                    }}>
+
+                        <TouchableOpacity
+                            onPress={() => this.props.backToForm2()}
                             style={{
-                            width: '100%'
+                            alignItems: 'center',
+                            padding: 20,
+                            width: '100%',
+                            backgroundColor: '#fff',
+                            borderWidth: 1,
+                            borderColor: '#2962ff',
+                            flex: 1
                         }}>
-                            <TouchableOpacity
-                            onPress={this.props.clearForm3}
+                            <Text
                                 style={{
-                                width: '100%',
-                                alignItems: 'center',
-                                padding: 20,
-                                backgroundColor: '#2962ff'
-                            }}>
-                                <Text
-                                    style={{
-                                    color: 'white'
-                                }}>Next</Text>
-                            </TouchableOpacity>
-                        </Right>
-                    </ListItem>
+                                color: 'black'
+                            }}>Previous</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={this.props.clearForm3}
+                            style={{
+                            width: '100%',
+                            alignItems: 'center',
+                            padding: 20,
+                            backgroundColor: '#2962ff',
+                            flex: 1
+                        }}>
+                            <Text
+                                style={{
+                                color: 'white'
+                            }}>Next</Text>
+                        </TouchableOpacity>
+                    </View>
+
                 </ScrollView>
             </KeyboardAvoidingView>
         )

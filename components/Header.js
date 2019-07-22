@@ -19,7 +19,8 @@ import {
     Right,
     Left,
     DatePicker,
-    Picker, Icon,
+    Picker,
+    Icon
 } from 'native-base';
 
 export default class Header extends Component {
@@ -44,52 +45,75 @@ export default class Header extends Component {
                     width: 0
                 },
                 zIndex: 1999,
-                height:65
+                height: 65
             }}>
 
-             <View style={{flex:1,flexDirection:'row'}}>
-                 <View style={{flex:.3,justifyContent:'center'}}>
-            
-                   
-                   
-                            <TouchableOpacity
-                            onPress={()=>this.props.navigation.goBack()}
-                                style={{
-                                width: '100%',
-                                padding: 0,
-                                alignContent:'center',
-                                alignItems:'center',
-                                justifyContent:'center',marginTop:0
-                            }}>
-                            <Icon style={{color:'white'}} color='white' name="arrow-back" />
-                            </TouchableOpacity>
+                <View
+                    style={{
+                    flex: 1,
+                    flexDirection: 'row'
+                }}>
+                    <View
+                        style={{
+                        flex: .3,
+                        justifyContent: 'center'
+                    }}>
 
-          
-                     
-                 </View>
-                 <View style={{flex:2.4,alignItems:'flex-start',justifyContent:'center'}}>
-                 <Text
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.goBack()}
+                            style={{
+                            width: '100%',
+                            padding: 0,
+                            alignContent: 'center',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginTop: 0
+                        }}>
+                            <Icon
                                 style={{
-                                color: 'white',
-                                fontSize: 20,
-                                fontWeight: 'bold',
-                                
-                            }}>{this.props.headerTitle}</Text>
-                 </View>
-                 <View style={{flex:.3}}>
-                 <TouchableOpacity
-                                style={{
-                                width: '100%',
-                                padding: 0,
-                                alignContent:'center',
-                                alignItems:'center',
-                                justifyContent:'center',marginTop:17
-                            }}>
-                            <Icon style={{color:'white'}} color='white' name="bars" type="FontAwesome" />
-                            </TouchableOpacity>
-                 </View>
+                                color: 'white'
+                            }}
+                                color='white'
+                                name="arrow-back"/>
+                        </TouchableOpacity>
 
-             </View>
+                    </View>
+                    <View
+                        style={{
+                        flex: 2.4,
+                        alignItems: 'flex-start',
+                        justifyContent: 'center'
+                    }}>
+                        <Text
+                            style={{
+                            color: 'white',
+                            fontSize: 15,
+                            fontWeight: 'bold'
+                        }}>{this.props.headerTitle}</Text>
+                    </View>
+                    <View style={{
+                        flex: .3
+                    }}>
+                        <TouchableOpacity
+                            style={{
+                            width: '100%',
+                            padding: 0,
+                            alignContent: 'center',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginTop: 17
+                        }}>
+                            <Icon
+                                style={{
+                                color: 'white'
+                            }}
+                                color='white'
+                                name="bars"
+                                type="FontAwesome"/>
+                        </TouchableOpacity>
+                    </View>
+
+                </View>
 
             </View>
         )
@@ -110,6 +134,7 @@ const styles = StyleSheet.create({
     mytitle: {
         padding: 2,
         fontWeight: 'bold',
-        marginBottom: 5
+        marginBottom: 5,
+        fontSize:10
     }
 });

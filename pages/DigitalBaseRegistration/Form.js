@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+const axios = require('axios');
+
 import {
     StyleSheet,
     View,
@@ -158,6 +160,50 @@ export default class Form extends Component {
         this.getCurrentYear()
     }
 
+    saveUserDetails = () => {
+        axios({
+            method: 'POST',
+            url: "",
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "http://127.0.0.1:8000"
+              },
+            data: {
+                "Name": this.state.membername,
+                "IDNo": this.state.idno,
+                "DateofBirth": "2019-07-19",
+                "Gender": this.state.gender,
+                "CountryCode": this.state.countrycode,
+                "PhoneNumber": this.state.phone,
+                "County": this.state.County,
+                "SubCounty": this.state.SubCounty,
+                "Ward": this.state.Ward,
+                "BaseName": this.state.base,
+                "YearsOfExperience": this.state.experience
+            }
+        }).then(() => {
+            alert("Awesome")
+        }).catch((error) => {
+            alert("Error occured")
+        })
+    }
+seeData=()=>{
+    axios({
+        method:'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "http://127.0.0.1:8000"
+          },
+          url: '/api/rider/',
+        
+    }).then((response)=>{
+        console.log(response)
+
+    }).catch(error=>{
+        console.log(error.message)
+        // alert(error)
+    })
+}
     getUserDetails = (membername, idno, phone, base, experience, County, SubCounty, Ward) => {
         this.setState({
             membername: membername,
@@ -323,16 +369,19 @@ export default class Form extends Component {
 
     submitForm = () => {
 
-        if(this.state.DailyContribFormShow == true ){
-            if (this.state.SaccoName == '' || this.state.DailyContribution == ''){
+        if (this.state.DailyContribFormShow == true) {
+            if (this.state.SaccoName == '' || this.state.DailyContribution == '') {
                 alert("Please make sure you have completed all the fields.")
             }
+
+            else(
+                this.seeData()
+            )
         }
-        // if (this.state.licenceNo == '') {
-        //     alert("Please make sure you have completed all the fields.")
-        // } else if (this.state.Insurance == 'Yes') {
-        //     alert("Has insurance")
-        // }
+        // if (this.state.licenceNo == '') {     alert("Please make sure you have
+        // completed all the fields.") } else if (this.state.Insurance == 'Yes') {
+        // alert("Has insurance") }
+        this.seeData()
     }
 
     backToForm1 = () => {
@@ -374,8 +423,7 @@ export default class Form extends Component {
                                     SaccoName={this.state.SaccoName}
                                     DailyContribution={this.state.DailyContribution}
                                     DailyContribFormShow={this.state.DailyContribFormShow}
-                                    submitForm={this.submitForm}
-                                    ></SaccoDetails>
+                                    submitForm={this.submitForm}></SaccoDetails>
                             : <InsuranceDetails
                                     InsuranceName={this.state.InsuranceName}
                                     licenceNo={this.state.licenceNo}
