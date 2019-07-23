@@ -35,7 +35,6 @@ export default class Insurance extends Component {
     render() {
         return (
             <KeyboardAvoidingView
-            
                 style={{
                 flex: 1
             }}
@@ -113,12 +112,18 @@ export default class Insurance extends Component {
                                         placeholder="Insurance company name"></TextInput>
                                     <Text style={styles.mytitle}>When is the Insurance Expirry date?</Text>
 
-                                    <Content>
+                                    <Content
+                                        style={{
+                                        backgroundColor: "#f2f2f2",
+                                        padding: 9,
+                                        borderRadius: 4,
+                                        marginBottom: 20,
+                                        width: '100%'
+                                    }}>
                                         <DatePicker
                                             defaultDate={new Date()}
                                             style={{
-                                            padding: 10,
-                                            marginBottom: 10
+                                            width: '100%'
                                         }}
                                             locale={"en"}
                                             timeZoneOffsetInMinutes={undefined}

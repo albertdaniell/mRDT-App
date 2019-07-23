@@ -85,11 +85,18 @@ export default class UserDemographics extends Component {
                             placeholder="34929199"></TextInput>
                         <Text style={styles.mytitle}>Please select to enter your date of birth</Text>
 
-                        <Content>
+                        <Content
+                            style={{
+                            backgroundColor: "#f2f2f2",
+                            padding: 10,
+                            borderRadius: 4,
+                            marginBottom: 20,
+                            width: '100%'
+                        }}>
                             <DatePicker
                                 defaultDate={new Date()}
                                 style={{
-                                padding: 10,
+                                padding: 9,
                                 marginBottom: 10
                             }}
                                 locale={"en"}
@@ -148,12 +155,12 @@ export default class UserDemographics extends Component {
                                     selected={this.props.maleSelected}/>
                             </Right>
                         </ListItem>
-                        <ListItem>
+                        <ListItem style={{marginBottom:10}}>
                             <Left>
                                 <TouchableOpacity
                                     style={{
                                     width: '100%',
-                                    padding: 5
+                                    padding: 5,
                                 }}
                                     onPress={() => this.props.changeGenderToFemale()}>
                                     <Text>Female</Text>
@@ -176,8 +183,14 @@ export default class UserDemographics extends Component {
                             mode="dropdown"
                             style={{
                             width: '100%',
-                            backgroundColor: 'white',
-                            marginBottom: 10
+                            backgroundColor: "#f2f2f2",
+                            paddingTop: 15,
+                            paddingBottom:15,
+                            borderRadius: 4,
+                            marginBottom: 15,
+                            
+                         
+                           
                         }}
                             selectedValue={this.props.countrycode}
                             onValueChange={this.props.onValueChange}>

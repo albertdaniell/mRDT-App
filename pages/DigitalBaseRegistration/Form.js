@@ -32,7 +32,7 @@ export default class Form extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            headerTitle: 'User Details Form',
+            headerTitle: 'Member Details Form',
             membername: '',
             idno: '',
             dob: '',
@@ -47,9 +47,9 @@ export default class Form extends Component {
             chosenDate: new Date(),
             chosenDate2: new Date(),
             selected: "254",
-            form1Cleared: true,
-            form2Cleared: true,
-            form3Cleared: true,
+            form1Cleared: false,
+            form2Cleared: false,
+            form3Cleared: false,
             ownerOfBoda: 'Yes',
             ownerOfBodaYesSelect: true,
             ownerOfBodaNoSelect: false,
@@ -68,15 +68,16 @@ export default class Form extends Component {
             bodaFrameNo: '',
             bodaMake: '',
             plateNo: '',
-            bodaOwnerName: '',
-            bodaOwnerID: '',
-            bodaOwnerPhone: '',
+            bodaOwnerName: null,
+            bodaOwnerID: null,
+            bodaOwnerPhone: null,
             County: '',
             SubCounty: '',
             Ward: '',
             SaccoName: '',
             DailyContribution: '',
-            showAllDataView: false
+            showAllDataView: false,
+            message:''
 
         }
 
@@ -150,6 +151,7 @@ export default class Form extends Component {
         this.submitForm = this
             .submitForm
             .bind(this)
+        this.showAllData=this.showAllData.bind(this)
 
     }
 
@@ -300,6 +302,11 @@ seeData=()=>{
     // setDate = (newDate) => {     this.setState({chosenDate: newDate}); }
 
     setDate2 = (newDate) => {
+        var myChosenDate=newDate.toString()
+        .substr(4, 12)
+
+        var myYear=myChosenDate.slice(0,-4)
+        //alert(myYear)
         this.setState({chosenDate2: newDate});
     }
 
@@ -363,8 +370,14 @@ seeData=()=>{
         // '' || this.state.bodaOwnerPhone == '') {         alert("Please fill in
         // Details for Boda boda owner")         return 0;     } } else {}
 
-        this.setState({headerTitle: 'Sacco Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: true, showAllDataView: true})
+        this.setState({headerTitle: 'Sacco Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: true, })
 
+    }
+
+    showAllData=()=>{
+        this.setState({
+            showAllDataView: !this.state.showAllDataView
+        })
     }
 
     submitForm = () => {
@@ -385,7 +398,7 @@ seeData=()=>{
     }
 
     backToForm1 = () => {
-        this.setState({headerTitle: 'User Details Form', form1Cleared: false, form2Cleared: true, form3Cleared: true})
+        this.setState({headerTitle: 'Member Details Form', form1Cleared: false, form2Cleared: true, form3Cleared: true})
 
     }
     backToForm2 = () => {
@@ -395,7 +408,7 @@ seeData=()=>{
 
     backToForm3 = () => {
 
-        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: false, showAllDataView: false})
+        this.setState({headerTitle: 'Insurance Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: false, showAllDataView: false})
 
     }
 
@@ -423,7 +436,9 @@ seeData=()=>{
                                     SaccoName={this.state.SaccoName}
                                     DailyContribution={this.state.DailyContribution}
                                     DailyContribFormShow={this.state.DailyContribFormShow}
-                                    submitForm={this.submitForm}></SaccoDetails>
+                                    submitForm={this.submitForm}
+                                    showAllData={this.showAllData}
+                                    ></SaccoDetails>
                             : <InsuranceDetails
                                     InsuranceName={this.state.InsuranceName}
                                     licenceNo={this.state.licenceNo}
@@ -509,6 +524,21 @@ seeData=()=>{
                                     }}>
                                         <Text>
                                             {this.state.idno}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>D.O.B</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.chosenDate.toString()
+                                            .substr(4, 12)}
                                         </Text>
                                     </Right>
                                 </ListItem>
@@ -609,6 +639,203 @@ seeData=()=>{
                                         </Text>
                                     </Right>
                                 </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>BodaBoda FrameNo</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.bodaFrameNo}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+                                <ListItem>
+                                    <Left>
+                                        <Text>BodaBoda Make</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.bodaMake}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>BodaBoda Reg plate no</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.plateNo}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>Ownership</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.ownerOfBoda}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+                                <ListItem>
+                                    <Left>
+                                        <Text>BodaBoda Owner name</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.bodaOwnerName}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>BodaBoda Owner ID</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.bodaOwnerID}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>BodaBoda Owner Phone</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.bodaOwnerPhone}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>Registered with Insurance</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.Insurance}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>Insurance Company Name</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.InsuranceName}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>Insurance Expires on</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.chosenDate2.toString()
+                                            .substr(4, 12)}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                 <ListItem>
+                                    <Left>
+                                        <Text>Licence Number</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.licenceNo}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>Belongs to any sacco</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.Sacco}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
+                                <ListItem>
+                                    <Left>
+                                        <Text>Sacco Name</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.SaccoName}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+                                <ListItem>
+                                    <Left>
+                                        <Text>Daily Contribution</Text>
+                                    </Left>
+                                    <Right
+                                        style={{
+                                        width: '100%'
+                                    }}>
+                                        <Text>
+                                            {this.state.DailyContribution}
+                                        </Text>
+                                    </Right>
+                                </ListItem>
+
                             </ScrollView>
                         </View>
                     : null

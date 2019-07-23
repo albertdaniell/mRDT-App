@@ -158,6 +158,25 @@ export default class UserDemographics extends Component {
 
                     </View>
 
+                    <View>
+
+                    <TouchableOpacity
+                            onPress={this.props.showAllData}
+                            style={{
+                            width: '100%',
+                            alignItems: 'center',
+                            padding: 20,
+                         
+                            flex: 1
+                        }}>
+                            <Text
+                                style={{
+                                color: '#000',
+                                textDecorationLine:'underline'
+                            }}>Preview Information</Text>
+                        </TouchableOpacity> 
+                    </View>
+
                 </ScrollView>
             </KeyboardAvoidingView>
 
