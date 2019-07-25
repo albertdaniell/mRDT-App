@@ -19,7 +19,5 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.1"
-  },
- 
-  "proxy": "http://192.168.0.104:8000/"
+  }
 }

@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import UserDemographics from './pages/DigitalBaseRegistration/UserDemographics'
 
 import Form from './pages/DigitalBaseRegistration/Form'
+import Members from './pages/Members'
 
 export default function App() {
     return (
@@ -15,18 +16,33 @@ export default function App() {
 }
 
 const AppNavigator = createStackNavigator({
-    Form:{
-        screen:Form,
-        navigationOptions:{
-            header:null
+    Members: {
+        screen: Members,
+        navigationOptions: {
+            header: null
         }
     },
+    Dashboard: {
+        screen: Dashboard,
+        navigationOptions: {
+            header: null
+        }
+    }, 
+    
+    
     Home: {
         screen: HomeScreen,
         navigationOptions: {
             header: null
         }
     },
+    Form:{
+        screen:Form,
+        navigationOptions:{
+            header:null
+        }
+    },
+  
     Login: {
         screen: Login,
         navigationOptions: {
@@ -41,13 +57,7 @@ const AppNavigator = createStackNavigator({
         }
     },
    
-    Dashboard: {
-        screen: Dashboard,
-        navigationOptions: {
-            header: null
-        }
-    },
-    
+   
    
    
 });
