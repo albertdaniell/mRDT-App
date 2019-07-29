@@ -8,26 +8,38 @@ import UserDemographics from './pages/DigitalBaseRegistration/UserDemographics'
 
 import Form from './pages/DigitalBaseRegistration/Form'
 import Members from './pages/Members'
+import { Root } from "native-base";
 
 export default function App() {
     return (
-        <AppContainer></AppContainer>
+
+         <Root>
+         <AppContainer></AppContainer>
+  </Root>
+        
     );
 }
 
 const AppNavigator = createStackNavigator({
-    Members: {
-        screen: Members,
-        navigationOptions: {
-            header: null
-        }
-    },
     Dashboard: {
         screen: Dashboard,
         navigationOptions: {
             header: null
         }
     }, 
+    Form:{
+        screen:Form,
+        navigationOptions:{
+            header:null
+        }
+    },
+    Members: {
+        screen: Members,
+        navigationOptions: {
+            header: null
+        }
+    },
+   
     
     
     Home: {
@@ -36,12 +48,7 @@ const AppNavigator = createStackNavigator({
             header: null
         }
     },
-    Form:{
-        screen:Form,
-        navigationOptions:{
-            header:null
-        }
-    },
+    
   
     Login: {
         screen: Login,

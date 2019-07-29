@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 const axios = require('axios');
+import {Font} from 'expo';
 
 import {
     StyleSheet,
@@ -17,7 +18,6 @@ import {
     DatePicker,
     Picker,
     Container,
-
     Title,
     Content,
     Form,
@@ -37,7 +37,8 @@ import {
     ListItem,
     Input,
     Grid,
-    Col
+    Col,
+    Toast
 } from 'native-base';
 import Header from '../components/Header'
 
@@ -47,8 +48,8 @@ export default class Dashboard extends Component {
         super(props)
         this.state = {
             headerTitle: 'Members',
-            membersData: []
-
+            membersData: [],
+            fontLoaded: false
         }
     }
 
@@ -61,10 +62,14 @@ export default class Dashboard extends Component {
         })
     }
 
-    componentWillMount() {
+    async componentDidMount() {
         setTimeout(() => {
             this.getMembers()
         }, 1000)
+
+        await Font.loadAsync({'Roboto_medium': require('../assets/Roboto-Medium.ttf')});
+
+        this.setState({fontLoaded: true});
     }
 
     render() {
@@ -77,17 +82,16 @@ export default class Dashboard extends Component {
                 }}>
                     <Header navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
 
-                    <View style={{
+                    <View
+                        style={{
+                        flex: 1,
                         height: '100%'
                     }}>
 
-                        <ScrollView
-                            state={{
-                            height: '100%'
-                        }}>
+                        <ScrollView>
                             <FlatList
                                 data={this.state.membersData}
-                                keyExtractor={item => item.Name}
+                                keyExtractor={item => item.IDNo}
                                 renderItem={({item}) => <ListItem avatar>
                                 <Left>
                                     <Icon
