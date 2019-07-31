@@ -29,7 +29,7 @@ export default class Dashboard extends Component {
                 <View style={{
                     flex: .13
                 }}>
-                    <Header navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
+                    <Header showBack={false} navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
                 </View>
 
                 <View

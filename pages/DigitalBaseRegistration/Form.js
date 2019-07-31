@@ -650,7 +650,7 @@ export default class Form extends Component {
                 flex: 1
             }}>
 
-                <Header navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
+                <Header showBack={true} navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
                 {this.state.form1Cleared
                     ? this.state.form2Cleared
                         ? this.state.form3Cleared

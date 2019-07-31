@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 const axios = require('axios');
-import {Font} from 'expo';
+import * as Font from 'expo-font'
 
 import {
     StyleSheet,
@@ -80,7 +80,7 @@ export default class Dashboard extends Component {
                 <View style={{
                     flex: 1
                 }}>
-                    <Header navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
+                    <Header showBack={true} navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
 
                     <View
                         style={{
@@ -103,7 +103,8 @@ export default class Dashboard extends Component {
                                 </Left>
                                 <Body>
                                     <TouchableOpacity
-                                        onPress={() => this.props.navigation.navigate('compDetails', {companyId: item.id})}>
+                                    onPress={()=> this.props.navigation.navigate('ViewMember',{memberId:item.IDNo})}
+                                        >
                                         <Text
                                             style={{
                                             marginBottom: 5

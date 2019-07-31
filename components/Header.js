@@ -37,13 +37,7 @@ export default class Header extends Component {
                 padding: 0,
                 backgroundColor: '#00766c',
                 marginTop: 23,
-                shadowOpacity: 0.55,
-                shadowRadius: 5,
-                shadowColor: 'black',
-                shadowOffset: {
-                    height: 2,
-                    width: 0
-                },
+              
                 zIndex: 1999,
                 height: 65
             }}>
@@ -59,7 +53,9 @@ export default class Header extends Component {
                         justifyContent: 'center'
                     }}>
 
-                        <TouchableOpacity
+           {
+               this.props.showBack?
+               <TouchableOpacity
                             onPress={() => this.props.navigation.goBack()}
                             style={{
                             width: '100%',
@@ -76,6 +72,8 @@ export default class Header extends Component {
                                 color='white'
                                 name="arrow-back"/>
                         </TouchableOpacity>
+               :null
+           }
 
                     </View>
                     <View
@@ -136,5 +134,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 5,
         fontSize:10
+    },
+
+    mystyle:{
+        shadowOpacity: 0.55,
+        shadowRadius: 5,
+        shadowColor: 'black',
+        shadowOffset: {
+            height: 2,
+            width: 0
+        },
     }
 });

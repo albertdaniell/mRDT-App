@@ -8,6 +8,7 @@ import UserDemographics from './pages/DigitalBaseRegistration/UserDemographics'
 
 import Form from './pages/DigitalBaseRegistration/Form'
 import Members from './pages/Members'
+import ViewMember from './pages/ViewMember'
 import { Root } from "native-base";
 
 export default function App() {
@@ -21,22 +22,31 @@ export default function App() {
 }
 
 const AppNavigator = createStackNavigator({
+    Members: {
+        screen: Members,
+        navigationOptions: {
+            header: null
+        }
+    },
+   
+
+    ViewMember:{
+        screen: ViewMember,
+        navigationOptions: {
+            header: null
+        }
+    },
     Dashboard: {
         screen: Dashboard,
         navigationOptions: {
             header: null
         }
     }, 
+
     Form:{
         screen:Form,
         navigationOptions:{
             header:null
-        }
-    },
-    Members: {
-        screen: Members,
-        navigationOptions: {
-            header: null
         }
     },
    
