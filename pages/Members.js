@@ -49,13 +49,14 @@ export default class Dashboard extends Component {
         this.state = {
             headerTitle: 'Members',
             membersData: [],
-            fontLoaded: false
+            fontLoaded: false,
+            isLoading:true
         }
     }
 
     getMembers = () => {
         axios({method: "GET", url: 'http://134.209.148.107/api/rider/'}).then((response) => {
-            this.setState({membersData: response.data})
+            this.setState({membersData: response.data,  isLoading:false})
 
             // console.log(JSON.stringify(this.state.membersData))
 
@@ -88,8 +89,11 @@ export default class Dashboard extends Component {
                         height: '100%'
                     }}>
 
-                        <ScrollView>
+                  
                             <FlatList
+                            refreshing={this.state.isLoading}
+                            onRefresh={()=>this.getMembers}
+                            
                                 data={this.state.membersData}
                                 keyExtractor={item => item.IDNo}
                                 renderItem={({item}) => <ListItem avatar>
@@ -122,7 +126,7 @@ export default class Dashboard extends Component {
                                     <Icon name="arrow-forward"/>
                                 </Right>
                             </ListItem>}/>
-                        </ScrollView>
+                      
                     </View>
 
                     {/* {this

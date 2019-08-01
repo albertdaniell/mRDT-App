@@ -197,10 +197,10 @@ export default class Form extends Component {
     // this.state.membername,             "IDNo": this.state.idno, "DateofBirth":
     // "2019-07-19",             "Gender": this.state.gender,  "CountryCode":
     // this.state.countrycode,             "PhoneNumber": this.state.phone,
-    //    "County": this.state.County, "SubCounty": this.state.SubCounty,
-    //  "Ward": this.state.Ward,       "BaseName": this.state.base,
-    // "YearsOfExperience": this.state.experience   }     }).then(() => {
-    // alert("Awesome")    }).catch((error) => {     alert("Error occured")     }) }
+    // "County": this.state.County, "SubCounty": this.state.SubCounty,  "Ward":
+    // this.state.Ward,       "BaseName": this.state.base, "YearsOfExperience":
+    // this.state.experience   }     }).then(() => { alert("Awesome")
+    // }).catch((error) => {     alert("Error occured")     }) }
     seeData = () => {
         axios({
             method: 'GET',
@@ -412,27 +412,21 @@ export default class Form extends Component {
     }
 
     submitForm = () => {
-        this.setState({
-            insuranceSuccessmsg: '',
-            vehicleSuccessmsg: '',
-            ownerSuccessmsg: '',
-            saccoSuccessmsg: ''   ,
-            userSuccessmsg:''
-        })
+        this.setState({insuranceSuccessmsg: '', vehicleSuccessmsg: '', ownerSuccessmsg: '', saccoSuccessmsg: '', userSuccessmsg: ''})
 
-     setTimeout(()=>{
-        if (this.state.DailyContribFormShow == true) {
-            if (this.state.SaccoName == null || this.state.DailyContribution == null) {
-                Toast.show({text: 'Please make sure you have completed all the fields', buttonText: 'Okay', duration: 4000})
+        setTimeout(() => {
+            if (this.state.DailyContribFormShow == true) {
+                if (this.state.SaccoName == null || this.state.DailyContribution == null) {
+                    Toast.show({text: 'Please make sure you have completed all the fields', buttonText: 'Okay', duration: 4000})
 
-                return 0;
-            } 
-        }
-        // if (this.state.licenceNo == '') {     alert("Please make sure you have
-        // completed all the fields.") } else if (this.state.Insurance == 'Yes') {
-        // alert("Has insurance") }
-        this.saveUserDetails()
-     },1000)
+                    return 0;
+                }
+            }
+            // if (this.state.licenceNo == '') {     alert("Please make sure you have
+            // completed all the fields.") } else if (this.state.Insurance == 'Yes') {
+            // alert("Has insurance") }
+            this.saveUserDetails()
+        }, 1000)
     }
 
     backToForm1 = () => {
@@ -572,7 +566,6 @@ export default class Form extends Component {
                 this.saveSaccoDetails()
             }, 3000);
 
-           
         }).catch((error) => {
             Toast.show({text: 'An error occured while saving insurance details', buttonText: 'Okay', duration: 4000})
             this.setState({insuranceSuccessmsg: "Error occured while saving insurance details"})
@@ -594,7 +587,6 @@ export default class Form extends Component {
             }
         }).then(() => {
             Toast.show({text: 'Success saving insurance details', buttonText: 'Okay', duration: 4000})
-          
 
         }).catch((error) => {
             this.setState({insuranceSuccessmsg: "Error occured while saving insurance details"})
@@ -650,33 +642,48 @@ export default class Form extends Component {
                 flex: 1
             }}>
 
-                <Header showBack={true} navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
+                <Header
+                    showBack={true}
+                    navigation={this.props.navigation}
+                    headerTitle={this.state.headerTitle}></Header>
                 {this.state.form1Cleared
                     ? this.state.form2Cleared
                         ? this.state.form3Cleared
-                            ? <View style={{flex:1}}>
-                            <SaccoDetails
-                                    SaccoNoSelect={this.state.SaccoNoSelect}
-                                    SaccoYesSelect={this.state.SaccoYesSelect}
-                                    Sacco={this.state.Sacco}
-                                    changeSaccoNo={this.changeSaccoNo}
-                                    changeSaccoYes={this.changeSaccoYes}
-                                    backToForm3={this.backToForm3}
-                                    getSaccoDetails={this.getSaccoDetails}
-                                    SaccoName={this.state.SaccoName}
-                                    DailyContribution={this.state.DailyContribution}
-                                    DailyContribFormShow={this.state.DailyContribFormShow}
-                                    submitForm={this.submitForm}
-                                    showAllData={this.showAllData}
-                                    saveUserDetails={this.saveUserDetails}></SaccoDetails>
-                                    <View style={{flex:1,padding:10}}>
-                                        <Text>{this.state.userSuccessmsg} </Text>
-                                        <Text>{this.state.vehicleSuccessmsg} </Text>
-                                        <Text>{this.state.ownerSuccessmsg} </Text>
-                                        <Text>{this.state.insuranceSuccessmsg} </Text>
-                                        <Text>{this.state.saccoSuccessmsg} </Text>
+                            ? <View
+                                    style={{
+                                    flex: 1
+                                }}>
+                                    <SaccoDetails
+                                        SaccoNoSelect={this.state.SaccoNoSelect}
+                                        SaccoYesSelect={this.state.SaccoYesSelect}
+                                        Sacco={this.state.Sacco}
+                                        changeSaccoNo={this.changeSaccoNo}
+                                        changeSaccoYes={this.changeSaccoYes}
+                                        backToForm3={this.backToForm3}
+                                        getSaccoDetails={this.getSaccoDetails}
+                                        SaccoName={this.state.SaccoName}
+                                        DailyContribution={this.state.DailyContribution}
+                                        DailyContribFormShow={this.state.DailyContribFormShow}
+                                        submitForm={this.submitForm}
+                                        showAllData={this.showAllData}
+                                        saveUserDetails={this.saveUserDetails}></SaccoDetails>
+                                    <View
+                                        style={{
+                                        flex: 1,
+                                        padding: 10
+                                    }}>
+                                        <Text>{this.state.userSuccessmsg}
+                                        </Text>
+                                        <Text>{this.state.vehicleSuccessmsg}
+                                        </Text>
+                                        <Text>{this.state.ownerSuccessmsg}
+                                        </Text>
+                                        <Text>{this.state.insuranceSuccessmsg}
+                                        </Text>
+                                        <Text>{this.state.saccoSuccessmsg}
+                                        </Text>
                                     </View>
-                            </View>
+                                </View>
                             : <InsuranceDetails
                                     InsuranceName={this.state.InsuranceName}
                                     licenceNo={this.state.licenceNo}

@@ -10,7 +10,7 @@ import {
     TextInput,
     KeyboardAvoidingView,
     ScrollView,
-    FlatList
+    FlatList,ActivityIndicator
 } from 'react-native'
 
 import {
@@ -46,6 +46,7 @@ import DriverDetails from './Tabs/DriverDetails'
 import Vehicle from './Tabs/Vehicle'
 import Insurance from './Tabs/Insurance'
 import Sacco from './Tabs/Sacco'
+import Owner from './Tabs/Owner'
 
 
 export default class ViewMember extends Component {
@@ -59,7 +60,9 @@ export default class ViewMember extends Component {
             loading1: true,
             vehicleDetails:[],
             insuranceDetails:[],
-            saccoDetails:[]
+            saccoDetails:[],
+            ownerDetails:[],
+            ownerExists:false
 
         }
     }
@@ -107,6 +110,26 @@ export default class ViewMember extends Component {
         //alert(this.state.driverDetails.Name)
 
     }).catch(() => {})
+setTimeout(() => {
+    
+if(this.state.frameNumber === ''){
+    //alert(0)
+this.setState({
+    ownerExists:false
+})
+}else{
+    setTimeout(() => {
+        axios({method: 'GET', url: `http://134.209.148.107/api/owner/${this.state.frameNumber}/`}).then((response) => {
+            //alert(response.data.Name)
+            this.setState({ownerDetails: response.data,loading1: false,ownerExists:true})
+    
+            //alert(this.state.driverDetails.Name)
+    
+        }).catch(() => {})
+    }, 500)
+}
+}, 1000);
+    //alert(0)
         }, 1000)
 
     }
@@ -132,6 +155,7 @@ export default class ViewMember extends Component {
                             style={{
                             padding: 10
                         }}
+                        textStyle={{color:'#ccc'}}
                             activeTabStyle={{
                             backgroundColor: '#00766c'
                         }}
@@ -140,15 +164,16 @@ export default class ViewMember extends Component {
                             backgroundColor: '#00766c'
                         }}>
                             {this.state.loading1
-                                ? <Text>Please wait..</Text>
+                                ?  <ActivityIndicator size="large" color="#0000ff" />
                                 : <DriverDetails driverDetails={this.state.driverDetails}></DriverDetails>
 }
                         </Tab>
                         <Tab
                             heading="Vehicle"
                             style={{
-                            padding: 10
+                           
                         }}
+                        textStyle={{color:'#ccc'}}
 
                         activeTextStyle={{ color:'white'}}
                             activeTabStyle={{
@@ -159,7 +184,7 @@ export default class ViewMember extends Component {
                             backgroundColor: '#00766c'
                         }}>
                         {this.state.loading1
-                                ? <Text>Please wait..</Text>
+                                ? <ActivityIndicator size="large" color="#0000ff" />
                                 : <Vehicle vehicleDetails={this.state.vehicleDetails}></Vehicle>
 }
                         </Tab>
@@ -168,21 +193,8 @@ export default class ViewMember extends Component {
                             style={{
                             padding: 10
                         }}
-                            activeTabStyle={{
-                            backgroundColor: '#00766c'
-                        }}
-                        activeTextStyle={{ color:'white'}}
-                            tabStyle={{
-                            backgroundColor: '#00766c'
-                        }}>
-                            <Text>hahaha</Text>
-                        </Tab>
 
-                        <Tab
-                            heading="Insurance"
-                            style={{
-                            padding: 10
-                        }}
+                        textStyle={{color:'#ccc'}}
                             activeTabStyle={{
                             backgroundColor: '#00766c'
                         }}
@@ -191,7 +203,31 @@ export default class ViewMember extends Component {
                             backgroundColor: '#00766c'
                         }}>
                         {this.state.loading1
-                                ? <Text>Please wait..</Text>
+                                ? <ActivityIndicator size="large" color="#0000ff" />
+                                : 
+                                    this.state.ownerExists?
+                                    <Owner ownerDetails={this.state.ownerDetails}></Owner>
+                                    :<Text>This boda boda/ tuk tuk belongs to this member</Text>
+                                
+}
+                        </Tab>
+
+                        <Tab
+                            heading="Insurance"
+                            style={{
+                            padding: 10
+                        }}
+
+                        textStyle={{color:'#ccc'}}
+                            activeTabStyle={{
+                            backgroundColor: '#00766c'
+                        }}
+                        activeTextStyle={{ color:'white'}}
+                            tabStyle={{
+                            backgroundColor: '#00766c'
+                        }}>
+                        {this.state.loading1
+                                ?  <ActivityIndicator size="large" color="#0000ff" />
                                 : <Insurance insuranceDetails={this.state.insuranceDetails}></Insurance>
 }
                         </Tab>
@@ -201,6 +237,7 @@ export default class ViewMember extends Component {
                             style={{
                             padding: 10
                         }}
+                        textStyle={{color:'#ccc'}}
                             activeTabStyle={{
                             backgroundColor: '#00766c'
                         }}
@@ -209,7 +246,7 @@ export default class ViewMember extends Component {
                             backgroundColor: '#00766c'
                         }}>
                         {this.state.loading1
-                                ? <Text>Please wait..</Text>
+                                ? <ActivityIndicator size="large" color="#0000ff" />
                                 : <Sacco saccoDetails={this.state.saccoDetails}></Sacco>
 }
                         </Tab>

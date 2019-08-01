@@ -43,7 +43,7 @@ import {
 } from 'native-base';
 import Header from '../../components/Header'
 
-export default class Sacco extends Component {
+export default class Owner extends Component {
 
     render() {
         return (
@@ -54,28 +54,28 @@ export default class Sacco extends Component {
                 <List>
                     <ListItem>
                         <Left>
-                            <Text>Sacco Membership</Text>
+                            <Text>Name of owner</Text>
                         </Left>
                         <Right>
-                            <Text>{this.props.saccoDetails.Membership}</Text>
+                            <Text>{this.props.ownerDetails.Name}</Text>
                         </Right>
                     </ListItem>
 
                     <ListItem>
                         <Left>
-                            <Text>Sacco Name</Text>
+                            <Text>ID Number</Text>
                         </Left>
                         <Right>
-                            <Text>{this.props.saccoDetails.SaccoName}</Text>
+                            <Text>{this.props.ownerDetails.IDNo}</Text>
                         </Right>
                     </ListItem>
 
                     <ListItem>
                         <Left>
-                            <Text>Daily Contribution</Text>
+                            <Text>Phone number</Text>
                         </Left>
                         <Right>
-                            <Text>{this.props.saccoDetails.DailyContribution}</Text>
+                            <Text>{this.props.ownerDetails.PhoneNumber}</Text>
                         </Right>
                     </ListItem>
 
