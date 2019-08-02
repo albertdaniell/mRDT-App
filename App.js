@@ -10,6 +10,9 @@ import Form from './pages/DigitalBaseRegistration/Form'
 import Members from './pages/Members'
 import ViewMember from './pages/ViewMember'
 import { Root } from "native-base";
+import MakePayment from './pages/MakePayment'
+import Transactions from './pages/Transactions'
+
 
 export default function App() {
     return (
@@ -29,6 +32,23 @@ const AppNavigator = createStackNavigator({
             header: null
         }
     }, 
+
+    Transactions:{
+        screen: Transactions,
+        navigationOptions: {
+            header: null
+        }
+    },
+
+
+    MakePayment:{
+        screen: MakePayment,
+        navigationOptions: {
+            header: null
+        }
+    },
+
+   
     Members: {
         screen: Members,
         navigationOptions: {

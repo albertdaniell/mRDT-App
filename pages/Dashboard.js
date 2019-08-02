@@ -100,6 +100,8 @@ export default class Dashboard extends Component {
                             flexDirection: 'row'
                         }}>
                             <TouchableOpacity
+                            onPress={()=>this.props.navigation.navigate('MakePayment')}
+
                                 style={{
                                 flex: 1,
                                 backgroundColor: '#4caf50',
@@ -219,6 +221,8 @@ export default class Dashboard extends Component {
                             flexDirection: 'row'
                         }}>
                             <TouchableOpacity
+                            onPress={()=>this.props.navigation.navigate('Transactions')}
+
                                 style={{
                                 flex: 1,
                                 marginRight: 5,
