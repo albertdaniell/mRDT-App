@@ -6,19 +6,78 @@ import {
     View,
     Image,
     ImageBackground,
-    TouchableOpacity
+    TouchableOpacity, ActivityIndicator,
 } from 'react-native';
 import {white} from 'ansi-colors';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import Header from '../components/Header'
+import {AsyncStorage} from 'react-native';
+import { NavigationActions } from 'react-navigation';
+const axios = require('axios');
+import * as Font from 'expo-font'
+
 
 export default class Home extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {showbtn:false,leaderData:[],leaderName:[],email:''}
 
     }
+
+    getData=()=>{
+        axios({
+            method:'GET',
+            url:`http://134.209.148.107/api/leaders/${this.state.email}/`
+        }).then((res)=>{
+            this.setState({
+                leaderData:res.data
+            })
+
+            setTimeout(() => {
+                 this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Dashboard' ,params:{leaderName:this.state.leaderData.Name,leaderData:this.state.leaderData}})], 0)
+             
+             }, 500);
+        })
+    }
+
+    retrieveLoginSession = async () => {
+        try {
+          const value = await AsyncStorage.getItem('loginEmail');
+          if (value !== null) {
+            //alert("data  "+  JSON.parse(value.Name))
+            console.log(value)
+            
+
+            this.setState({
+                email:value
+            })
+            setTimeout(() => {
+                this.getData()
+            }, 400);
+
+         
+          }
+
+          else{
+            //   alert("no data")
+            this.setState({
+                showbtn:true
+            })
+          }
+        } catch (error) {
+
+            alert("Error retrieving data" +error)
+          // Error retrieving data
+        }
+      };
+
+      componentDidMount(){
+          setTimeout(() => {
+            this.retrieveLoginSession()
+          }, 1000);
+      }
+      
     render() {
         return (
             <View style={styles.container}>
@@ -60,6 +119,8 @@ export default class Home extends Component {
                                 marginBottom: 20,
                                 paddingLeft: 10
                             }}>to M-BodaBoda.</Text>
+                        {
+                            this.state.showbtn?
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Login')}
                                 style={{
@@ -75,7 +136,12 @@ export default class Home extends Component {
                                     letterSpacing: 4,
                                     color: 'white'
                                 }}>GET STARTED</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity>:     
+                            <View style={{alignItems:'center',alignContent:'center',justifyContent:'center',padding:10}}>
+                            <ActivityIndicator size="small" color="orange" />
+                            </View>
+
+                        }
                         </View>
 
                     </View>

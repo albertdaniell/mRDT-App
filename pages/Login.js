@@ -13,6 +13,7 @@ import {white} from 'ansi-colors';
 const axios = require('axios');
 import * as Font from 'expo-font'
 import { NavigationActions } from 'react-navigation';
+import {AsyncStorage} from 'react-native';
 
 export default class Login extends Component {
 
@@ -23,6 +24,49 @@ export default class Login extends Component {
     
     }
     }
+
+    storeLoginSession = async () => {
+        try {
+          await AsyncStorage.setItem('loginEmail', this.state.leaderData.Email);
+         // alert("Nice saving data")
+        } catch (error) {
+        alert("Error saving data")
+        }
+      }
+
+      removeLoginSession = async () => {
+        try {
+          await AsyncStorage.removeItem('loginEmail');
+         // alert("Nice removing data")
+        } catch (error) {
+        alert("Error saving data")
+        }
+      }
+
+      retrieveLoginSession = async () => {
+        try {
+          const value = await AsyncStorage.getItem('isLoggedIn');
+          if (value !== null) {
+            alert("data is "+value)
+            console.log(value);
+          }
+
+          else{
+              alert("no data")
+          }
+        } catch (error) {
+
+            alert("Error retrieving data" +error)
+          // Error retrieving data
+        }
+      };
+      
+
+      componentDidMount(){
+          //this.retrieveData()
+          //this.storeData()
+          this.removeLoginSession()
+      }
 
     showPass=()=>{
         this.setState({
@@ -49,13 +93,14 @@ this.setState({
 
 if(this.state.email === res.data.Email && this.state.password === res.data.password ){
 //alert("Niccee")
-   this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Dashboard' ,params:{leaderName:this.state.leaderData.Name,leaderData:this.state.leaderData}})], 0)
+this.storeLoginSession()
 
 setTimeout(() => {
    // this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Dashboard' })], 0)
     //this.props.navigation.navigate('Dashboard',{leaderName:this.state.leaderData.Name})
+    this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Dashboard' ,params:{leaderName:this.state.leaderData.Name,leaderData:this.state.leaderData}})], 0)
 
-}, 200);
+}, 1000);
 }
 else{
     alert("Email and password do not match!")
