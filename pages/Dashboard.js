@@ -17,7 +17,22 @@ export default class Dashboard extends Component {
         super(props)
         this.state={
             headerTitle: 'M-BodaBoda App',
+            leaderName:'',
+            leaderData:[]
         }
+    }
+
+    componentDidMount(){
+        const leaderName = this.props.navigation.getParam('leaderName', 'NO leader name');
+
+        const leaderData = this.props.navigation.getParam('leaderData', 'NO leader data');
+
+        //alert(leaderName)
+
+        this.setState({
+            leaderName:leaderName,
+            leaderData:leaderData
+        })
     }
 
     render() {
@@ -67,7 +82,7 @@ export default class Dashboard extends Component {
                                     fontWeight:'bold',
                                     color:'#efefef'
                                 }}>
-                                    Dennis Obuya
+                                    {this.state.leaderData.Name}
                                 </Text>
                             </View>
                             <View

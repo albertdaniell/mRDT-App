@@ -10,12 +10,65 @@ import {
     TextInput
 } from 'react-native';
 import {white} from 'ansi-colors';
+const axios = require('axios');
+import * as Font from 'expo-font'
+import { NavigationActions } from 'react-navigation';
 
 export default class Login extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {email:'albertagoya@gmail.com',password:null,leaderData:[],
+        secureTextEntry:true
+    
+    }
+    }
+
+    showPass=()=>{
+        this.setState({
+            secureTextEntry:!this.state.secureTextEntry
+        })
+    }
+
+    loginFn=()=>{
+4
+        if(this.state.email === null || this.state.password === null){
+            alert("Fields cannot be empty!")
+            return 0;
+        }
+    setTimeout(() => {
+        axios({
+            method:'GET',
+            url:`http://134.209.148.107/api/leaders/${this.state.email}/`
+        }).then(res=>{
+this.setState({
+    leaderData:res.data
+})
+
+//alert(res.data.password)
+
+if(this.state.email === res.data.Email && this.state.password === res.data.password ){
+//alert("Niccee")
+   this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Dashboard' ,params:{leaderName:this.state.leaderData.Name,leaderData:this.state.leaderData}})], 0)
+
+setTimeout(() => {
+   // this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Dashboard' })], 0)
+    //this.props.navigation.navigate('Dashboard',{leaderName:this.state.leaderData.Name})
+
+}, 200);
+}
+else{
+    alert("Email and password do not match!")
+    this.setState({
+        password:null
+    })
+
+    this.set
+}
+        }).catch((e)=>{
+        alert("User does not exist")
+        })
+    }, 2000);
     }
     render() {
         return (
@@ -58,6 +111,8 @@ export default class Login extends Component {
                                     textAlign: 'center'
                                 }}>Login</Text>
                                 <TextInput
+                                onChangeText={(email)=>this.setState({email})}
+                                value={this.state.email}
                                     keyboardType='email-address'
                                     placeholder="Enter your email"
                                     placeholderTextColor='#efefef'
@@ -71,7 +126,10 @@ export default class Login extends Component {
                                     backgroundColor: 'rgba(255,255,255,.5)'
                                 }}></TextInput>
                                 <TextInput
-                                    secureTextEntry={true}
+                                onChangeText={(password)=>this.setState({password})}
+                                value={this.state.password}
+
+                                    secureTextEntry={this.state.secureTextEntry}
                                     placeholder='Password'
                                     placeholderTextColor='#efefef'
                                     style={{
@@ -84,7 +142,10 @@ export default class Login extends Component {
                                     backgroundColor: 'rgba(255,255,255,.5)'
                                 }}></TextInput>
 
-                                <TouchableOpacity
+                              {
+                                  this.state.secureTextEntry?
+                                  <TouchableOpacity
+                                onPress={()=>this.showPass()}
                                     style={{
                                     alignItems: 'center',
                                     padding: 10
@@ -94,9 +155,22 @@ export default class Login extends Component {
                                         color: 'orange'
                                     }}>Show password</Text>
                                 </TouchableOpacity>
+                                  :  <TouchableOpacity
+                                onPress={()=>this.showPass()}
+                                    style={{
+                                    alignItems: 'center',
+                                    padding: 10
+                                }}>
+                                    <Text
+                                        style={{
+                                        color: 'orange'
+                                    }}>Hide password</Text>
+                                </TouchableOpacity>
+                              }
                             </View>
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('Dashboard')}
+                            onPress={()=>this.loginFn()}
+                                
                                 style={{
                                 backgroundColor: 'rgba(15,157,88,.8)',
                                 padding: 20,

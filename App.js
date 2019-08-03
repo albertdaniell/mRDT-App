@@ -26,6 +26,13 @@ export default function App() {
 
 const AppNavigator = createStackNavigator({
 
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            header: null
+        }
+    },
+
     Dashboard: {
         screen: Dashboard,
         navigationOptions: {
@@ -82,12 +89,7 @@ const AppNavigator = createStackNavigator({
     },
     
   
-    Login: {
-        screen: Login,
-        navigationOptions: {
-            header: null
-        }
-    },
+   
   
     UserDemographics:{
         screen:UserDemographics,

@@ -111,7 +111,7 @@ export default class Transactions extends Component {
                                     style={{
                                     fontSize: 12
                                 }}
-                                    selectionColor='orange'>Amount of {item.amount}</Text>
+                                    selectionColor='orange'>Amount of {item.amount} </Text>
                             </TouchableOpacity>
                         </Body>
                         <Right>
