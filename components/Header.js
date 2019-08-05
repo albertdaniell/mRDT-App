@@ -85,7 +85,7 @@ export default class Header extends Component {
                         <Text
                             style={{
                             color: 'white',
-                            fontSize: 15,
+                            fontSize: 16,
                             fontWeight: 'bold'
                         }}>{this.props.headerTitle}</Text>
                     </View>

@@ -5,14 +5,13 @@ import HomeScreen from './pages/Home'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import UserDemographics from './pages/DigitalBaseRegistration/UserDemographics'
-
 import Form from './pages/DigitalBaseRegistration/Form'
 import Members from './pages/Members'
 import ViewMember from './pages/ViewMember'
 import { Root } from "native-base";
 import MakePayment from './pages/MakePayment'
 import Transactions from './pages/Transactions'
-
+import Account from './pages/Account'
 
 export default function App() {
     return (
@@ -33,7 +32,13 @@ const AppNavigator = createStackNavigator({
             header: null
         }
     },
-    
+          
+    Account: {
+        screen: Account,
+        navigationOptions: {
+            header: null
+        }
+    },
 
     Login: {
         screen: Login,

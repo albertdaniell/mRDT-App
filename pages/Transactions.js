@@ -52,14 +52,14 @@ export default class Transactions extends Component {
             membersData: [],
             fontLoaded: false,
             isLoading: true,
-            transactionData:[
-                
-            ]
+            transactionData:[],
+            leaderData:[],
+            leaderName:[]
         }
     }
 
     getAllTranactions = () => {
-        axios({method: "GET", url: 'http://134.209.148.107/api/payments/254791836987/'}).then((response) => {
+        axios({method: "GET", url: `http://134.209.148.107/api/payments/${this.state.leaderData.phone_number}/`}).then((response) => {
              this.setState({transactionData: response.data,isLoading:false})
 //alert(response.data.amount)
             //alert("yeyeyeye")
@@ -67,9 +67,25 @@ export default class Transactions extends Component {
         }).catch(() => {})
     }
 
-    componentDidMount() {
+    // componentDidMount() {
+        
+    // }
+
+    componentDidMount(){
+        const leaderName = this.props.navigation.getParam('leaderName', 'NO leader name');
+
+        const leaderData = this.props.navigation.getParam('leaderData', 'NO leader data');
+       setTimeout(() => {
         this.getAllTranactions()
+       }, 400);
+        //alert(leaderName)
+
+        this.setState({
+            leaderName:leaderName,
+            leaderData:leaderData
+        })
     }
+
 
     render() {
         return (

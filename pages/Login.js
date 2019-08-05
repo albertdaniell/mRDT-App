@@ -19,7 +19,7 @@ export default class Login extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {email:'albertagoya@gmail.com',password:null,leaderData:[],
+        this.state = {email:null,password:null,leaderData:[],
         secureTextEntry:true
     
     }
@@ -34,10 +34,20 @@ export default class Login extends Component {
         }
       }
 
+      storeLoginSession2 = async () => {
+        try {
+          await AsyncStorage.setItem('loginData', JSON.stringify(this.state.leaderData));
+          //alert("Nice saving data")
+        } catch (error) {
+        alert("Error saving data")
+        }
+      }
+
+
       removeLoginSession = async () => {
         try {
           await AsyncStorage.removeItem('loginEmail');
-         // alert("Nice removing data")
+          alert("Nice removing data")
         } catch (error) {
         alert("Error saving data")
         }
@@ -65,7 +75,7 @@ export default class Login extends Component {
       componentDidMount(){
           //this.retrieveData()
           //this.storeData()
-          this.removeLoginSession()
+          //this.removeLoginSession()
       }
 
     showPass=()=>{
@@ -93,7 +103,9 @@ this.setState({
 
 if(this.state.email === res.data.Email && this.state.password === res.data.password ){
 //alert("Niccee")
-this.storeLoginSession()
+this.storeLoginSession2()
+
+
 
 setTimeout(() => {
    // this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Dashboard' })], 0)

@@ -164,7 +164,7 @@ this.setState({
                             backgroundColor: '#00766c'
                         }}>
                             {this.state.loading1
-                                ?  <ActivityIndicator size="large" color="#0000ff" />
+                                ?  <ActivityIndicator size="small" color="orange" />
                                 : <DriverDetails driverDetails={this.state.driverDetails}></DriverDetails>
 }
                         </Tab>
@@ -184,7 +184,7 @@ this.setState({
                             backgroundColor: '#00766c'
                         }}>
                         {this.state.loading1
-                                ? <ActivityIndicator size="large" color="#0000ff" />
+                                ? <ActivityIndicator size="small" color="orange" />
                                 : <Vehicle vehicleDetails={this.state.vehicleDetails}></Vehicle>
 }
                         </Tab>
@@ -203,7 +203,7 @@ this.setState({
                             backgroundColor: '#00766c'
                         }}>
                         {this.state.loading1
-                                ? <ActivityIndicator size="large" color="#0000ff" />
+                                ? <ActivityIndicator size="small" color="orange" />
                                 : 
                                     this.state.ownerExists?
                                     <Owner ownerDetails={this.state.ownerDetails}></Owner>
@@ -227,7 +227,7 @@ this.setState({
                             backgroundColor: '#00766c'
                         }}>
                         {this.state.loading1
-                                ?  <ActivityIndicator size="large" color="#0000ff" />
+                                ?  <ActivityIndicator size="small" color="orange" />
                                 : <Insurance insuranceDetails={this.state.insuranceDetails}></Insurance>
 }
                         </Tab>
@@ -246,7 +246,7 @@ this.setState({
                             backgroundColor: '#00766c'
                         }}>
                         {this.state.loading1
-                                ? <ActivityIndicator size="large" color="#0000ff" />
+                                ? <ActivityIndicator size="small" color="orange" />
                                 : <Sacco saccoDetails={this.state.saccoDetails}></Sacco>
 }
                         </Tab>

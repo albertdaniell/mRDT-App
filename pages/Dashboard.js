@@ -10,6 +10,7 @@ import {
     TextInput
 } from 'react-native';
 import Header from '../components/Header'
+import Anime from './anime/anime1'
 
 export default class Dashboard extends Component {
 
@@ -47,7 +48,8 @@ export default class Dashboard extends Component {
                     <Header showBack={false} navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
                 </View>
 
-                <View
+            
+                <Anime
                     style={{
                     flex: .87,
                     padding: 3
@@ -236,7 +238,7 @@ export default class Dashboard extends Component {
                             flexDirection: 'row'
                         }}>
                             <TouchableOpacity
-                            onPress={()=>this.props.navigation.navigate('Transactions')}
+                            onPress={()=>this.props.navigation.navigate('Transactions',{leaderData:this.state.leaderData,leaderName:this.state.leaderName})}
 
                                 style={{
                                 flex: 1,
@@ -274,6 +276,7 @@ export default class Dashboard extends Component {
                             </TouchableOpacity>
 
                             <TouchableOpacity
+                            onPress={()=>this.props.navigation.navigate('Account',{leaderData:this.state.leaderData})}
                                 style={{
                                 flex: 1,
                                 marginRight: 5,
@@ -311,7 +314,8 @@ export default class Dashboard extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                </View>
+               
+                </Anime>
 
             </View>
         )

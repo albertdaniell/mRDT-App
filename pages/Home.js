@@ -43,18 +43,23 @@ export default class Home extends Component {
 
     retrieveLoginSession = async () => {
         try {
-          const value = await AsyncStorage.getItem('loginEmail');
+          const value1 = await AsyncStorage.getItem('loginData');
+          let value = JSON.parse(value1);
           if (value !== null) {
-            //alert("data  "+  JSON.parse(value.Name))
+            //alert("data  "+ value.Name)
             console.log(value)
             
 
             this.setState({
-                email:value
+                leaderData:value
             })
+            // setTimeout(() => {
+            //     this.getData()
+            // }, 400);
             setTimeout(() => {
-                this.getData()
-            }, 400);
+                this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Dashboard' ,params:{leaderName:this.state.leaderData.Name,leaderData:this.state.leaderData}})], 0)
+            
+            }, 500);
 
          
           }
