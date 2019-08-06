@@ -41,6 +41,8 @@ import {
     Toast
 } from 'native-base';
 import Header from '../components/Header'
+import {AsyncStorage} from 'react-native';
+
 
 export default class Dashboard extends Component {
 
@@ -57,16 +59,71 @@ export default class Dashboard extends Component {
     getMembers = () => {
         axios({method: "GET", url: 'http://134.209.148.107/api/rider/'}).then((response) => {
             this.setState({membersData: response.data,  isLoading:false})
-
+setTimeout(() => {
+    this.storeMembersData()
+}, 1000);
             // console.log(JSON.stringify(this.state.membersData))
 
         })
     }
 
+
+    getOfllineMembers = async () =>{
+        try {
+            const value1 = await AsyncStorage.getItem('offlineMembersData');
+            let value = JSON.parse(value1);
+            if (value !== null) {
+                this.setState({
+                    membersData:value,
+                    isLoading:false
+                })
+            }
+
+        }catch(error){
+
+        }
+    }
+    storeMembersData = async () => {
+        try {
+            const value1 = await AsyncStorage.getItem('offlineMembersData');
+            let value = JSON.parse(value1);
+            if (value !== null) {
+               
+try{
+    await AsyncStorage.setItem('offlineMembersData',JSON.stringify(this.state.membersData))
+    alert("Data synced..")
+}catch(error){
+    alert(error+"Error merging")
+
+}
+            }
+
+            else{
+                try{
+                    await AsyncStorage.setItem('offlineMembersData', JSON.stringify(this.state.membersData));
+                    alert("offlineMembersData has been saved")
+
+
+                }catch(error){
+                    alert("error saving offline data")
+
+                }
+
+            }
+        //  await AsyncStorage.getItem('offlineMembersData', JSON.stringify(this.state.membersData));
+
+
+         // alert("Nice saving data")
+        } catch (error) {
+    alert("No data found")
+        }
+      }
     async componentDidMount() {
-        setTimeout(() => {
-            this.getMembers()
-        }, 1000)
+        // setTimeout(() => {
+        //     this.getMembers()
+        // }, 1000)
+
+        this.getOfllineMembers() 
 
         await Font.loadAsync({'Roboto_medium': require('../assets/Roboto-Medium.ttf')});
 
@@ -92,10 +149,10 @@ export default class Dashboard extends Component {
                   
                             <FlatList
                             refreshing={this.state.isLoading}
-                            onRefresh={()=>this.getMembers}
+                            onRefresh={()=>this.getOfllineMembers}
                             
                                 data={this.state.membersData}
-                                keyExtractor={item => item.IDNo}
+                                keyExtractor={item => item.IDNo+item.Name}
                                 renderItem={({item}) => <ListItem avatar>
                                 <Left>
                                     <Icon

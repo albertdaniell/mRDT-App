@@ -11,7 +11,7 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     FlatList,
-    Image
+    Image,ActivityIndicator
 } from 'react-native'
 
 import {
@@ -54,14 +54,18 @@ export default class Dashboard extends Component {
             isLoading: true,
             baseName:'',
             amount:'',
-            phone_number:'254791836987'
+            phone_number:'254791836987',
+            message:'',
+            loading:false
         }
     }
 
     makePay=()=>{
+        this.setState({message: 'Please wait...', loading: true})
 
         if(this.state.baseName === '' || this.state.phone_number === ''){
             alert("Base name and amount cannot be empty!")
+            this.setState({message: '', loading: false})
             return 0;
         }
         axios({
@@ -73,10 +77,23 @@ export default class Dashboard extends Component {
                 payBill:'174379',
                 accref:this.state.baseName
             }
-        }).then(()=>{
+        }).then((response)=>{
+            if (response.status == 201) {
+                this.setState({message: 'Sending your request...'})
 
-        }).catch(()=>{
-            alert("Error")
+                setTimeout(() => {
+                    this.setState({message: '', loading: false})
+                }, 8000)
+            } else {
+                this.setState({message: '', loading: false})
+            }
+
+        }).catch((error)=>{
+            setTimeout(() => {
+                this.setState({message: '', loading: false})
+            }, 2000)
+            console.log(error)
+            alert(error)
         })
     }
 
@@ -162,11 +179,32 @@ export default class Dashboard extends Component {
                                     <TextInput onChangeText={(baseName)=>this.setState({baseName})}  style={styles.myInput}></TextInput>
                                     <Text style={styles.mytitle}>Enter The amount you want to pay {this.state.amount}:</Text>
                                     <TextInput onChangeText={(amount)=>this.setState({amount})} style={styles.myInput} keyboardType='number-pad'></TextInput>
-                                    <TouchableOpacity 
+                                  
+
+                                    {this.state.loading
+                    ? <TouchableOpacity
+                            disabled
+                            style={{
+                            backgroundColor: '#efefef',
+                            padding: 20,
+                            
+                            alignItems: 'center'
+                        }}>
+
+                            <ActivityIndicator size="small" color="#0000ff"/>
+
+                        </TouchableOpacity>
+
+                    :   <TouchableOpacity 
                                     onPress={()=>this.makePay()}
                                     style={{backgroundColor:'#66ad45',alignItems:'center',padding:20,borderRadius:4}}>
                                         <Text style={{color:'white'}}>Pay</Text>
                                     </TouchableOpacity>
+}
+
+                                    <Text style={{marginTop:20,color:'green'}}>
+                                        {this.state.message}
+                                    </Text>
                                 </View>
 
                             </View>

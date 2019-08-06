@@ -8,6 +8,7 @@ import {
     ImageBackground,
     TouchableOpacity, ActivityIndicator,
 } from 'react-native';
+import {Toast} from 'native-base'
 import {white} from 'ansi-colors';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import Header from '../components/Header'
@@ -48,6 +49,8 @@ export default class Home extends Component {
           if (value !== null) {
             //alert("data  "+ value.Name)
             console.log(value)
+            Toast.show({text: `Welcome back ${value.Name}`, buttonText: 'Okay', duration: 4000,type: "success"})
+
             
 
             this.setState({
@@ -77,11 +80,19 @@ export default class Home extends Component {
         }
       };
 
-      componentDidMount(){
+      async componentDidMount(){
+
+
+        await Font.loadAsync({'Roboto_medium': require('../assets/Roboto-Medium.ttf')});
+
+        this.setState({fontLoaded: true});
           setTimeout(() => {
             this.retrieveLoginSession()
           }, 1000);
       }
+
+
+      
       
     render() {
         return (

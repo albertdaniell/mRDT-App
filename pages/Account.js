@@ -10,7 +10,7 @@ import {
     TextInput,
     KeyboardAvoidingView,
     ScrollView,
-    FlatList
+    FlatList,ActivityIndicator
 } from 'react-native'
 
 import {
@@ -54,11 +54,66 @@ export default class Account extends Component {
         this.state = {
             headerTitle: 'User Account',
             leaderName: '',
-            leaderData: []
+            leaderData: [],showBack:true,
+            dummyData:[
+                {
+                    "Name":'Alby',
+                    "age":20,
+                    "color":'red'
+                },
+                {
+                    "Name":'Dan',
+                    "age":22,
+                    "color":'red'
+                },
+                {
+                    "Name":'Agoya',
+                    "age":2,
+                    "color":'green'
+                }
+            ],
+
+               dummyData2:
+                [{
+                    "Name":'Bae',
+                    "age":20,
+                    "color":'red'
+                }],
+
+                dummyData3:
+                {
+                    demo: {"Name":'Bae',
+                    "age":20,
+                    "color":'red'
+                },
+                insurance:{
+                    "insuranceName":'Jubilee'
+                },
+                owner:{
+                    "ownerName":'Alby'
+                }
+
+                },
+               
+            
         }
     }
 
-    componentDidMount() {
+    addToData=()=>{
+        this.setState({
+            dummyData:[...this.state.dummyData, 
+            this.state.dummyData2]
+        })
+    }
+
+    
+
+    async componentDidMount() {
+
+
+        await Font.loadAsync({'Roboto_medium': require('../assets/Roboto-Medium.ttf')});
+
+        this.setState({fontLoaded: true});
 
         const leaderData = this
             .props
@@ -67,25 +122,30 @@ export default class Account extends Component {
 
         //alert(leaderName)
 
-        this.setState({leaderData: leaderData})
+        this.setState({leaderData: leaderData,message:'',loading:false})
     }
 
     removeLoginSession = async () => {
         try {
           await AsyncStorage.removeItem('loginData');
+          Toast.show({text: `Goodbye ${this.state.leaderData.Name}`, buttonText: 'Okay', duration: 4000})
+
          // alert("Nice removing data")
          setTimeout(() => {
+
             // this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Dashboard' })], 0)
              //this.props.navigation.navigate('Dashboard',{leaderName:this.state.leaderData.Name})
              this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Home' ,params:{leaderName:this.state.leaderData.Name,leaderData:this.state.leaderData}})], 0)
          
          }, 1000);
         } catch (error) {
+            this.setState({loading:false})
         alert("Error removing data")
         }
       }
 
     logoutFn=()=>{
+        this.setState({loading:true,showBack:false})
         this.removeLoginSession()
 
     }
@@ -96,7 +156,7 @@ export default class Account extends Component {
                 flex: 1
             }}>
 
-            <Header showBack={true} navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
+            <Header showBack={this.state.showBack} navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
 
 
         <View style={{flex:1}}>
@@ -126,15 +186,39 @@ export default class Account extends Component {
                     </ListItem>
 
                     <ListItem>
-                        <TouchableOpacity 
-                        onPress={()=>this.logoutFn()}
-                        style={{width:'100%'}}>
-                        <Text>Logout</Text>
+                       
+
+
+  {this.state.loading
+                    ? <TouchableOpacity
+                            disabled
+                            >
+
+                            <ActivityIndicator size="small" color="#0000ff"/>
+
                         </TouchableOpacity>
 
+                    :   <TouchableOpacity 
+                        onPress={()=>this.logoutFn()}
+                        style={{width:'100%'}}>
+                        <Text style={{color:'red',fontWeight:'bold'}}>Logout</Text>
+                        </TouchableOpacity>
+}
                     </ListItem>
 
                 </List>
+
+                {/* <Text>Dummy</Text>
+                {
+                    this.state.dummyData.map((d)=>{
+                        return(<Text>{d.Name}</Text>)
+
+                    })
+                }
+
+                <TouchableOpacity onPress={()=>this.addToData()}>
+                    <Text>Add to data</Text>
+                </TouchableOpacity> */}
         </View>
             </View>
 

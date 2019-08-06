@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+
 import {
     KeyboardAvoidingView,
     StyleSheet,
@@ -7,8 +8,12 @@ import {
     Image,
     ImageBackground,
     TouchableOpacity,
-    TextInput
+    TextInput,ActivityIndicator
 } from 'react-native';
+import {  Toast,
+    ScrollableTab,
+    Separator
+} from 'native-base';
 import {white} from 'ansi-colors';
 const axios = require('axios');
 import * as Font from 'expo-font'
@@ -20,7 +25,7 @@ export default class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {email:null,password:null,leaderData:[],
-        secureTextEntry:true
+        secureTextEntry:true,loading:false,message:'',fontLoaded:false
     
     }
     }
@@ -28,6 +33,8 @@ export default class Login extends Component {
     storeLoginSession = async () => {
         try {
           await AsyncStorage.setItem('loginEmail', this.state.leaderData.Email);
+          Toast.show({text: 'Logging you in...', buttonText: 'Okay', duration: 4000})
+
          // alert("Nice saving data")
         } catch (error) {
         alert("Error saving data")
@@ -37,6 +44,8 @@ export default class Login extends Component {
       storeLoginSession2 = async () => {
         try {
           await AsyncStorage.setItem('loginData', JSON.stringify(this.state.leaderData));
+          Toast.show({text: `Logged in as ${this.state.leaderData.Email}`, buttonText: 'Okay', duration: 4000})
+
           //alert("Nice saving data")
         } catch (error) {
         alert("Error saving data")
@@ -72,11 +81,20 @@ export default class Login extends Component {
       };
       
 
-      componentDidMount(){
-          //this.retrieveData()
-          //this.storeData()
-          //this.removeLoginSession()
-      }
+    //   componentDidMount(){
+    //       //this.retrieveData()
+    //       //this.storeData()
+    //       //this.removeLoginSession()
+    //   }
+
+
+    async componentDidMount() {
+        
+
+        await Font.loadAsync({'Roboto_medium': require('../assets/Roboto-Medium.ttf')});
+
+        this.setState({fontLoaded: true});
+    }
 
     showPass=()=>{
         this.setState({
@@ -85,9 +103,12 @@ export default class Login extends Component {
     }
 
     loginFn=()=>{
+
+        this.setState({message: 'Please wait...', loading: true})
 4
         if(this.state.email === null || this.state.password === null){
             alert("Fields cannot be empty!")
+            this.setState({message: '', loading: false})
             return 0;
         }
     setTimeout(() => {
@@ -115,7 +136,9 @@ setTimeout(() => {
 }, 1000);
 }
 else{
+    this.setState({message: '', loading: false})
     alert("Email and password do not match!")
+
     this.setState({
         password:null
     })
@@ -123,6 +146,7 @@ else{
     this.set
 }
         }).catch((e)=>{
+            this.setState({message: '', loading: false})
         alert("User does not exist")
         })
     }, 2000);
@@ -168,19 +192,21 @@ else{
                                     textAlign: 'center'
                                 }}>Login</Text>
                                 <TextInput
+                                autoCapitalize='none'
                                 onChangeText={(email)=>this.setState({email})}
                                 value={this.state.email}
                                     keyboardType='email-address'
                                     placeholder="Enter your email"
                                     placeholderTextColor='#efefef'
                                     style={{
+                                    color:'white',
                                     padding: 20,
                                     marginBottom: 20,
                                     borderWidth: 1,
                                     borderColor: 'white',
                                     width: '100%',
                                     borderRadius: 4,
-                                    backgroundColor: 'rgba(255,255,255,.5)'
+                                    backgroundColor: 'rgba(0,0,0,.8)'
                                 }}></TextInput>
                                 <TextInput
                                 onChangeText={(password)=>this.setState({password})}
@@ -190,13 +216,14 @@ else{
                                     placeholder='Password'
                                     placeholderTextColor='#efefef'
                                     style={{
+                                    color:'white',
                                     padding: 20,
                                     marginBottom: 10,
                                     borderWidth: 1,
                                     borderColor: 'white',
                                     width: '100%',
                                     borderRadius: 4,
-                                    backgroundColor: 'rgba(255,255,255,.5)'
+                                    backgroundColor: 'rgba(0,0,0,.8)'
                                 }}></TextInput>
 
                               {
@@ -205,11 +232,14 @@ else{
                                 onPress={()=>this.showPass()}
                                     style={{
                                     alignItems: 'center',
-                                    padding: 10
+                                    padding: 10,
+                                   
                                 }}>
                                     <Text
                                         style={{
-                                        color: 'orange'
+                                        color: 'red',
+                                        backgroundColor:'#ccc',
+                                        padding:5
                                     }}>Show password</Text>
                                 </TouchableOpacity>
                                   :  <TouchableOpacity
@@ -220,12 +250,31 @@ else{
                                 }}>
                                     <Text
                                         style={{
-                                        color: 'orange'
+                                            color: 'red',
+                                        backgroundColor:'white',
+                                        padding:5
                                     }}>Hide password</Text>
                                 </TouchableOpacity>
                               }
                             </View>
-                            <TouchableOpacity
+                           
+
+
+                            {this.state.loading
+                    ? <TouchableOpacity
+                            disabled
+                            style={{
+                            backgroundColor: '#efefef',
+                            padding: 20,
+                            
+                            alignItems: 'center'
+                        }}>
+
+                            <ActivityIndicator size="small" color="#0000ff"/>
+
+                        </TouchableOpacity>
+
+                    :    <TouchableOpacity
                             onPress={()=>this.loginFn()}
                                 
                                 style={{
@@ -242,6 +291,7 @@ else{
                                     color: 'white'
                                 }}>SUBMIT</Text>
                             </TouchableOpacity>
+}
                         </View>
                     </KeyboardAvoidingView>
 

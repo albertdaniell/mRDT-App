@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     TextInput,
     KeyboardAvoidingView,
-    ScrollView
+    ScrollView,Alert
 } from 'react-native'
 import Header from '../../components/Header'
 import {
@@ -184,6 +184,8 @@ export default class Form extends Component {
     // insuranceYesSelect: true, insuranceNoSelect: false, Insurance: 'Yes',
 
     async componentDidMount() {
+   
+          
         this.getCurrentYear()
 
         await Font.loadAsync({'Roboto_medium': require('../../assets/Roboto-Medium.ttf')});
@@ -361,7 +363,7 @@ export default class Form extends Component {
 
     clearForm1 = () => {
         if (this.state.membername == '' || this.state.chosenDate == '' || this.state.idno == '' || this.state.gender == '' || this.state.phone == '' || this.state.base == '' || this.state.experience == '', this.state.County == '', this.state.SubCounty == '' || this.state.Ward == '') {
-            Toast.show({text: 'Please make sure you have completed all the fields', buttonText: 'Okay', duration: 4000})
+            Toast.show({text: 'Please make sure you have completed all the fields', buttonText: 'Okay', duration: 4000,type: "warning"})
 
             return 0;
 
@@ -377,7 +379,7 @@ export default class Form extends Component {
     clearForm2 = () => {
 
         if (this.state.bodaFrameNo == '' || this.state.bodaMake == '' || this.state.plateNo == '') {
-            Toast.show({text: 'Please make sure you have completed all the fields', buttonText: 'Okay', duration: 4000})
+            Toast.show({text: 'Please make sure you have completed all the fields', buttonText: 'Okay', duration: 4000,type: "warning"})
 
             return 0;
         } else if (this.state.bodaOwnerFormShow == true) {
@@ -417,7 +419,7 @@ export default class Form extends Component {
         setTimeout(() => {
             if (this.state.DailyContribFormShow == true) {
                 if (this.state.SaccoName == null || this.state.DailyContribution == null) {
-                    Toast.show({text: 'Please make sure you have completed all the fields', buttonText: 'Okay', duration: 4000})
+                    Toast.show({text: 'Please make sure you have completed all the fields', buttonText: 'Okay', duration: 4000,type: "warning"})
 
                     return 0;
                 }
@@ -466,7 +468,7 @@ export default class Form extends Component {
             }
         }).then((response) => {
 
-            Toast.show({text: 'Success saving Member details', buttonText: 'Okay', duration: 4000})
+            Toast.show({text: 'Success saving Member details', buttonText: 'Okay', duration: 4000,type: "success"})
             this.setState({userSuccessmsg: 'Success saving Member details'})
 
             setTimeout(() => {
@@ -475,7 +477,7 @@ export default class Form extends Component {
             console.log(response.status)
         }).catch((e) => {
             console.log(e)
-            Toast.show({text: 'An error occured', buttonText: 'Okay', duration: 4000})
+            Toast.show({text: 'An error occured', buttonText: 'Okay', duration: 4000,type: "danger"})
             this.setState({userSuccessmsg: 'An error occured while saving member details'})
 
         })
@@ -494,7 +496,7 @@ export default class Form extends Component {
                 "Ownership": this.state.ownerOfBoda
             }
         }).then(() => {
-            Toast.show({text: 'Success saving vehicles details', buttonText: 'Okay', duration: 4000})
+            Toast.show({text: 'Success saving vehicles details', buttonText: 'Okay', duration: 4000,type: "success"})
             this.setState({vehicleSuccessmsg: 'Success saving vehicle details'})
 
             if (this.state.ownerOfBodaYesSelect === false) {
@@ -510,7 +512,7 @@ export default class Form extends Component {
             }
 
         }).catch((error) => {
-            Toast.show({text: 'An Error occured while saving vehicle data', buttonText: 'Okay', duration: 4000})
+            Toast.show({text: 'An Error occured while saving vehicle data', buttonText: 'Okay', duration: 4000,type: "danger"})
 
             this.setState({vehicleSuccessmsg: 'An error occured while saving vehicle details'})
 
@@ -530,7 +532,7 @@ export default class Form extends Component {
         }).then((response) => {
             console.log(response.status)
 
-            Toast.show({text: 'Success saving boda boda owner details', buttonText: 'Okay', duration: 4000})
+            Toast.show({text: 'Success saving boda boda owner details', buttonText: 'Okay', duration: 4000,type: "success"})
             this.setState({ownerSuccessmsg: 'Success saving boda boda owner details'})
 
             setTimeout(() => {
@@ -539,7 +541,7 @@ export default class Form extends Component {
 
         }).catch((error) => {
 
-            Toast.show({text: 'Error while saving owner details', buttonText: 'Okay', duration: 4000})
+            Toast.show({text: 'Error while saving owner details', buttonText: 'Okay', duration: 4000,type: "danger"})
             this.setState({ownerSuccessmsg: 'Error occured while saving owner details'})
 
         })
@@ -560,14 +562,14 @@ export default class Form extends Component {
 
             }
         }).then(() => {
-            Toast.show({text: 'Success saving insurance details', buttonText: 'Okay', duration: 4000})
+            Toast.show({text: 'Success saving insurance details', buttonText: 'Okay', duration: 4000,type: "success"})
             this.setState({insuranceSuccessmsg: 'Success saving insurance details'})
             setTimeout(() => {
                 this.saveSaccoDetails()
             }, 3000);
 
         }).catch((error) => {
-            Toast.show({text: 'An error occured while saving insurance details', buttonText: 'Okay', duration: 4000})
+            Toast.show({text: 'An error occured while saving insurance details', buttonText: 'Okay', duration: 4000,type: "danger"})
             this.setState({insuranceSuccessmsg: "Error occured while saving insurance details"})
         })
     }
@@ -586,7 +588,7 @@ export default class Form extends Component {
 
             }
         }).then(() => {
-            Toast.show({text: 'Success saving insurance details', buttonText: 'Okay', duration: 4000})
+            Toast.show({text: 'Success saving insurance details', buttonText: 'Okay', duration: 4000,type: "success"})
 
         }).catch((error) => {
             this.setState({insuranceSuccessmsg: "Error occured while saving insurance details"})
@@ -608,8 +610,21 @@ export default class Form extends Component {
 
             }
         }).then(() => {
-            Toast.show({text: 'Success saving Sacco details', buttonText: 'Okay', duration: 4000})
+            Toast.show({text: 'Success saving Sacco details', buttonText: 'Okay', duration: 4000,type: "success"})
             this.setState({saccoSuccessmsg: 'Success saving sacco details'})
+            Alert.alert(
+                'Member registered successfully!',
+                '',
+                [
+                  {
+                    text: 'Exit',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                  },
+                  {text: 'Register another member', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false},
+              );
 
         }).catch((error) => {
             Toast.show({text: 'Error occured while saving sacco details', buttonText: 'Okay', duration: 4000})

@@ -92,7 +92,7 @@ export default class Header extends Component {
                     <View style={{
                         flex: .3
                     }}>
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             style={{
                             width: '100%',
                             padding: 0,
@@ -108,7 +108,7 @@ export default class Header extends Component {
                                 color='white'
                                 name="bars"
                                 type="FontAwesome"/>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
 
                 </View>
