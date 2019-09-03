@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 const axios = require('axios');
-import {Font} from 'expo';
+import * as Font from 'expo-font';
 import {
     StyleSheet,
     View,
@@ -8,7 +8,9 @@ import {
     TouchableOpacity,
     TextInput,
     KeyboardAvoidingView,
-    ScrollView,Alert
+    ScrollView,
+    Alert,
+    AsyncStorage,Vibration
 } from 'react-native'
 import Header from '../../components/Header'
 import {
@@ -41,6 +43,8 @@ export default class Form extends Component {
             countrycode: "254",
             phone: '',
             base: '',
+            base1:'',
+            bases:[],
             experience: '',
             gender: 'Male',
             maleSelected: true,
@@ -84,9 +88,25 @@ export default class Form extends Component {
             insuranceSuccessmsg: '',
             vehicleSuccessmsg: '',
             ownerSuccessmsg: '',
-            saccoSuccessmsg: ''
-        }
+            saccoSuccessmsg: '',
+            myOffline: [
+                {
+                    Name: 'Alby',
+                    age: 20,
+                    dob: '12-10',
+                    phone: 12929019
+                }
+            ],
 
+            myOffline2: {
+                Name: 'Alby2',
+                age: 202,
+                dob: '122-10',
+                phone: 122929019
+            },
+            myOfflineArray: []
+        }
+this.onBaseChange=this.onBaseChange.bind(this)
         this.changeGenderToMale = this
             .changeGenderToMale
             .bind(this)
@@ -100,6 +120,7 @@ export default class Form extends Component {
         this.onValueChange = this
             .onValueChange
             .bind(this)
+
 
         this.clearForm1 = this
             .clearForm1
@@ -180,12 +201,133 @@ export default class Form extends Component {
             .bind(this)
 
     }
+    getBases = async() => {
+console.log("getting bases..")
+        try {
+            
+            await axios({method: "GET", url: 'http://134.209.148.107/api/bases/'}).then((res) => {
+               // alert(0)
+                this.setState({bases: res.data})
+                
+                console.log(this.state.bases)
+
+                // get base leader name try {     axios({method: "GET", url: 'api/leaders'}) }
+                // catch (err) {}
+            })
+
+        } catch (err) {}
+    }
 
     // insuranceYesSelect: true, insuranceNoSelect: false, Insurance: 'Yes',
 
+    storeMyOffline = async() => {
+        try {
+            await AsyncStorage.setItem('myOffline', JSON.stringify(this.state.myOffline))
+            console.log("Nicccee")
+        } catch (e) {
+            alert("Error!!")
+        }
+    }
+
+    getOfflineData = async() => {
+        try {
+            await AsyncStorage
+                .getItem('myOffline')
+                .then((data) => {
+                    const stringData = JSON.parse(data)
+                    if (stringData !== null) {
+                        this.setState({myOfflineArray: stringData})
+                        console.log(this.state.myOfflineArray)
+                        setTimeout(async() => {
+
+                            var myOffline2 = this.state.myOffline2
+                            // this.setState({     myOfflineArray: [         ...this.state.myOfflineArray,
+                            //       myOffline2     ] })
+
+                            this.setState({
+                                myOfflineArray: [
+                                    ...this.state.myOfflineArray,
+                                    myOffline2
+                                ]
+                            })
+                            console.log("The pushed data" + JSON.stringify(this.state.myOfflineArray))
+
+                            try {
+                                AsyncStorage
+                                    .setItem('myOffline', JSON.stringify(this.state.myOfflineArray))
+                                    .then(() => {
+                                        console.log("Nicccee updating the offline data")
+                                    })
+
+                            } catch (e) {
+                                console.log("Error updating data with error " + e)
+                            }
+
+                            // try{     await
+                            // AsyncStorage.setItem('myOffline',JSON.stringify(this.state.myOffline))
+                            // console.log("Nicccee")             }catch(e){     alert("Error!!")  }
+                        }, 2000);
+
+                    }
+                })
+        } catch (error) {
+            console.log("error occured" + error)
+        }
+    }
+
+    deleteOffline = async() => {
+        try {
+
+            await AsyncStorage
+                .removeItem('myOffline')
+                .then(() => {
+                    alert("Nice clearing offline data")
+                })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    getOfflineData2 = async() => {
+        try {
+            await AsyncStorage
+                .getItem('myOffline')
+                .then((data) => {
+                    const myoffdata = JSON.parse(data)
+                    if (myoffdata !== null) {
+                        this.setState({myOfflineArray: myoffdata})
+                        // console.log(this.state.myOfflineArray) console.log(myoffdata)
+                        console.log(JSON.stringify(this.state.myOfflineArray))
+                        console.log("You have " +myoffdata.length + " records in ur offline data")
+                        this
+                            .state
+                            .myOfflineArray
+                            .filter((d) => {
+                                if(d.Name === 'Alby'){
+                                return (
+                                    console.log(d.Name)  
+                                )}else{
+                                   
+                                }
+
+                            })
+                    }
+
+                })
+        } catch (e) {
+            console.log("Error fetching data with error of ---" + e)
+        }
+    }
+
     async componentDidMount() {
-   
-          
+
+        // this.storeMyOffline() 
+       // this.getOfflineData() 
+        //this.deleteOffline()
+        setTimeout(() => {
+            this.getBases()
+        }, 1000);
+       // this.getOfflineData2()
         this.getCurrentYear()
 
         await Font.loadAsync({'Roboto_medium': require('../../assets/Roboto-Medium.ttf')});
@@ -193,16 +335,7 @@ export default class Form extends Component {
         this.setState({fontLoaded: true});
     }
 
-    // saveUserDetails = () => {     axios({         method: 'POST',         url:
-    // "",         headers: {             'Content-Type': 'application/json',
-    // "Access-Control-Allow-Origin": "*"           },         data: {    "Name":
-    // this.state.membername,             "IDNo": this.state.idno, "DateofBirth":
-    // "2019-07-19",             "Gender": this.state.gender,  "CountryCode":
-    // this.state.countrycode,             "PhoneNumber": this.state.phone,
-    // "County": this.state.County, "SubCounty": this.state.SubCounty,  "Ward":
-    // this.state.Ward,       "BaseName": this.state.base, "YearsOfExperience":
-    // this.state.experience   }     }).then(() => { alert("Awesome")
-    // }).catch((error) => {     alert("Error occured")     }) }
+   
     seeData = () => {
         axios({
             method: 'GET',
@@ -219,12 +352,11 @@ export default class Form extends Component {
             alert(error)
         })
     }
-    getUserDetails = (membername, idno, phone, base, experience, County, SubCounty, Ward) => {
+    getUserDetails = (membername, idno, phone,  experience, County, SubCounty, Ward) => {
         this.setState({
             membername: membername,
             idno: idno,
             phone: phone,
-            base: base,
             experience: experience,
             County: County,
             SubCounty: SubCounty,
@@ -331,6 +463,11 @@ export default class Form extends Component {
         this.setState({chosenDate2: newDate});
     }
 
+    onBaseChange = (base1,base) => {
+       // alert(base)
+        this.setState({base1: base1,base:base});
+    }
+
     onValueChange = (value : string) => {
         this.setState({countrycode: value});
     }
@@ -363,12 +500,29 @@ export default class Form extends Component {
 
     clearForm1 = () => {
         if (this.state.membername == '' || this.state.chosenDate == '' || this.state.idno == '' || this.state.gender == '' || this.state.phone == '' || this.state.base == '' || this.state.experience == '', this.state.County == '', this.state.SubCounty == '' || this.state.Ward == '') {
-            Toast.show({text: 'Please make sure you have completed all the fields', buttonText: 'Okay', duration: 4000,type: "warning"})
+            Toast.show({
+                position: "top",
+                text: 'Please make sure you have completed all the fields',
+                buttonText: 'Okay',
+                duration: 4000,
+                type: "warning",
+                style: {
+                    marginTop: 30
+                }
+            })
 
             return 0;
 
         } else if (this.state.age < 18) {
-            Toast.show({text: 'You must be 18 and above of age', buttonText: 'Okay', duration: 4000})
+            Toast.show({
+                style: {
+                    marginTop: 30
+                },
+                position: "top",
+                text: 'You must be 18 and above of age',
+                buttonText: 'Okay',
+                duration: 4000
+            })
 
             return 0;
 
@@ -379,12 +533,29 @@ export default class Form extends Component {
     clearForm2 = () => {
 
         if (this.state.bodaFrameNo == '' || this.state.bodaMake == '' || this.state.plateNo == '') {
-            Toast.show({text: 'Please make sure you have completed all the fields', buttonText: 'Okay', duration: 4000,type: "warning"})
+            Toast.show({
+                style: {
+                    marginTop: 30
+                },
+                position: "top",
+                text: 'Please make sure you have completed all the fields',
+                buttonText: 'Okay',
+                duration: 4000,
+                type: "warning"
+            })
 
             return 0;
         } else if (this.state.bodaOwnerFormShow == true) {
             if (this.state.bodaOwnerName == '' || this.state.bodaOwnerID == '' || this.state.bodaOwnerPhone == '') {
-                Toast.show({text: 'Please fill in details for bodaboda owner', buttonText: 'Okay', duration: 4000})
+                Toast.show({
+                    style: {
+                        marginTop: 30
+                    },
+                    position: "top",
+                    text: 'Please fill in details for bodaboda owner',
+                    buttonText: 'Okay',
+                    duration: 4000
+                })
 
                 return 0;
             }
@@ -419,7 +590,20 @@ export default class Form extends Component {
         setTimeout(() => {
             if (this.state.DailyContribFormShow == true) {
                 if (this.state.SaccoName == null || this.state.DailyContribution == null) {
-                    Toast.show({text: 'Please make sure you have completed all the fields', buttonText: 'Okay', duration: 4000,type: "warning"})
+                    const DURATION = 10000;
+const PATTERN = [1000, 2000, 3000];
+
+Vibration.vibrate(1000);
+                    Toast.show({
+                        style: {
+                            marginTop: 30
+                        },
+                        position: "top",
+                        text: 'Please make sure you have completed all the fields',
+                        buttonText: 'Okay',
+                        duration: 4000,
+                        type: "warning"
+                    })
 
                     return 0;
                 }
@@ -463,12 +647,21 @@ export default class Form extends Component {
                 "County": this.state.County,
                 "SubCounty": this.state.SubCounty,
                 "Ward": this.state.Ward,
-                "BaseName": this.state.base,
+                "BaseName": this.state.base1,
                 "YearsOfExperience": this.state.experience
             }
         }).then((response) => {
 
-            Toast.show({text: 'Success saving Member details', buttonText: 'Okay', duration: 4000,type: "success"})
+            Toast.show({
+                style: {
+                    marginTop: 30
+                },
+                position: "top",
+                text: 'Success saving Member details',
+                buttonText: 'Okay',
+                duration: 4000,
+                type: "success"
+            })
             this.setState({userSuccessmsg: 'Success saving Member details'})
 
             setTimeout(() => {
@@ -477,7 +670,16 @@ export default class Form extends Component {
             console.log(response.status)
         }).catch((e) => {
             console.log(e)
-            Toast.show({text: 'An error occured', buttonText: 'Okay', duration: 4000,type: "danger"})
+            Toast.show({
+                style: {
+                    marginTop: 30
+                },
+                position: "top",
+                text: 'An error occured',
+                buttonText: 'Okay',
+                duration: 4000,
+                type: "danger"
+            })
             this.setState({userSuccessmsg: 'An error occured while saving member details'})
 
         })
@@ -496,7 +698,16 @@ export default class Form extends Component {
                 "Ownership": this.state.ownerOfBoda
             }
         }).then(() => {
-            Toast.show({text: 'Success saving vehicles details', buttonText: 'Okay', duration: 4000,type: "success"})
+            Toast.show({
+                style: {
+                    marginTop: 30
+                },
+                position: "top",
+                text: 'Success saving vehicles details',
+                buttonText: 'Okay',
+                duration: 4000,
+                type: "success"
+            })
             this.setState({vehicleSuccessmsg: 'Success saving vehicle details'})
 
             if (this.state.ownerOfBodaYesSelect === false) {
@@ -512,7 +723,16 @@ export default class Form extends Component {
             }
 
         }).catch((error) => {
-            Toast.show({text: 'An Error occured while saving vehicle data', buttonText: 'Okay', duration: 4000,type: "danger"})
+            Toast.show({
+                style: {
+                    marginTop: 30
+                },
+                position: "top",
+                text: 'An Error occured while saving vehicle data',
+                buttonText: 'Okay',
+                duration: 4000,
+                type: "danger"
+            })
 
             this.setState({vehicleSuccessmsg: 'An error occured while saving vehicle details'})
 
@@ -532,7 +752,16 @@ export default class Form extends Component {
         }).then((response) => {
             console.log(response.status)
 
-            Toast.show({text: 'Success saving boda boda owner details', buttonText: 'Okay', duration: 4000,type: "success"})
+            Toast.show({
+                style: {
+                    marginTop: 30
+                },
+                position: "top",
+                text: 'Success saving boda boda owner details',
+                buttonText: 'Okay',
+                duration: 4000,
+                type: "success"
+            })
             this.setState({ownerSuccessmsg: 'Success saving boda boda owner details'})
 
             setTimeout(() => {
@@ -541,7 +770,16 @@ export default class Form extends Component {
 
         }).catch((error) => {
 
-            Toast.show({text: 'Error while saving owner details', buttonText: 'Okay', duration: 4000,type: "danger"})
+            Toast.show({
+                style: {
+                    marginTop: 30
+                },
+                position: "top",
+                text: 'Error while saving owner details',
+                buttonText: 'Okay',
+                duration: 4000,
+                type: "danger"
+            })
             this.setState({ownerSuccessmsg: 'Error occured while saving owner details'})
 
         })
@@ -562,14 +800,23 @@ export default class Form extends Component {
 
             }
         }).then(() => {
-            Toast.show({text: 'Success saving insurance details', buttonText: 'Okay', duration: 4000,type: "success"})
+            Toast.show({position: "top", text: 'Success saving insurance details', buttonText: 'Okay', duration: 4000, type: "success"})
             this.setState({insuranceSuccessmsg: 'Success saving insurance details'})
             setTimeout(() => {
                 this.saveSaccoDetails()
             }, 3000);
 
         }).catch((error) => {
-            Toast.show({text: 'An error occured while saving insurance details', buttonText: 'Okay', duration: 4000,type: "danger"})
+            Toast.show({
+                style: {
+                    marginTop: 30
+                },
+                position: "top",
+                text: 'An error occured while saving insurance details',
+                buttonText: 'Okay',
+                duration: 4000,
+                type: "danger"
+            })
             this.setState({insuranceSuccessmsg: "Error occured while saving insurance details"})
         })
     }
@@ -588,7 +835,16 @@ export default class Form extends Component {
 
             }
         }).then(() => {
-            Toast.show({text: 'Success saving insurance details', buttonText: 'Okay', duration: 4000,type: "success"})
+            Toast.show({
+                style: {
+                    marginTop: 30
+                },
+                position: "top",
+                text: 'Success saving insurance details',
+                buttonText: 'Okay',
+                duration: 4000,
+                type: "success"
+            })
 
         }).catch((error) => {
             this.setState({insuranceSuccessmsg: "Error occured while saving insurance details"})
@@ -610,24 +866,40 @@ export default class Form extends Component {
 
             }
         }).then(() => {
-            Toast.show({text: 'Success saving Sacco details', buttonText: 'Okay', duration: 4000,type: "success"})
+            Toast.show({
+                style: {
+                    marginTop: 30
+                },
+                position: "top",
+                text: 'Success saving Sacco details',
+                buttonText: 'Okay',
+                duration: 4000,
+                type: "success"
+            })
             this.setState({saccoSuccessmsg: 'Success saving sacco details'})
-            Alert.alert(
-                'Member registered successfully!',
-                '',
-                [
-                  {
+            Alert.alert('Member registered successfully!', '', [
+                {
                     text: 'Exit',
                     onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel',
-                  },
-                  {text: 'Register another member', onPress: () => console.log('OK Pressed')},
-                ],
-                {cancelable: false},
-              );
+                    style: 'cancel'
+                }, {
+                    text: 'Register another member',
+                    onPress: () => console.log('OK Pressed')
+                }
+            ], {
+                cancelable: false
+            },);
 
         }).catch((error) => {
-            Toast.show({text: 'Error occured while saving sacco details', buttonText: 'Okay', duration: 4000})
+            Toast.show({
+                style: {
+                    marginTop: 30
+                },
+                position: "top",
+                text: 'Error occured while saving sacco details',
+                buttonText: 'Okay',
+                duration: 4000
+            })
             this.setState({saccoSuccessmsg: 'Error occured while saving sacco details'})
 
         })
@@ -738,6 +1010,8 @@ export default class Form extends Component {
                         idno={this.state.idno}
                         phone={this.state.phone}
                         base={this.state.base}
+                        base1={this.state.base1}
+                        bases={this.state.bases}
                         experience={this.state.experience}
                         age={this.state.age}
                         gender={this.state.gender}
@@ -752,7 +1026,9 @@ export default class Form extends Component {
                         clearForm1={this.clearForm1}
                         getUserDetails={this.getUserDetails}
                         onValueChange
-                        ={this.onValueChange}></UserDemographics>
+                        ={this.onValueChange}
+                        onBaseChange={this.onBaseChange}
+                        ></UserDemographics>
 }
 
                 {this.state.showAllDataView

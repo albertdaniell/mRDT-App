@@ -17,7 +17,7 @@ import {
     Right,
     Left,
     DatePicker,
-    Picker
+    Picker,Footer,FooterTab
 } from 'native-base';
 
 export default class Insurance extends Component {
@@ -169,7 +169,14 @@ export default class Insurance extends Component {
                         marginTop: 20
                     }}>
 
-                        <TouchableOpacity
+                        
+                    </View>
+
+                </ScrollView>
+
+                <Footer>
+                    <FooterTab>
+                    <TouchableOpacity
                             onPress={() => this.props.backToForm2()}
                             style={{
                             alignItems: 'center',
@@ -200,9 +207,8 @@ export default class Insurance extends Component {
                                 color: 'white'
                             }}>Next</Text>
                         </TouchableOpacity>
-                    </View>
-
-                </ScrollView>
+                    </FooterTab>
+                </Footer>
             </KeyboardAvoidingView>
         )
     }

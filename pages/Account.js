@@ -55,6 +55,7 @@ export default class Account extends Component {
             headerTitle: 'User Account',
             leaderName: '',
             leaderData: [],showBack:true,
+            base_Name:'- -',
             dummyData:[
                 {
                     "Name":'Alby',
@@ -120,9 +121,13 @@ export default class Account extends Component {
             .navigation
             .getParam('leaderData', 'NO leader data');
 
+            const base_Name = this
+            .props
+            .navigation
+            .getParam('base_Name', '- -');
         //alert(leaderName)
 
-        this.setState({leaderData: leaderData,message:'',loading:false})
+        this.setState({leaderData: leaderData,message:'',loading:false,base_Name:base_Name})
     }
 
     removeLoginSession = async () => {
@@ -161,25 +166,35 @@ export default class Account extends Component {
 
         <View style={{flex:1}}>
         <List>
-                    <Separator bordered>
-                        <Text>Fullname</Text>
-                    </Separator>
+                    <ListItem itemDivider>
+                        <Text style={{color:'green'}}>Fullname</Text>
+                    </ListItem>
                     <ListItem>
 
-                        <Text>{this.state.leaderData.Name}</Text>
+                        <Text >{this.state.leaderData.Name}</Text>
 
                     </ListItem>
 
-                    <Separator bordered>
-                        <Text>Email</Text>
-                    </Separator>
+
+                    <ListItem itemDivider>
+                        <Text style={{color:'green'}}>Base Name</Text>
+                    </ListItem>
+                    <ListItem>
+
+                        <Text >{this.state.base_Name}</Text>
+
+                    </ListItem>
+
+                    <ListItem itemDivider>
+                        <Text style={{color:'green'}}>Email</Text>
+                    </ListItem>
                     <ListItem>
                         <Text>{this.state.leaderData.Email}</Text>
 
                     </ListItem>
-                    <Separator bordered>
-                        <Text>Phone number</Text>
-                    </Separator>
+                    <ListItem itemDivider>
+                        <Text style={{color:'green'}}>Phone number</Text>
+                    </ListItem>
                     <ListItem>
                         <Text>{this.state.leaderData.phone_number}</Text>
 

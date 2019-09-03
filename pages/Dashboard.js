@@ -25,13 +25,30 @@ export default class Dashboard extends Component {
             leaderName: '',
             leaderData: [],
             membersData:[],
-            isLoading:false
+            isLoading:false,
+            base_Name:'- -',
+            base_Id:''
         }
+    }
+
+    getBase=()=>{
+        axios({
+            method:"GET",
+            url:`http://134.209.148.107/api/bases/${this.state.leaderData.id}`,
+
+        }).then((res)=>{
+//alert(res.data.Name)
+this.setState({
+    base_Name:res.data.Name,
+    base_Id:res.data.id
+})
+        })
     }
 
     componentDidMount() {
         setTimeout(() => {
             this.getMembers()
+            this.getBase()
         }, 1000)
         const leaderName = this
             .props
@@ -50,7 +67,8 @@ export default class Dashboard extends Component {
     }
 
     getMembers = () => {
-        axios({method: "GET", url: 'http://134.209.148.107/api/rider/'}).then((response) => {
+      setTimeout(() => {
+        axios({method: "GET", url: `http://134.209.148.107/api/rider2/${this.state.base_Id}`}).then((response) => {
             this.setState({membersData: response.data, isLoading: false})
             setTimeout(() => {
                
@@ -59,6 +77,7 @@ export default class Dashboard extends Component {
             // console.log(JSON.stringify(this.state.membersData))
 
         })
+      }, 2000);
     }
 
     storeMembersData = async () => {
@@ -113,10 +132,8 @@ export default class Dashboard extends Component {
                 <View style={{
                     flex: .13
                 }}>
-                    <Header
-                        showBack={false}
-                        navigation={this.props.navigation}
-                        headerTitle={this.state.headerTitle}></Header>
+                
+                   <Text style={{color:'#595959',padding:10,fontSize:40,marginTop:20,fontWeight:"bold"}}>Dashboard</Text>
                 </View>
 
                 <Anime
@@ -142,20 +159,23 @@ export default class Dashboard extends Component {
                                 justifyContent: 'flex-end',
                                 alignItems: 'flex-end',
                                 marginTop: 10,
-                                padding: 10
+                                padding: 10,
+                                fontSize:18
                             }}>
                                 <Text
                                     style={{
                                     color: 'grey'
-                                }}>Welcome</Text>
+                                }}>Welcome,  {this.state.leaderData.Name}</Text>
                                 <Text
                                     style={{
-                                    fontSize: 30,
+                                    fontSize: 25,
                                     fontWeight: 'bold',
                                     color: '#efefef'
                                 }}>
-                                    {this.state.leaderData.Name}
+                                {this.state.base_Name} Base
+
                                 </Text>
+                                
                             </View>
                             <View
                                 style={{
@@ -225,7 +245,7 @@ export default class Dashboard extends Component {
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('Members')}
+                                onPress={() => this.props.navigation.navigate('Members',{base_Name:this.state.base_Name,base_Id:this.state.base_Id})}
                                 style={{
                                 flex: 1,
                                 backgroundColor: '#0069c0',
@@ -346,7 +366,7 @@ export default class Dashboard extends Component {
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('Account', {leaderData: this.state.leaderData})}
+                                onPress={() => this.props.navigation.navigate('Account', {leaderData: this.state.leaderData,base_Name:this.state.base_Name})}
                                 style={{
                                 flex: 1,
                                 marginRight: 5,

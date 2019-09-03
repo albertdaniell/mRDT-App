@@ -7,7 +7,7 @@ import {
     Image,
     ImageBackground,
     TouchableOpacity,
-    TextInput
+    TextInput,ActivityIndicator
 } from 'react-native';
 import {white} from 'ansi-colors';
 
@@ -92,6 +92,19 @@ export default class Header extends Component {
                     <View style={{
                         flex: .3
                     }}>
+
+                  {this.props.showLoading?
+                    <ActivityIndicator  style={{
+                            width: '100%',
+                            padding: 0,
+                            alignContent: 'center',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginTop: 20
+                        }} size="small" color="orange"/>
+                        :null
+                  }
+
                         {/* <TouchableOpacity
                             style={{
                             width: '100%',

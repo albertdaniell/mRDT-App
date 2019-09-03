@@ -12,12 +12,16 @@ import Header from '../../components/Header'
 import {
     Container,
     Content,
-    ListItem,
+
     Radio,
     Right,
     Left,
     DatePicker,
-    Picker
+    Picker,
+    Footer,
+    FooterTab,
+    List,
+    ListItem
 } from 'native-base';
 
 export default class UserDemographics extends Component {
@@ -69,7 +73,7 @@ export default class UserDemographics extends Component {
 
                         <TextInput
                             defaultValue={this.props.membername}
-                            onChangeText={(membername) => this.props.getUserDetails(membername, this.props.idno, this.props.phone, this.props.base, this.props.experience, this.props.County, this.props.SubCounty, this.props.Ward)}
+                            onChangeText={(membername) => this.props.getUserDetails(membername, this.props.idno, this.props.phone, this.props.experience, this.props.County, this.props.SubCounty, this.props.Ward)}
                             style={styles.myInput}
                             placeholder="John Doe"></TextInput>
 
@@ -79,7 +83,7 @@ export default class UserDemographics extends Component {
 
                         <TextInput
                             defaultValue={this.props.idno}
-                            onChangeText={(idno) => this.props.getUserDetails(this.props.membername, idno, this.props.phone, this.props.base, this.props.experience, this.props.County, this.props.SubCounty, this.props.Ward)}
+                            onChangeText={(idno) => this.props.getUserDetails(this.props.membername, idno, this.props.phone, this.props.experience, this.props.County, this.props.SubCounty, this.props.Ward)}
                             keyboardType="number-pad"
                             style={styles.myInput}
                             placeholder="34929199"></TextInput>
@@ -155,12 +159,15 @@ export default class UserDemographics extends Component {
                                     selected={this.props.maleSelected}/>
                             </Right>
                         </ListItem>
-                        <ListItem style={{marginBottom:10}}>
+                        <ListItem
+                            style={{
+                            marginBottom: 10
+                        }}>
                             <Left>
                                 <TouchableOpacity
                                     style={{
                                     width: '100%',
-                                    padding: 5,
+                                    padding: 5
                                 }}
                                     onPress={() => this.props.changeGenderToFemale()}>
                                     <Text>Female</Text>
@@ -185,12 +192,9 @@ export default class UserDemographics extends Component {
                             width: '100%',
                             backgroundColor: "#f2f2f2",
                             paddingTop: 15,
-                            paddingBottom:15,
+                            paddingBottom: 15,
                             borderRadius: 4,
-                            marginBottom: 15,
-                            
-                         
-                           
+                            marginBottom: 15
                         }}
                             selectedValue={this.props.countrycode}
                             onValueChange={this.props.onValueChange}>
@@ -207,7 +211,7 @@ export default class UserDemographics extends Component {
                         </Text>
                         <TextInput
                             defaultValue={this.props.phone}
-                            onChangeText={(phone) => this.props.getUserDetails(this.props.membername, this.props.idno, phone, this.props.base, this.props.experience, this.props.County, this.props.SubCounty, this.props.Ward)}
+                            onChangeText={(phone) => this.props.getUserDetails(this.props.membername, this.props.idno, phone, this.props.experience, this.props.County, this.props.SubCounty, this.props.Ward)}
                             keyboardType="number-pad"
                             style={styles.myInput}
                             placeholder="254791827182"></TextInput>
@@ -217,7 +221,7 @@ export default class UserDemographics extends Component {
                         </Text>
                         <TextInput
                             defaultValue={this.props.County}
-                            onChangeText={(County) => this.props.getUserDetails(this.props.membername, this.props.idno, this.props.phone, this.props.base, this.props.experience, County, this.props.SubCounty, this.props.Ward)}
+                            onChangeText={(County) => this.props.getUserDetails(this.props.membername, this.props.idno, this.props.phone, this.props.experience, County, this.props.SubCounty, this.props.Ward)}
                             keyboardType="default"
                             style={styles.myInput}
                             placeholder=""></TextInput>
@@ -228,7 +232,7 @@ export default class UserDemographics extends Component {
                         </Text>
                         <TextInput
                             defaultValue={this.props.SubCounty}
-                            onChangeText={(SubCounty) => this.props.getUserDetails(this.props.membername, this.props.idno, this.props.phone, this.props.base, this.props.experience, this.props.County, SubCounty, this.props.Ward)}
+                            onChangeText={(SubCounty) => this.props.getUserDetails(this.props.membername, this.props.idno, this.props.phone,  this.props.experience, this.props.County, SubCounty, this.props.Ward)}
                             keyboardType="default"
                             style={styles.myInput}
                             placeholder=""></TextInput>
@@ -238,7 +242,7 @@ export default class UserDemographics extends Component {
                         </Text>
                         <TextInput
                             defaultValue={this.props.Ward}
-                            onChangeText={(Ward) => this.props.getUserDetails(this.props.membername, this.props.idno, this.props.phone, this.props.base, this.props.experience, this.props.County, this.props.SubCounty, Ward)}
+                            onChangeText={(Ward) => this.props.getUserDetails(this.props.membername, this.props.idno, this.props.phone,  this.props.experience, this.props.County, this.props.SubCounty, Ward)}
                             keyboardType="default"
                             style={styles.myInput}
                             placeholder=""></TextInput>
@@ -246,9 +250,47 @@ export default class UserDemographics extends Component {
                             Specify Base
 
                         </Text>
+                      
+
+                        <View
+                            style={{
+                                backgroundColor: "#f2f2f2",
+                            height: 200,
+                            padding: 0,
+                            marginBottom:20,
+                            borderRadius:4
+                        }}>
+                        <TextInput placeholder="search..." style={{padding:15,borderBottomWidth:1,borderBottomColor:'black',marginBottom:10}}></TextInput>
+
+                            <ScrollView style={{}}>
+
+                                {this
+                                    .props
+                                    .bases
+                                    .map((base) => {
+
+                                        return (
+
+                                            <List key={base.id}>
+                                                <ListItem>
+                                                    <TouchableOpacity style={{width:'100%'}} onPress={() => this.props.onBaseChange(base.id, base.Name)}>
+                                                        <Text key={base.id}>{base.Name}</Text>
+
+                                                    </TouchableOpacity>
+                                                </ListItem>
+                                            </List>
+
+                                        )
+
+                                    })
+}
+                            </ScrollView>
+
+                        </View>
+
                         <TextInput
+                            editable={false}
                             defaultValue={this.props.base}
-                            onChangeText={(base) => this.props.getUserDetails(this.props.membername, this.props.idno, this.props.phone, base, this.props.experience, this.props.County, this.props.SubCounty, this.props.Ward)}
                             keyboardType="default"
                             style={styles.myInput}
                             placeholder=""></TextInput>
@@ -259,7 +301,7 @@ export default class UserDemographics extends Component {
                         </Text>
                         <TextInput
                             defaultValue={this.props.experience}
-                            onChangeText={(experience) => this.props.getUserDetails(this.props.membername, this.props.idno, this.props.phone, this.props.base, experience, this.props.County, this.props.SubCounty, this.props.Ward)}
+                            onChangeText={(experience) => this.props.getUserDetails(this.props.membername, this.props.idno, this.props.phone,  experience, this.props.County, this.props.SubCounty, this.props.Ward)}
                             keyboardType="number-pad"
                             style={styles.myInput}
                             placeholder="In numbers"></TextInput>
@@ -271,7 +313,11 @@ export default class UserDemographics extends Component {
                         flexDirection: 'row',
                         padding: 10,
                         marginTop: 20
-                    }}>
+                    }}></View>
+
+                </ScrollView>
+                <Footer>
+                    <FooterTab>
                         <TouchableOpacity
                             onPress={this.props.clearForm1}
                             style={{
@@ -286,10 +332,8 @@ export default class UserDemographics extends Component {
                                 color: 'white'
                             }}>Next</Text>
                         </TouchableOpacity>
-                    </View>
-
-                </ScrollView>
-
+                    </FooterTab>
+                </Footer>
             </KeyboardAvoidingView>
 
         )

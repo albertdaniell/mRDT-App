@@ -17,7 +17,7 @@ import {
     Right,
     Left,
     DatePicker,
-    Picker
+    Picker,Footer,FooterTab
 } from 'native-base';
 
 export default class UserDemographics extends Component {
@@ -125,7 +125,34 @@ export default class UserDemographics extends Component {
                         padding: 10,
                         marginTop: 20
                     }}>
-                        <TouchableOpacity
+                   
+
+                    </View>
+
+                    <View>
+
+                    <TouchableOpacity
+                            onPress={this.props.showAllData}
+                            style={{
+                            width: '100%',
+                            alignItems: 'center',
+                            padding: 20,
+                         
+                            flex: 1
+                        }}>
+                            <Text
+                                style={{
+                                color: '#000',
+                                textDecorationLine:'underline'
+                            }}>Preview Information</Text>
+                        </TouchableOpacity> 
+                    </View>
+
+                </ScrollView>
+
+                <Footer>
+                    <FooterTab>
+                    <TouchableOpacity
                             onPress={() => this.props.backToForm3()}
                             style={{
                             alignItems: 'center',
@@ -155,29 +182,8 @@ export default class UserDemographics extends Component {
                                 color: 'white'
                             }}>Finish</Text>
                         </TouchableOpacity>
-
-                    </View>
-
-                    <View>
-
-                    <TouchableOpacity
-                            onPress={this.props.showAllData}
-                            style={{
-                            width: '100%',
-                            alignItems: 'center',
-                            padding: 20,
-                         
-                            flex: 1
-                        }}>
-                            <Text
-                                style={{
-                                color: '#000',
-                                textDecorationLine:'underline'
-                            }}>Preview Information</Text>
-                        </TouchableOpacity> 
-                    </View>
-
-                </ScrollView>
+                    </FooterTab>
+                </Footer>
             </KeyboardAvoidingView>
 
         )

@@ -62,6 +62,7 @@ export default class ViewMember extends Component {
             insuranceDetails:[],
             saccoDetails:[],
             ownerDetails:[],
+            driverDetailBaseName:'',
             ownerExists:false
 
         }
@@ -76,9 +77,17 @@ export default class ViewMember extends Component {
             this.setState({memberId: memberId})
 
             //alert(this.state.memberId)
-
+//get the rider details here
             axios({method: 'GET', url: `http://134.209.148.107/api/rider/${this.state.memberId}/`}).then((response) => {
                 //alert(response.data.Name)
+                axios({
+                    method:'GET',url:`http://134.209.148.107/api/bases/${response.data.BaseName}/`
+                }).then((res)=>{
+                    //alert(0)
+                    this.setState({
+                        driverDetailBaseName:res.data.Name
+                    })
+                })
                 this.setState({driverDetails: response.data,loading1: false})
 
                 //alert(this.state.driverDetails.Name)
@@ -165,7 +174,7 @@ this.setState({
                         }}>
                             {this.state.loading1
                                 ?  <ActivityIndicator size="small" color="orange" />
-                                : <DriverDetails driverDetails={this.state.driverDetails}></DriverDetails>
+                                : <DriverDetails driverDetailBaseName={this.state.driverDetailBaseName} driverDetails={this.state.driverDetails}></DriverDetails>
 }
                         </Tab>
                         <Tab

@@ -8,148 +8,155 @@ import {
     Image,
     ImageBackground,
     TouchableOpacity,
-    TextInput,ActivityIndicator
+    TextInput,
+    ActivityIndicator
 } from 'react-native';
-import {  Toast,
+import {
+    Toast,
     ScrollableTab,
-    Separator
+    Separator,
+    Item,
+    Icon,
+    Input
 } from 'native-base';
 import {white} from 'ansi-colors';
 const axios = require('axios');
 import * as Font from 'expo-font'
-import { NavigationActions } from 'react-navigation';
+import {NavigationActions} from 'react-navigation';
 import {AsyncStorage} from 'react-native';
 
 export default class Login extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {email:null,password:null,leaderData:[],
-        secureTextEntry:true,loading:false,message:'',fontLoaded:false
-    
+        this.state = {
+            email: null,
+            password: null,
+            leaderData: [],
+            secureTextEntry: true,
+            loading: false,
+            message: '',
+            fontLoaded: false
+
+        }
     }
+
+    storeLoginSession = async() => {
+        try {
+            await AsyncStorage.setItem('loginEmail', this.state.leaderData.Email);
+            Toast.show({text: 'Logging you in...', buttonText: 'Okay', duration: 4000})
+
+            // alert("Nice saving data")
+        } catch (error) {
+            alert("Error saving data")
+        }
     }
 
-    storeLoginSession = async () => {
+    storeLoginSession2 = async() => {
         try {
-          await AsyncStorage.setItem('loginEmail', this.state.leaderData.Email);
-          Toast.show({text: 'Logging you in...', buttonText: 'Okay', duration: 4000})
+            await AsyncStorage.setItem('loginData', JSON.stringify(this.state.leaderData));
+            Toast.show({text: `Logged in as ${this.state.leaderData.Email}`, buttonText: 'Okay', duration: 4000})
 
-         // alert("Nice saving data")
+            //alert("Nice saving data")
         } catch (error) {
-        alert("Error saving data")
+            alert("Error saving data")
         }
-      }
+    }
 
-      storeLoginSession2 = async () => {
+    removeLoginSession = async() => {
         try {
-          await AsyncStorage.setItem('loginData', JSON.stringify(this.state.leaderData));
-          Toast.show({text: `Logged in as ${this.state.leaderData.Email}`, buttonText: 'Okay', duration: 4000})
-
-          //alert("Nice saving data")
+            await AsyncStorage.removeItem('loginEmail');
+            alert("Nice removing data")
         } catch (error) {
-        alert("Error saving data")
+            alert("Error saving data")
         }
-      }
+    }
 
-
-      removeLoginSession = async () => {
+    retrieveLoginSession = async() => {
         try {
-          await AsyncStorage.removeItem('loginEmail');
-          alert("Nice removing data")
-        } catch (error) {
-        alert("Error saving data")
-        }
-      }
-
-      retrieveLoginSession = async () => {
-        try {
-          const value = await AsyncStorage.getItem('isLoggedIn');
-          if (value !== null) {
-            alert("data is "+value)
-            console.log(value);
-          }
-
-          else{
-              alert("no data")
-          }
+            const value = await AsyncStorage.getItem('isLoggedIn');
+            if (value !== null) {
+                alert("data is " + value)
+                console.log(value);
+            } else {
+                alert("no data")
+            }
         } catch (error) {
 
-            alert("Error retrieving data" +error)
-          // Error retrieving data
+            alert("Error retrieving data" + error)
+            // Error retrieving data
         }
-      };
-      
+    };
 
-    //   componentDidMount(){
-    //       //this.retrieveData()
-    //       //this.storeData()
-    //       //this.removeLoginSession()
-    //   }
-
+    //   componentDidMount(){       //this.retrieveData()       //this.storeData()
+    //     //this.removeLoginSession()   }
 
     async componentDidMount() {
-        
 
         await Font.loadAsync({'Roboto_medium': require('../assets/Roboto-Medium.ttf')});
 
         this.setState({fontLoaded: true});
     }
 
-    showPass=()=>{
+    showPass = () => {
         this.setState({
-            secureTextEntry:!this.state.secureTextEntry
+            secureTextEntry: !this.state.secureTextEntry
         })
     }
 
-    loginFn=()=>{
+    loginFn = () => {
 
         this.setState({message: 'Please wait...', loading: true})
-4
-        if(this.state.email === null || this.state.password === null){
+        4
+        if (this.state.email === null || this.state.password === null) {
             alert("Fields cannot be empty!")
             this.setState({message: '', loading: false})
             return 0;
         }
-    setTimeout(() => {
-        axios({
-            method:'GET',
-            url:`http://134.209.148.107/api/leaders/${this.state.email}/`
-        }).then(res=>{
-this.setState({
-    leaderData:res.data
-})
+        setTimeout(() => {
+            axios({method: 'GET', url: `http://134.209.148.107/api/leaders/${this.state.email}/`}).then(res => {
+                this.setState({leaderData: res.data})
 
-//alert(res.data.password)
+                //alert(res.data.password)
 
-if(this.state.email === res.data.Email && this.state.password === res.data.password ){
-//alert("Niccee")
-this.storeLoginSession2()
+                if (this.state.email === res.data.Email && this.state.password === res.data.password) {
+                    //alert("Niccee")
+                    this.storeLoginSession2()
 
+                    setTimeout(() => {
+                        // this.props.navigation.reset([NavigationActions.navigate({ routeName:
+                        // 'Dashboard' })], 0)
+                        // this.props.navigation.navigate('Dashboard',{leaderName:this.state.leaderData.N
+                        // ame})
+                        this
+                            .props
+                            .navigation
+                            .reset([NavigationActions.navigate({
+                                    routeName: 'Dashboard',
+                                    params: {
+                                        leaderName: this.state.leaderData.Name,
+                                        leaderData: this.state.leaderData
+                                    }
+                                })], 0)
 
+                    }, 1000);
+                } else {
+                    this.setState({message: '', loading: false})
+                    alert("Email and password do not match!")
 
-setTimeout(() => {
-   // this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Dashboard' })], 0)
-    //this.props.navigation.navigate('Dashboard',{leaderName:this.state.leaderData.Name})
-    this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Dashboard' ,params:{leaderName:this.state.leaderData.Name,leaderData:this.state.leaderData}})], 0)
+                    this.setState({password: null})
 
-}, 1000);
-}
-else{
-    this.setState({message: '', loading: false})
-    alert("Email and password do not match!")
-
-    this.setState({
-        password:null
-    })
-
-    this.set
-}
-        }).catch((e)=>{
-            this.setState({message: '', loading: false})
-        alert("User does not exist")
-        })
-    }, 2000);
+                    this.set
+                }
+            }).catch((error) => {
+                this.setState({message: '', loading: false})
+               console.log(error.response.status)
+               alert(error.response.stat)
+               if(error.response.status === 404){
+                   alert("User does not exist")
+               }
+            })
+        }, 2000);
     }
     render() {
         return (
@@ -192,14 +199,14 @@ else{
                                     textAlign: 'center'
                                 }}>Login</Text>
                                 <TextInput
-                                autoCapitalize='none'
-                                onChangeText={(email)=>this.setState({email})}
-                                value={this.state.email}
+                                    autoCapitalize='none'
+                                    onChangeText={(email) => this.setState({email})}
+                                    value={this.state.email}
                                     keyboardType='email-address'
                                     placeholder="Enter your email"
                                     placeholderTextColor='#efefef'
                                     style={{
-                                    color:'white',
+                                    color: 'white',
                                     padding: 20,
                                     marginBottom: 20,
                                     borderWidth: 1,
@@ -208,15 +215,14 @@ else{
                                     borderRadius: 4,
                                     backgroundColor: 'rgba(0,0,0,.8)'
                                 }}></TextInput>
-                                <TextInput
-                                onChangeText={(password)=>this.setState({password})}
-                                value={this.state.password}
-
+                                {/* <TextInput
+                                    onChangeText={(password) => this.setState({password})}
+                                    value={this.state.password}
                                     secureTextEntry={this.state.secureTextEntry}
                                     placeholder='Password'
                                     placeholderTextColor='#efefef'
                                     style={{
-                                    color:'white',
+                                    color: 'white',
                                     padding: 20,
                                     marginBottom: 10,
                                     borderWidth: 1,
@@ -224,73 +230,93 @@ else{
                                     width: '100%',
                                     borderRadius: 4,
                                     backgroundColor: 'rgba(0,0,0,.8)'
+                                }}></TextInput> */}
+
+                               
+                                <TextInput
+                                    onChangeText={(password) => this.setState({password})}
+                                    value={this.state.password}
+                                    secureTextEntry={this.state.secureTextEntry}
+                                    placeholder='Password'
+                                    placeholderTextColor='#efefef'
+                                    style={{
+                                    color: 'white',
+                                    padding: 20,
+                                    marginBottom: 10,
+                                    borderWidth: 1,
+                                    borderColor: 'white',
+                                    width: '100%',
+                                    borderRadius: 4,
+                                    backgroundColor: 'rgba(0,0,0,.8)',
+                                    width:'100%'
                                 }}></TextInput>
 
-                              {
-                                  this.state.secureTextEntry?
-                                  <TouchableOpacity
-                                onPress={()=>this.showPass()}
-                                    style={{
-                                    alignItems: 'center',
-                                    padding: 10,
+                                {this.state.secureTextEntry
+                                    ? <TouchableOpacity
+                                            onPress={() => this.showPass()}
+                                            style={{
+                                            alignItems: 'center',
+                                            padding: 20,
+                                            marginBottom: 0,
+                                  
                                    
-                                }}>
-                                    <Text
-                                        style={{
-                                        color: 'red',
-                                        backgroundColor:'#ccc',
-                                        padding:5
-                                    }}>Show password</Text>
-                                </TouchableOpacity>
-                                  :  <TouchableOpacity
-                                onPress={()=>this.showPass()}
-                                    style={{
-                                    alignItems: 'center',
-                                    padding: 10
-                                }}>
-                                    <Text
-                                        style={{
-                                            color: 'red',
-                                        backgroundColor:'white',
-                                        padding:5
-                                    }}>Hide password</Text>
-                                </TouchableOpacity>
-                              }
-                            </View>
-                           
+                                        }}>
+                                        <Text style={{color:'orange'}}>
+                                            Show 
+                                            <Icon style={{color:'white',fontSize:15}}  active name='eye' type="FontAwesome" />
 
+                                        </Text>
+                                        </TouchableOpacity>
+                                    : <TouchableOpacity
+                                        onPress={() => this.showPass()}
+                                        style={{
+                                        alignItems: 'center',
+                                        padding: 20,
+                                        marginBottom: 0,
+                                   
+                                 
+                                    }}><Text style={{color:'orange'}}>
+                                        Hide 
+                                        <Icon color='white' style={{color:'white',fontSize:15,marginLeft:10}} active name='eye-slash' type="FontAwesome" />
+
+                                    </Text>
+                                    </TouchableOpacity>
+}
+                             
+                              
+
+                           
+                            </View>
 
                             {this.state.loading
-                    ? <TouchableOpacity
-                            disabled
-                            style={{
-                            backgroundColor: '#efefef',
-                            padding: 20,
-                            
-                            alignItems: 'center'
-                        }}>
+                                ? <TouchableOpacity
+                                        disabled
+                                        style={{
+                                        backgroundColor: '#efefef',
+                                        padding: 20,
+                                        alignItems: 'center'
+                                    }}>
 
-                            <ActivityIndicator size="small" color="#0000ff"/>
+                                        <ActivityIndicator size="small" color="#0000ff"/>
 
-                        </TouchableOpacity>
+                                    </TouchableOpacity>
 
-                    :    <TouchableOpacity
-                            onPress={()=>this.loginFn()}
-                                
-                                style={{
-                                backgroundColor: 'rgba(15,157,88,.8)',
-                                padding: 20,
-                                alignItems: 'center',
-                                borderRadius: 2,
-                                width: '100%',
-                                marginBottom: 0
-                            }}>
-                                <Text
+                                : <TouchableOpacity
+                                    onPress={() => this.loginFn()}
                                     style={{
-                                    letterSpacing: 4,
-                                    color: 'white'
-                                }}>SUBMIT</Text>
-                            </TouchableOpacity>
+                                    backgroundColor: 'rgba(15,157,88,.8)',
+                                    padding: 20,
+                                    alignItems: 'center',
+                                    borderRadius: 2,
+                                    width: '100%',
+                                    marginBottom: 0
+                                }}>
+                                    <Text
+                                        style={{
+                                        letterSpacing: 4,
+                                        color: 'white'
+                                    }}>SUBMIT</Text>
+                                </TouchableOpacity>
 }
                         </View>
                     </KeyboardAvoidingView>

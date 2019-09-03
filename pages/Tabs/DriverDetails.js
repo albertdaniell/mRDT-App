@@ -136,10 +136,10 @@ export default class ViewMember extends Component {
 
                         <ListItem>
                             <Left>
-                                <Text>Gender</Text>
+                                <Text>Base</Text>
                             </Left>
                             <Right>
-                                <Text>{this.props.driverDetails.BaseName}</Text>
+                                <Text>{this.props.driverDetailBaseName}</Text>
                             </Right>
                         </ListItem>
 

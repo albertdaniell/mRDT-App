@@ -17,7 +17,7 @@ import {
     Right,
     Left,
     DatePicker,
-    Picker
+    Picker,Footer,FooterTab
 } from 'native-base';
 
 export default class BodaBodaDetails extends Component {
@@ -173,7 +173,15 @@ export default class BodaBodaDetails extends Component {
                         padding: 10,
                         marginTop: 20
                     }}>
-                        <TouchableOpacity
+                       
+
+                    </View>
+
+                </ScrollView>
+
+                <Footer>
+    <FooterTab>
+    <TouchableOpacity
                             onPress={this.props.backToForm1}
                             style={{
                             alignItems: 'center',
@@ -203,10 +211,8 @@ export default class BodaBodaDetails extends Component {
                                 color: 'white'
                             }}>Next</Text>
                         </TouchableOpacity>
-
-                    </View>
-
-                </ScrollView>
+    </FooterTab>
+</Footer>
             </KeyboardAvoidingView>
         )
     }

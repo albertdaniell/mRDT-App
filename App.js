@@ -8,7 +8,7 @@ import UserDemographics from './pages/DigitalBaseRegistration/UserDemographics'
 import Form from './pages/DigitalBaseRegistration/Form'
 import Members from './pages/Members'
 import ViewMember from './pages/ViewMember'
-import { Root } from "native-base";
+import {Root} from "native-base";
 import MakePayment from './pages/MakePayment'
 import Transactions from './pages/Transactions'
 import Account from './pages/Account'
@@ -16,10 +16,10 @@ import Account from './pages/Account'
 export default function App() {
     return (
 
-         <Root>
-         <AppContainer></AppContainer>
-  </Root>
-        
+        <Root>
+            <AppContainer></AppContainer>
+        </Root>
+
     );
 }
 
@@ -32,6 +32,14 @@ const AppNavigator = createStackNavigator({
         }
     },
 
+    Form: {
+        screen: Form,
+        navigationOptions: {
+            header: null
+        }
+    },
+
+  
 
     Login: {
         screen: Login,
@@ -40,9 +48,6 @@ const AppNavigator = createStackNavigator({
         }
     },
 
-      
-  
-          
     Account: {
         screen: Account,
         navigationOptions: {
@@ -50,68 +55,47 @@ const AppNavigator = createStackNavigator({
         }
     },
 
-
     Dashboard: {
         screen: Dashboard,
         navigationOptions: {
             header: null
         }
-    }, 
+    },
 
-    Transactions:{
+    Transactions: {
         screen: Transactions,
         navigationOptions: {
             header: null
         }
     },
 
-
-    MakePayment:{
+    MakePayment: {
         screen: MakePayment,
         navigationOptions: {
             header: null
         }
     },
 
-   
     Members: {
         screen: Members,
         navigationOptions: {
             header: null
         }
     },
-   
 
-    ViewMember:{
+    ViewMember: {
         screen: ViewMember,
         navigationOptions: {
             header: null
         }
     },
-   
 
-    Form:{
-        screen:Form,
-        navigationOptions:{
-            header:null
+    UserDemographics: {
+        screen: UserDemographics,
+        navigationOptions: {
+            header: null
         }
-    },
-   
-    
-  
-  
-   
-  
-    UserDemographics:{
-        screen:UserDemographics,
-        navigationOptions:{
-            header:null
-        }
-    },
-   
-   
-   
-   
+    }
 });
 
 const AppContainer = createAppContainer(AppNavigator);
