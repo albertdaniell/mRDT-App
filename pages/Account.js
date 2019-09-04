@@ -10,7 +10,7 @@ import {
     TextInput,
     KeyboardAvoidingView,
     ScrollView,
-    FlatList,ActivityIndicator
+    FlatList,ActivityIndicator,Image
 } from 'react-native'
 
 import {
@@ -158,23 +158,37 @@ export default class Account extends Component {
     render() {
         return (
             <View style={{
-                flex: 1
+                flex: 1,
             }}>
 
+            {/* <Text style={{color:'#595959',padding:10,fontSize:40,marginTop:20,fontWeight:"bold"}}>Profile</Text> */}
+
+
             <Header showBack={this.state.showBack} navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
+<View style={{flex:.6,marginBottom:10,padding:10}}>
+   <View style={{flex:1,flexDirection:'row',marginBottom:10}}>
+
+   <View style={{flex:.4,borderRightWidth:5,borderRightColor:'#efefef'}}>
+        <Image source={require('../assets/myuser.png')} style={{width:100,height:100}}></Image>
+    </View>
+    <View style={{flex:.6,padding:10}}>
+        <Text>Name: {this.state.leaderData.Name}</Text>
+        <Text>Phone: {this.state.leaderData.phone_number}</Text>
+
+        <Text>Email: {this.state.leaderData.Email}</Text>
+    </View>
+   </View>
+
+   <TouchableOpacity style={{padding:15,alignContent:'center',alignItems:'center',backgroundColor:'#1289cd',borderRadius:4}}>
+        <Text style={{letterSpacing:3,color:'white'}}>EDIT</Text>
+    </TouchableOpacity>
+</View>
 
 
-        <View style={{flex:1}}>
+
+        <View style={{flex:1.4,padding:10}}>
         <List>
-                    <ListItem itemDivider>
-                        <Text style={{color:'green'}}>Fullname</Text>
-                    </ListItem>
-                    <ListItem>
-
-                        <Text >{this.state.leaderData.Name}</Text>
-
-                    </ListItem>
-
+                    
 
                     <ListItem itemDivider>
                         <Text style={{color:'green'}}>Base Name</Text>
@@ -185,20 +199,6 @@ export default class Account extends Component {
 
                     </ListItem>
 
-                    <ListItem itemDivider>
-                        <Text style={{color:'green'}}>Email</Text>
-                    </ListItem>
-                    <ListItem>
-                        <Text>{this.state.leaderData.Email}</Text>
-
-                    </ListItem>
-                    <ListItem itemDivider>
-                        <Text style={{color:'green'}}>Phone number</Text>
-                    </ListItem>
-                    <ListItem>
-                        <Text>{this.state.leaderData.phone_number}</Text>
-
-                    </ListItem>
 
                     <ListItem>
                        

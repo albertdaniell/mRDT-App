@@ -27,7 +27,8 @@ export default class Dashboard extends Component {
             membersData:[],
             isLoading:false,
             base_Name:'- -',
-            base_Id:''
+            base_Id:'',
+            headerTitle:'Dashboard'
         }
     }
 
@@ -130,10 +131,14 @@ this.setState({
                 flex: 1
             }}>
                 <View style={{
-                    flex: .13
+                    flex: .13,
+                    
                 }}>
+
+                <Header showBack={this.state.showBack} navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
+
                 
-                   <Text style={{color:'#595959',padding:10,fontSize:40,marginTop:20,fontWeight:"bold"}}>Dashboard</Text>
+                   {/* <Text style={{color:'#595959',padding:10,fontSize:40,marginTop:20,fontWeight:"bold"}}>Dashboard</Text> */}
                 </View>
 
                 <Anime

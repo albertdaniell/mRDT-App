@@ -34,8 +34,8 @@ export default class Header extends Component {
         return (
             <View
                 style={{
-                padding: 0,
-                backgroundColor: '#00766c',
+                padding: 10,
+            
                 marginTop: 25,
               
                 zIndex: 1999,
@@ -59,36 +59,29 @@ export default class Header extends Component {
                             onPress={() => this.props.navigation.goBack()}
                             style={{
                             width: '100%',
-                            padding: 0,
+                            padding: 10,
                             alignContent: 'center',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            marginTop: 0
+                            marginTop: 0,
+                            backgroundColor:'#f2f2f2',
+                            height:40,
+                            width:40,
+                            borderRadius:30
                         }}>
                             <Icon
                                 style={{
-                                color: 'white'
+                                color: 'black',
+                                fontSize:20
                             }}
-                                color='white'
+                                color='black'
                                 name="arrow-back"/>
                         </TouchableOpacity>
                :null
            }
 
                     </View>
-                    <View
-                        style={{
-                        flex: 2.4,
-                        alignItems: 'flex-start',
-                        justifyContent: 'center'
-                    }}>
-                        <Text
-                            style={{
-                            color: 'white',
-                            fontSize: 16,
-                            fontWeight: 'bold'
-                        }}>{this.props.headerTitle}</Text>
-                    </View>
+
                     <View style={{
                         flex: .3
                     }}>
@@ -100,7 +93,7 @@ export default class Header extends Component {
                             alignContent: 'center',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            marginTop: 20
+                            marginTop: 13
                         }} size="small" color="orange"/>
                         :null
                   }
@@ -123,6 +116,20 @@ export default class Header extends Component {
                                 type="FontAwesome"/>
                         </TouchableOpacity> */}
                     </View>
+                    <View
+                        style={{
+                        flex: 2.4,
+                        alignItems: 'flex-end',
+                        justifyContent: 'center'
+                    }}>
+                        <Text
+                            style={{
+                                color:'orange',
+                            fontSize: 30,
+                            fontWeight: 'bold'
+                        }}>{this.props.headerTitle}</Text>
+                    </View>
+                    
 
                 </View>
 

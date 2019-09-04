@@ -157,7 +157,7 @@ this.setState({
                     flex: 1
                 }}>
 
-                    <Tabs style={{}} renderTabBar={() => <ScrollableTab/>}>
+                    <Tabs tabBarUnderlineStyle={{borderBottomColor:'black',borderBottomWidth:4}} style={{}} renderTabBar={() => <ScrollableTab/>}>
 
                         <Tab
                             heading="Rider"
@@ -166,11 +166,11 @@ this.setState({
                         }}
                         textStyle={{color:'#ccc'}}
                             activeTabStyle={{
-                            backgroundColor: '#00766c'
+                            backgroundColor: 'orange'
                         }}
                         activeTextStyle={{ color:'white'}}
                             tabStyle={{
-                            backgroundColor: '#00766c'
+                            backgroundColor: 'white'
                         }}>
                             {this.state.loading1
                                 ?  <ActivityIndicator size="small" color="orange" />
@@ -186,11 +186,11 @@ this.setState({
 
                         activeTextStyle={{ color:'white'}}
                             activeTabStyle={{
-                            backgroundColor: '#00766c',
+                            backgroundColor: 'orange',
                            
                         }}
                             tabStyle={{
-                            backgroundColor: '#00766c'
+                            backgroundColor: 'white'
                         }}>
                         {this.state.loading1
                                 ? <ActivityIndicator size="small" color="orange" />
@@ -205,11 +205,11 @@ this.setState({
 
                         textStyle={{color:'#ccc'}}
                             activeTabStyle={{
-                            backgroundColor: '#00766c'
+                            backgroundColor: 'orange'
                         }}
                         activeTextStyle={{ color:'white'}}
                             tabStyle={{
-                            backgroundColor: '#00766c'
+                            backgroundColor: 'white'
                         }}>
                         {this.state.loading1
                                 ? <ActivityIndicator size="small" color="orange" />
@@ -222,6 +222,7 @@ this.setState({
                         </Tab>
 
                         <Tab
+                        
                             heading="Insurance"
                             style={{
                             padding: 10
@@ -229,11 +230,11 @@ this.setState({
 
                         textStyle={{color:'#ccc'}}
                             activeTabStyle={{
-                            backgroundColor: '#00766c'
+                            backgroundColor: 'orange'
                         }}
                         activeTextStyle={{ color:'white'}}
                             tabStyle={{
-                            backgroundColor: '#00766c'
+                            backgroundColor: 'white'
                         }}>
                         {this.state.loading1
                                 ?  <ActivityIndicator size="small" color="orange" />
@@ -248,11 +249,11 @@ this.setState({
                         }}
                         textStyle={{color:'#ccc'}}
                             activeTabStyle={{
-                            backgroundColor: '#00766c'
+                            backgroundColor: 'orange'
                         }}
                         activeTextStyle={{ color:'white'}}
                             tabStyle={{
-                            backgroundColor: '#00766c'
+                            backgroundColor: 'white'
                         }}>
                         {this.state.loading1
                                 ? <ActivityIndicator size="small" color="orange" />

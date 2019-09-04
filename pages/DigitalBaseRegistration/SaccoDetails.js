@@ -21,6 +21,15 @@ import {
 } from 'native-base';
 
 export default class UserDemographics extends Component {
+
+    constructor(props){
+        super(props)
+
+        this.state={
+            showPreviewDiv:false
+        }
+        
+    }
     render() {
         return (
 
@@ -150,21 +159,19 @@ export default class UserDemographics extends Component {
 
                 </ScrollView>
 
-                <Footer>
-                    <FooterTab>
+                <Footer style={{padding:10,height:75,backgroundColor:'#f2f2f2'}}>
+                    <FooterTab style={{backgroundColor:'#f2f2f2'}}>
                     <TouchableOpacity
                             onPress={() => this.props.backToForm3()}
                             style={{
                             alignItems: 'center',
                             padding: 20,
-                            backgroundColor: '#fff',
-                            borderWidth: 1,
-                            borderColor: '#2962ff',
+                           
                             flex: 1
                         }}>
                             <Text
                                 style={{
-                                color: 'black'
+                                color: 'orange'
                             }}>Previous</Text>
                         </TouchableOpacity>
 
@@ -173,13 +180,15 @@ export default class UserDemographics extends Component {
                             style={{
                             width: '100%',
                             alignItems: 'center',
-                            padding: 20,
-                            backgroundColor: '#087f23',
-                            flex: 1
+                            backgroundColor: 'orange',
+                            flex: 1,
+                            padding:20,
+                            borderRadius:40,
+                            marginBottom:10
                         }}>
                             <Text
                                 style={{
-                                color: 'white'
+                                color: 'white',letterSpacing:3,textTransform:'uppercase'
                             }}>Finish</Text>
                         </TouchableOpacity>
                     </FooterTab>

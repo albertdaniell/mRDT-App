@@ -38,7 +38,7 @@ import {
     Input,
     Grid,
     Col,
-    Toast
+    Toast,Fab
 } from 'native-base';
 import Header from '../components/Header'
 import {AsyncStorage} from 'react-native';
@@ -305,9 +305,29 @@ this.getMembers()
             <View style={{
                 flex: 1
             }}>
+
+            
                 <View style={{
                     flex: 1
                 }}>
+
+                
+            
+           
+           <TouchableOpacity style={{width:60,height:60,padding:20,borderRadius:50,position:'absolute',zIndex:1000,bottom:30,right:20,alignItems:'center',backgroundColor:'orange'}}  onPress={() => this.props.navigation.navigate('Form')}>
+           <Icon style={{fontSize:20,color:'white'}} name="plus" type='FontAwesome'/>
+           </TouchableOpacity>
+{/* 
+           <Fab
+            active={this.state.active}
+            direction="up"
+            containerStyle={{ }}
+            style={{ backgroundColor: 'orange',zIndex:1000 }}
+            position="bottomRight"
+            onPress={() => this.props.navigation.navigate('Form')}>
+            <Icon name="plus" type='FontAwesome'/>
+            </Fab> */}
+            
                     <Header showBack={true} showLoading={this.state.showLoading} navigation={this.props.navigation} headerTitle={this.state.headerTitle}></Header>
 
                     <View
@@ -329,6 +349,8 @@ this.getMembers()
         padding:15,backgroundColor:'#efefef',borderRadius:10
     }}></TextInput>
 </View>
+
+
                     
 
 

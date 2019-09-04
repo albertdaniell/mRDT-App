@@ -123,13 +123,7 @@ export default class Dashboard extends Component {
                         <View style={{
                             flex: 1,padding:10
                         }}>
-                            <Image
-                                source={require('../assets/lnmp.jpg')}
-                                style={{
-                                height: '100%',
-                                width: '30%',
-                                marginBottom: 10
-                            }}></Image>
+                          
 
                         </View>
                         <ScrollView

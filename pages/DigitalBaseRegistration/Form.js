@@ -35,7 +35,7 @@ export default class Form extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            headerTitle: 'Member Details Form',
+            headerTitle: 'Member Details',
             membername: '',
             idno: '',
             dob: '',
@@ -527,7 +527,7 @@ console.log("getting bases..")
             return 0;
 
         }
-        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: false, form3Cleared: true})
+        this.setState({headerTitle: 'BodaBoda Details', form1Cleared: true, form2Cleared: false, form3Cleared: true})
     }
 
     clearForm2 = () => {
@@ -561,7 +561,7 @@ console.log("getting bases..")
             }
         } else {}
 
-        this.setState({headerTitle: 'Insurance Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: false})
+        this.setState({headerTitle: 'Insurance Details', form1Cleared: true, form2Cleared: true, form3Cleared: false})
 
     }
 
@@ -574,7 +574,7 @@ console.log("getting bases..")
         // '' || this.state.bodaOwnerPhone == '') {         alert("Please fill in
         // Details for Boda boda owner")         return 0;     } } else {}
 
-        this.setState({headerTitle: 'Sacco Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: true})
+        this.setState({headerTitle: 'Sacco Details', form1Cleared: true, form2Cleared: true, form3Cleared: true})
 
     }
 
@@ -616,17 +616,17 @@ Vibration.vibrate(1000);
     }
 
     backToForm1 = () => {
-        this.setState({headerTitle: 'Member Details Form', form1Cleared: false, form2Cleared: true, form3Cleared: true})
+        this.setState({headerTitle: 'Member Details', form1Cleared: false, form2Cleared: true, form3Cleared: true})
 
     }
     backToForm2 = () => {
-        this.setState({headerTitle: 'BodaBoda Details Form', form1Cleared: true, form2Cleared: false, form3Cleared: true})
+        this.setState({headerTitle: 'BodaBoda Details', form1Cleared: true, form2Cleared: false, form3Cleared: true})
 
     }
 
     backToForm3 = () => {
 
-        this.setState({headerTitle: 'Insurance Details Form', form1Cleared: true, form2Cleared: true, form3Cleared: false, showAllDataView: false})
+        this.setState({headerTitle: 'Insurance Details', form1Cleared: true, form2Cleared: true, form3Cleared: false, showAllDataView: false})
 
     }
 
@@ -941,6 +941,7 @@ Vibration.vibrate(1000);
                                     flex: 1
                                 }}>
                                     <SaccoDetails
+                                    
                                         SaccoNoSelect={this.state.SaccoNoSelect}
                                         SaccoYesSelect={this.state.SaccoYesSelect}
                                         Sacco={this.state.Sacco}
@@ -953,8 +954,10 @@ Vibration.vibrate(1000);
                                         DailyContribFormShow={this.state.DailyContribFormShow}
                                         submitForm={this.submitForm}
                                         showAllData={this.showAllData}
-                                        saveUserDetails={this.saveUserDetails}></SaccoDetails>
-                                    <View
+                                        saveUserDetails={this.saveUserDetails}>
+                                      
+                                        </SaccoDetails>
+                                   {/* <View
                                         style={{
                                         flex: 1,
                                         padding: 10
@@ -969,7 +972,7 @@ Vibration.vibrate(1000);
                                         </Text>
                                         <Text>{this.state.saccoSuccessmsg}
                                         </Text>
-                                    </View>
+                                    </View>   */}
                                 </View>
                             : <InsuranceDetails
                                     InsuranceName={this.state.InsuranceName}
@@ -1031,7 +1034,7 @@ Vibration.vibrate(1000);
                         ></UserDemographics>
 }
 
-                {this.state.showAllDataView
+                {/* {this.state.showAllDataView
                     ? <View>
                             <ScrollView
                                 style={{
@@ -1379,7 +1382,7 @@ Vibration.vibrate(1000);
                             </ScrollView>
                         </View>
                     : null
-}
+} */}
             </View>
         )
     }

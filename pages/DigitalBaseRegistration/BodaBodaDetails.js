@@ -179,21 +179,19 @@ export default class BodaBodaDetails extends Component {
 
                 </ScrollView>
 
-                <Footer>
-    <FooterTab>
+                <Footer style={{padding:10,height:75,backgroundColor:'#f2f2f2'}}>
+                    <FooterTab style={{backgroundColor:'#f2f2f2'}}>
     <TouchableOpacity
                             onPress={this.props.backToForm1}
                             style={{
                             alignItems: 'center',
                             padding: 20,
-                            backgroundColor: '#fff',
-                            borderWidth: 1,
-                            borderColor: '#2962ff',
+                           
                             flex: 1
                         }}>
                             <Text
                                 style={{
-                                color: 'black'
+                                color: 'orange'
                             }}>Previous</Text>
                         </TouchableOpacity>
 
@@ -203,12 +201,14 @@ export default class BodaBodaDetails extends Component {
                             width: '100%',
                             alignItems: 'center',
                             padding: 20,
-                            backgroundColor: '#2962ff',
-                            flex: 1
+                            backgroundColor: 'orange',
+                            flex: 1,
+                            borderRadius:40,
+                            marginBottom:10
                         }}>
                             <Text
                                 style={{
-                                color: 'white'
+                                color: 'white',letterSpacing:3,textTransform:'uppercase'
                             }}>Next</Text>
                         </TouchableOpacity>
     </FooterTab>
