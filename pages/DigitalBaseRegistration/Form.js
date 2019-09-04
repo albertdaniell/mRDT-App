@@ -800,7 +800,9 @@ Vibration.vibrate(1000);
 
             }
         }).then(() => {
-            Toast.show({position: "top", text: 'Success saving insurance details', buttonText: 'Okay', duration: 4000, type: "success"})
+            Toast.show({style: {
+                marginTop: 30
+            },position: "top", text: 'Success saving insurance details', buttonText: 'Okay', duration: 4000, type: "success"})
             this.setState({insuranceSuccessmsg: 'Success saving insurance details'})
             setTimeout(() => {
                 this.saveSaccoDetails()

@@ -246,6 +246,7 @@ this.setState({
                                     <Text
                                         style={{
                                         color: 'white'
+                                        
                                     }}>Make Payments</Text>
                                 </View>
                             </TouchableOpacity>

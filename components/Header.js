@@ -22,19 +22,29 @@ import {
     Picker,
     Icon
 } from 'native-base';
+import * as Font from 'expo-font'
 
 export default class Header extends Component {
+
     constructor(props) {
         super(props)
 
-        this.state = {}
+        this.state = {fontLoaded:false}
+    }
+
+
+    async componentDidMount(){
+
+        await Font.loadAsync({'Anton_Regular': require('../assets/Anton-Regular.ttf')});
+
+        this.setState({fontLoaded: true});
     }
 
     render() {
         return (
             <View
                 style={{
-                padding: 10,
+                
             
                 marginTop: 25,
               
@@ -50,6 +60,7 @@ export default class Header extends Component {
                     <View
                         style={{
                         flex: .3,
+                        padding: 10,
                         justifyContent: 'center'
                     }}>
 
@@ -83,7 +94,8 @@ export default class Header extends Component {
                     </View>
 
                     <View style={{
-                        flex: .3
+                        flex: .3,
+                        padding: 10,
                     }}>
 
                   {this.props.showLoading?
@@ -120,14 +132,18 @@ export default class Header extends Component {
                         style={{
                         flex: 2.4,
                         alignItems: 'flex-end',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        borderRightWidth:4,
+                        padding:10,
+                        borderRightColor:'orange'
                     }}>
-                        <Text
+                       {this.state.fontLoaded? <Text
                             style={{
                                 color:'orange',
-                            fontSize: 30,
-                            fontWeight: 'bold'
-                        }}>{this.props.headerTitle}</Text>
+                          fontSize:25,
+                          
+                            fontFamily:'Anton_Regular'
+                        }}>{this.props.headerTitle}</Text>:null}
                     </View>
                     
 
