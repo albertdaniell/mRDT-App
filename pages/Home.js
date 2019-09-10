@@ -98,7 +98,7 @@ export default class Home extends Component {
         return (
             <View style={styles.container}>
                 <ImageBackground
-                    source={require('../assets/tuktuk.jpg')}
+                    source={require('../assets/mbodabg-01.png')}
                     style={{
                     height: '100%',
                     width: '100%'
@@ -125,7 +125,7 @@ export default class Home extends Component {
                                 color: 'white',
                                 fontSize: 50,
                                 fontWeight: 'bold',
-                                paddingLeft: 10
+                                marginLeft: 20
                             }}>Welcome!</Text>
                             <Text
                                 style={{
@@ -133,7 +133,7 @@ export default class Home extends Component {
                                 fontSize: 25,
                                 fontWeight: 'bold',
                                 marginBottom: 20,
-                                paddingLeft: 10
+                                marginLeft: 20
                             }}>to M-BodaBoda.</Text>
                         {
                             this.state.showbtn?
@@ -142,10 +142,11 @@ export default class Home extends Component {
                                 style={{
                                 backgroundColor: 'rgba(255,69,0,.5)',
                                 padding: 20,
-                                alignItems: 'center',
+                               
                                 borderRadius: 2,
                                 width: '100%',
-                                marginBottom: 0
+                                marginBottom: 50,
+                                marginLeft:20
                             }}>
                                 <Text
                                     style={{

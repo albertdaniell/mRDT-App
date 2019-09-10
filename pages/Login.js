@@ -162,7 +162,7 @@ export default class Login extends Component {
         return (
             <View style={styles.container}>
                 <ImageBackground
-                    source={require('../assets/bike.jpg')}
+                    source={require('../assets/mbodabg-01.png')}
                     style={{
                     height: '100%',
                     width: '100%'
