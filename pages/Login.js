@@ -9,7 +9,7 @@ import {
     ImageBackground,
     TouchableOpacity,
     TextInput,
-    ActivityIndicator
+    ActivityIndicator,Vibration
 } from 'react-native';
 import {
     Toast,
@@ -24,7 +24,8 @@ const axios = require('axios');
 import * as Font from 'expo-font'
 import {NavigationActions} from 'react-navigation';
 import {AsyncStorage} from 'react-native';
-
+const DURATION = 20000
+const PATTERN = [10]
 export default class Login extends Component {
 
     constructor(props) {
@@ -143,6 +144,7 @@ export default class Login extends Component {
                 } else {
                     this.setState({message: '', loading: false})
                     alert("Email and password do not match!")
+                    Vibration.vibrate(PATTERN)
 
                     this.setState({password: null})
 

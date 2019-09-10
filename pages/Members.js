@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 const axios = require('axios');
 import * as Font from 'expo-font'
+import PTRView from 'react-native-pull-to-refresh';
 import SearchInput, { createFilter } from 'react-native-search-filter';
-const KEYS_TO_FILTERS = ['Name'];
+const KEYS_TO_FILTERS = ['Name','IDNo','PhoneNumber'];
 import {
     StyleSheet,
     View,
@@ -13,6 +14,8 @@ import {
     ScrollView,
     FlatList
 } from 'react-native'
+
+
 
 import {
 
@@ -69,6 +72,12 @@ export default class Dashboard extends Component {
         }
     }
 
+    _refresh=()=> {
+        return new Promise((resolve) => {
+          setTimeout(()=>{resolve()}, 2000)
+          this.getMembers()
+        });
+    }
     searchUpdated(term) {
         this.setState({ searchTerm: term })
       }
@@ -401,21 +410,24 @@ this.getMembers()
     <SearchInput 
           onChangeText={(term) => { this.searchUpdated(term) }} 
           style={{ padding:15,backgroundColor:'#efefef',borderRadius:10}}
-          placeholder="Type a message to search"
+          placeholder="Search ID number or Name"
           />
 
-          <ScrollView style={{marginTop:10}}>
+        <PTRView onRefresh={this._refresh} style={{marginTop:10}}>
+        <ScrollView style={{marginTop:10}}>
           {filteredMembers.map(member => {
             return (
-              <TouchableOpacity style={{padding:10}} onPress={()=>alert(member.Name)} key={member.IDNo} onPress={()=> this.props.navigation.navigate('ViewMember',{memberId:member.IDNo})}>
+              <TouchableOpacity style={{padding:10,borderBottomWidth: 0.5,
+    borderColor: 'rgba(0,0,0,0.3)'}} onPress={()=>alert(member.Name)} key={member.IDNo} onPress={()=> this.props.navigation.navigate('ViewMember',{memberId:member.IDNo})}>
                 <View>
                   <Text>{member.Name}</Text>
-                  <Text style={{color:'gray'}}>{member.PhoneNumber}</Text>
+                  <Text style={{color:'gray'}}>{member.IDNo}</Text>
                 </View>
               </TouchableOpacity>
             )
           })}
         </ScrollView>
+        </PTRView>
     {/* <TextInput  onChangeText={(searchQuery)=>this.searchMembers(searchQuery)} placeholder="Search..." style={{
         padding:15,backgroundColor:'#efefef',borderRadius:10
     }}></TextInput> */}

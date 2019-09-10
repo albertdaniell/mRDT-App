@@ -8,12 +8,14 @@ import {
     Image,
     ImageBackground,
     TouchableOpacity,
-    TextInput
+    TextInput,NetInfo,Vibration
 } from 'react-native';
 import Header from '../components/Header'
 import Anime from './anime/anime1'
 import {AsyncStorage} from 'react-native';
 import {Toast} from 'native-base'
+const DURATION = 10000
+const PATTERN = [1000]
 
 export default class Dashboard extends Component {
 
@@ -44,6 +46,16 @@ export default class Dashboard extends Component {
     }
 
     async componentDidMount() {
+
+       
+        NetInfo.isConnected.fetch().then(isConnected => {
+            console.log('First, is ' + (isConnected ? 'online' :
+            Toast.show({style: {
+                marginTop: 30
+            },text: `You are offline`, duration: 4000,type:"danger"})
+
+            ));
+          });
         await this.getDay()
         setTimeout(() => {
             this.getDate()
