@@ -55,7 +55,7 @@ export default class Dashboard extends Component {
             console.log('First, is ' + (isConnected ? 'online' :
 this.setState({
     isOffline:true,
-    OnlineMessage:'You are Offline...'
+    OnlineMessage:'Check Your Connection'
 })
 
             ));

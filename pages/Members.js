@@ -14,9 +14,10 @@ import {
     ScrollView,
     FlatList
 } from 'react-native'
+import { PlaySound, StopSound, PlaySoundRepeat, PlaySoundMusicVolume } from 'react-native-play-sound';
 
-
-
+import { Audio } from 'expo-av';
+const soundObject = new Audio.Sound();
 import {
 
     DatePicker,
@@ -73,10 +74,13 @@ export default class Dashboard extends Component {
     }
 
     _refresh=()=> {
+        this.playMySound()
+        //alert(0)
         return new Promise((resolve) => {
           setTimeout(()=>{resolve()}, 2000)
-
+         
           this.getMembers()
+         
         });
     }
     searchUpdated(term) {
@@ -99,6 +103,8 @@ export default class Dashboard extends Component {
                   this.setState({
                     isLoading:false
                   })
+
+                  this.popSound()
               }, 1000);
               // console.log(JSON.stringify(this.state.membersData))
   
@@ -318,10 +324,53 @@ try{
 
 
       }
+
+      playMySound=async()=>{
+        try {
+            await soundObject.loadAsync(require('../assets/sound.mp3'));
+            await soundObject.playAsync();
+            // Your sound is playing!
+setTimeout(() => {
+    soundObject.unloadAsync()
+   // soundObject1.stopAsync()
+
+}, 1000);
+          } catch (error) {
+            // An error occurred!
+          }
+      }
+
+      popSound=async()=>{
+        try {
+            await soundObject.loadAsync(require('../assets/pop-sound-effect.mp3'));
+            await soundObject.playAsync();
+            // Your sound is playing!
+setTimeout(() => {
+    soundObject.unloadAsync()
+   //soundObject.stopAsync()
+
+}, 1000);
+          } catch (error) {
+            // An error occurred!
+          }
+      }
+
+      stopMySound=async()=>{
+        try {
+            await soundObject.loadAsync(require('../assets/sound.mp3'));
+            await soundObject.stopAsync();
+            // Your sound is stopped!
+          } catch (error) {
+            // An error occurred!
+          }
+      }
     async componentDidMount() {
         // setTimeout(() => {
         //     this.getMembers()
         // }, 1000)
+    // PlaySound('sound')
+
+   
 
         setTimeout(()=>{
 this.getMembers()

@@ -15,8 +15,8 @@ export default class Notif extends Component{
     }
     render(){
         return(
-            <View style={{position:'fixed',padding:5,bottom:0,backgroundColor:'black',zIndex:1000}}>
-                <Text style={{color:'white'}}>{this.props.OnlineMessage}</Text>
+            <View style={{position:'fixed',paddingLeft:10,bottom:0,backgroundColor:'black',zIndex:1000,alignItems:'center',alignContent:'center'}}>
+                <Text style={{color:'orange',textAlign:"center",padding:5}}>{this.props.OnlineMessage}</Text>
             </View>
         )
     }
