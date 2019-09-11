@@ -14,6 +14,7 @@ import Header from '../components/Header'
 import Anime from './anime/anime1'
 import {AsyncStorage} from 'react-native';
 import {Toast} from 'native-base'
+import AppNotif from '../components/AppNotification'
 const DURATION = 10000
 const PATTERN = [1000]
 
@@ -33,7 +34,9 @@ export default class Dashboard extends Component {
 
             dayOfWeek: '',
             dateOfWeek: '',
-            month: ''
+            month: '',
+            isOffline:false,
+            OnlineMessage:''
 
         }
     }
@@ -50,9 +53,10 @@ export default class Dashboard extends Component {
        
         NetInfo.isConnected.fetch().then(isConnected => {
             console.log('First, is ' + (isConnected ? 'online' :
-            Toast.show({style: {
-                marginTop: 30
-            },text: `You are offline`, duration: 4000,type:"danger"})
+this.setState({
+    isOffline:true,
+    OnlineMessage:'You are Offline...'
+})
 
             ));
           });
@@ -243,9 +247,11 @@ export default class Dashboard extends Component {
             <View style={{
                 flex: 1
             }}>
+         
                 <View style={{
                     flex: .13
                 }}>
+                
 
                     <Header
                         showBack={this.state.showBack}
@@ -533,9 +539,14 @@ export default class Dashboard extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-
+                   
                 </Anime>
+                {
+                    this.state.isOffline?
+                    <AppNotif OnlineMessage={this.state.OnlineMessage}></AppNotif>
 
+                    :null
+                }
             </View>
         )
     }

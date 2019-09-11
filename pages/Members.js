@@ -75,6 +75,7 @@ export default class Dashboard extends Component {
     _refresh=()=> {
         return new Promise((resolve) => {
           setTimeout(()=>{resolve()}, 2000)
+
           this.getMembers()
         });
     }
