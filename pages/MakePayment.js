@@ -56,8 +56,25 @@ export default class Dashboard extends Component {
             amount:'',
             phone_number:'254791836987',
             message:'',
-            loading:false
+            loading:false,
+            baseId:''
         }
+    }
+
+    async componentDidMount(){
+        const base_Name = this
+        .props
+        .navigation
+        .getParam('base_Name', '- -');
+        const base_Id = this
+        .props
+        .navigation
+        .getParam('base_Id', '- -');
+        this.setState({
+            baseId:base_Id,
+            baseName:base_Name
+        })
+
     }
 
     makePay=()=>{
@@ -169,8 +186,8 @@ export default class Dashboard extends Component {
                                         marginBottom: 10,
                                         marginTop: 10
                                     }}>Method 2</Text>
-                                    <Text style={styles.mytitle}>Enter your base name : {this.state.baseName}</Text>
-                                    <TextInput onChangeText={(baseName)=>this.setState({baseName})}  style={styles.myInput}></TextInput>
+                                    <Text style={styles.mytitle}> Base Name:</Text>
+                                    <TextInput editable={false} value={this.state.baseName} style={styles.myInput}></TextInput>
                                     <Text style={styles.mytitle}>Enter The amount you want to pay {this.state.amount}:</Text>
                                     <TextInput onChangeText={(amount)=>this.setState({amount})} style={styles.myInput} keyboardType='number-pad'></TextInput>
                                   

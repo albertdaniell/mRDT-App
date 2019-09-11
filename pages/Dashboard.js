@@ -274,7 +274,7 @@ this.setState({
                     }}>
                         <View
                             style={{
-                            backgroundColor: '#ffb400',
+                            backgroundColor: '#bc5100',
                             flex: 1,
                             borderRadius: 10
                         }}>
@@ -289,7 +289,7 @@ this.setState({
                             }}>
                                 <Text
                                     style={{
-                                    color: 'grey',
+                                    color: 'white',
                                     fontSize: 13,
                                     textTransform: 'uppercase'
                                 }}>{this.state.dayOfWeek}
@@ -317,7 +317,7 @@ this.setState({
                                 <Image
                                     source={require('../assets/cloud-solid.png')}
                                     style={{
-                                    height: '100%',
+                                    height: '110%',
                                     width: '30%'
                                 }}></Image>
 
@@ -336,10 +336,12 @@ this.setState({
                             flexDirection: 'row'
                         }}>
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('MakePayment')}
+                                onPress={() => this.props.navigation.navigate('MakePayment', {base_Name: this.state.base_Name,
+                                base_Id: this.state.base_Id
+                            })}
                                 style={{
                                 flex: 1,
-                                backgroundColor: '#4caf50',
+                                backgroundColor: '#4b830d',
                                 marginRight: 5,
                                 borderRadius: 10
                             }}>
@@ -380,7 +382,7 @@ this.setState({
                             })}
                                 style={{
                                 flex: 1,
-                                backgroundColor: '#0069c0',
+                                backgroundColor: '#006978',
                                 marginRight: 5,
                                 borderRadius: 10
                             }}>
@@ -415,7 +417,7 @@ this.setState({
                                 onPress={() => this.props.navigation.navigate('Form')}
                                 style={{
                                 flex: 1,
-                                backgroundColor: '#12005e',
+                                backgroundColor: '#49599a',
                                 borderRadius: 10
                             }}>
                                 <View
@@ -465,7 +467,7 @@ this.setState({
                                 style={{
                                 flex: 1,
                                 marginRight: 5,
-                                backgroundColor: '#4b830d',
+                                backgroundColor: '#494949',
                                 borderRadius: 10
                             }}>
 
@@ -505,7 +507,7 @@ this.setState({
                                 style={{
                                 flex: 1,
                                 marginRight: 5,
-                                backgroundColor: '#b61827',
+                                backgroundColor: '#af4448',
                                 borderRadius: 10
                             }}>
 
